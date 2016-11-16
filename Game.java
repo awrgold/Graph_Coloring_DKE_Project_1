@@ -128,6 +128,7 @@ public class Game extends Canvas implements Runnable {
         public void mouseExited(MouseEvent e) {
             gamestate.getActiveLevel().mouseExited(e);
         }
+
 		@Override
 		public void keyTyped(KeyEvent e) {
 			gamestate.getActiveLevel().keyTyped(e);
