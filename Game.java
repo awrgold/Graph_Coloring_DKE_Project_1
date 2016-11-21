@@ -87,7 +87,9 @@ public class Game extends Canvas implements Runnable {
         Graphics bg = bs.getDrawGraphics();
         BufferedImage dbi = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics g = dbi.getGraphics();
+
         gamestate.getActiveLevel().draw(g);
+
         bg.drawImage(dbi, 0, 0, this);
         bs.show();
         bg.dispose();
@@ -98,34 +100,35 @@ public class Game extends Canvas implements Runnable {
     }
     //listens to events and passes them to the active level, show up the menu on pressing escape
     private class GameInputListener implements KeyListener, MouseListener, MouseMotionListener{
-		@Override
-		public void mouseExited(MouseEvent e) {
-			gamestate.getActiveLevel().mouseExited(e);
-		}
-    	
+
+        public void mouseClicked(MouseEvent e){
+            gamestate.getActiveLevel().mouseClicked(e);
+        }
+
+        public void mousePressed(MouseEvent e){
+            gamestate.getActiveLevel().mousePressed(e);
+        }
+
+        public void mouseReleased(MouseEvent e){
+            gamestate.getActiveLevel().mouseReleased(e);
+        }
+
+        public void mouseDragged(MouseEvent e){
+            gamestate.getActiveLevel().mouseDragged(e);
+        }
+
+        public void mouseMoved(MouseEvent e){
+            gamestate.getActiveLevel().mouseMoved(e);
+        }
+
     	public void mouseEntered(MouseEvent e){
 			gamestate.getActiveLevel().mouseEntered(e);
     	}
-    	
-    	public void mousePressed(MouseEvent e){
-			gamestate.getActiveLevel().mousePressed(e);
-    	}
-    	
-    	public void mouseReleased(MouseEvent e){
-			gamestate.getActiveLevel().mouseReleased(e);
-    	}
-    	
-    	public void mouseClicked(MouseEvent e){
-			gamestate.getActiveLevel().mouseClicked(e);
-    	}
-    	
-    	public void mouseMoved(MouseEvent e){
-			gamestate.getActiveLevel().mouseMoved(e);	
-    	}
-    	
-    	public void mouseDragged(MouseEvent e){
-			gamestate.getActiveLevel().mouseDragged(e);
-    	}
+
+        public void mouseExited(MouseEvent e) {
+            gamestate.getActiveLevel().mouseExited(e);
+        }
+
 		@Override
 		public void keyTyped(KeyEvent e) {
 			gamestate.getActiveLevel().keyTyped(e);

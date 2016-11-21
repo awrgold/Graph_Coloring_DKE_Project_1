@@ -3,7 +3,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class Menu extends Level {
-	private int dir = 3;
+//	private int dir = 3;
     private MenuVertex[] items;
     private Edge[] edges;
     //the currently clicked vertex

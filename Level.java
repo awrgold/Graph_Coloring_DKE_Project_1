@@ -4,13 +4,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 
 public abstract class Level extends MouseAdapter implements KeyListener{
+
 	protected GameState state;
+
 	public Level(GameState state){
 		this.state = state;
 	}
-	protected void terminate(){
-		
-	}
+	protected void terminate(){}
 	public abstract void draw(Graphics g);
 	public abstract void tick();
 	public void keyTyped(KeyEvent e) {}
