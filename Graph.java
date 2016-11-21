@@ -5,6 +5,7 @@ import java.util.*;
 /**
 * V1.0 Created by Jurriaan Berger 
 * An object of this class contains the basic information about the graph and its features, i.e. edges and vertices.
+* Please keep following in mind: labelling of edges and vertices starts at 0!!!
 * This class is able to: draw graph, whether an x-y coordinate is inside a vertex,
 */
 
@@ -22,23 +23,23 @@ public class Graph{
 
 	public static Graph generateRandomGraph(int n, int m){
 		
-		Vertex x[] = new Vertex[n]; //Creating the objects that represents the edges.
+		Vertex f[] = new Vertex[n]; //Creating the objects that represents the edges.
 		Edge e[] = new Edge[m]; //Creating the objects that represents the edges.
 		
 		
-		//Creating edges
+		//Creating m edges: edge 0 is the first edge
 		for(int i=0; i<m; i++){ //using for loop to assign all the edges
 
 			if(i<n-1){ //First, create at least a path trough the whole graph -> prevent multiple loose graphs and prevent unconnected vertices
-				e[i] = new Edge (i+1, i+2);
+				e[i] = new Edge (i, i+1);
 			}else if(i==n-1){ //The last one of this path is the first vertex connect to the last one
-				e[i] = new Edge (i+1, 1);
+				e[i] = new Edge (i, 0);
 			}else{
-				int u = 1+(int)(Math.random()*n); //A random assigned vertex
-				int v = 1+(int)(Math.random()*n); //A random assigned vertex 
+				int u = (int)(Math.random()*n); //A random assigned vertex
+				int v = (int)(Math.random()*n); //A random assigned vertex 
 			
 				while(u==v){
-					v = 1+(int)(Math.random()*n); //the random assigned vertex to v has to differ from u
+					v = (int)(Math.random()*n); //the random assigned vertex to v has to differ from u
 				}
 				
 				e[i] = new Edge (u,v);
@@ -54,28 +55,34 @@ public class Graph{
 		
 		if(DEBUG){
 			for(int i=0; i<m;i++){
-				System.out.println("//" + " Edge: " + i + " = " + e[i].u +" "+e[i].v);
+				System.out.println("//" + " Edge: " + i + ", from vertex: " + e[i].u +", to vertex: "+e[i].v);
 			}
 		}
 		
-		
-		
-		//Creating vertices
-		
+		//Creating n vertices: vertex 0 is the first edge
 		for(int i=0;i<n; i++){
-			int a=i; //x coordinate
-			int b=i; //y coordinate
+			int x=i; //x coordinate
+			int y=i; //y coordinate
+			int [] edgeList = new int[0]; //Creating the edge list off all the edges leading to this vertex
 			
+			for (int j=0;j<m;j++){
+				if(((e[j].u==i)||(e[j].v==i))){
+					int [] edgeListExtended = new int [edgeList.length+1];
+					System.arraycopy(edgeList, 0, edgeListExtended, 0, edgeList.length);
+					edgeListExtended [edgeListExtended.length-1] = j;
+					edgeList = edgeListExtended;
+					//if(DEBUG) System.out.println("Add Edge "+j+" to vertex: "+i);
+				}
+			}
 			
-			int [] adjList = new int[number of connected edges];												//NOT YET DONE: How to create the adjList with the connected edges
-			
-			x[i]  = new Vertex (a, b, adjList);	
+			f[i] = new Vertex (x, y, edgeList);	
 		}
-		 
 		
-		
-		
-		
+		if(DEBUG){
+			for(int i=0; i<n;i++){
+				System.out.println("//" + " Vertex: " + i + ", is attached to the following edge(s): " + Arrays.toString(f[i].adjacentEdges));
+			}
+		}
 		
 		return new Graph();
 	}
