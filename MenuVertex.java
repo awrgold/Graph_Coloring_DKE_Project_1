@@ -3,8 +3,8 @@ import java.awt.Graphics;
 
 public class MenuVertex extends Vertex {
 	private String label;
-	public MenuVertex(int x, int y, int[] adjacentEdges, String label) {
-		super(x, y, adjacentEdges);
+	public MenuVertex(int x, int y, String label) {
+		super(x, y);
 		this.label = label;
 		super.diameter = 40;
 	}

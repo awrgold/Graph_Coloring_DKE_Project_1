@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 public class PauseMenu extends Level {
 
 	public PauseMenu(GameState state) {
-		super(state);
+		super(state,null);
 		// TODO Auto-generated constructor stub
 	}
 

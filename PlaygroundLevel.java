@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 public class PlaygroundLevel extends Level {
 
 	public PlaygroundLevel(GameState state){
-		super(state);
+		super(state, Graph.generateRandomGraph(4, 4));
 	}
 
 	public void keyPressed(KeyEvent e){
@@ -12,8 +12,7 @@ public class PlaygroundLevel extends Level {
 	}
 
 	public void draw(Graphics g) {
-		g.drawOval(Game.WIDTH/2, Game.HEIGHT/2, 40, 40);
-		
+		graph.draw(g);
 	}
 
 	public void tick() {}

@@ -1,5 +1,4 @@
-import java.awt.*;
-import java.util.*;
+import java.awt.Graphics;
 
 
 /**
@@ -10,83 +9,59 @@ import java.util.*;
 */
 
 public class Graph{
-	public Edge e[];
-	public Vertex x[];
-	private static final boolean DEBUG = true;
-	
+	//some explanation for that variable: it's gonna be n long, and contains in every row all neighbouring vertices with a higher index, the last one would thus have no entries
+	//also there cannot be a row containing 0, and most importantly, when looping through it, every edge occurs exactly once
+	private int[][] neighbours;
+	private Vertex vertices[];
 	/**
-	* Constructs a random graph, and thereby objects of the class Edge for all edges and objects of the class Vertex for all vertices
-	* @param n is the number of vertices
-	* @param m is the number of edges
-	* @return Graph ....
-	*/
-
-	public static Graph generateRandomGraph(int n, int m){
-		
-		Vertex f[] = new Vertex[n]; //Creating the objects that represents the edges.
-		Edge e[] = new Edge[m]; //Creating the objects that represents the edges.
-		
-		
-		//Creating m edges: edge 0 is the first edge
-		for(int i=0; i<m; i++){ //using for loop to assign all the edges
-
-			if(i<n-1){ //First, create at least a path trough the whole graph -> prevent multiple loose graphs and prevent unconnected vertices
-				e[i] = new Edge (i, i+1);
-			}else if(i==n-1){ //The last one of this path is the first vertex connect to the last one
-				e[i] = new Edge (i, 0);
-			}else{
-				int u = (int)(Math.random()*n); //A random assigned vertex
-				int v = (int)(Math.random()*n); //A random assigned vertex 
-			
-				while(u==v){
-					v = (int)(Math.random()*n); //the random assigned vertex to v has to differ from u
-				}
-				
-				e[i] = new Edge (u,v);
-			}
-			
-			for(int j=0; j<i; j++){
-				if((e[j].u==e[i].u||e[j].u==e[i].v)&&(e[j].v==e[i].v||e[j].v==e[i].u)){ //If the created edge already existed
-					i--; //Generate random vertecis for edge[i] again
-					if(DEBUG) System.out.println("//" + j +" - "+ i + " False Edge: "+ e[i].u +" "+e[i].v);
-				}	
-			}
-		}
-		
-		if(DEBUG){
-			for(int i=0; i<m;i++){
-				System.out.println("//" + " Edge: " + i + ", from vertex: " + e[i].u +", to vertex: "+e[i].v);
-			}
-		}
-		
-		//Creating n vertices: vertex 0 is the first edge
-		for(int i=0;i<n; i++){
-			int x=i; //x coordinate
-			int y=i; //y coordinate
-			int [] edgeList = new int[0]; //Creating the edge list off all the edges leading to this vertex
-			
-			for (int j=0;j<m;j++){
-				if(((e[j].u==i)||(e[j].v==i))){
-					int [] edgeListExtended = new int [edgeList.length+1];
-					System.arraycopy(edgeList, 0, edgeListExtended, 0, edgeList.length);
-					edgeListExtended [edgeListExtended.length-1] = j;
-					edgeList = edgeListExtended;
-					//if(DEBUG) System.out.println("Add Edge "+j+" to vertex: "+i);
-				}
-			}
-			
-			f[i] = new Vertex (x, y, edgeList);	
-		}
-		
-		if(DEBUG){
-			for(int i=0; i<n;i++){
-				System.out.println("//" + " Vertex: " + i + ", is attached to the following edge(s): " + Arrays.toString(f[i].adjacentEdges));
-			}
-		}
-		
-		return new Graph();
+	 * Initialises a graph with given vertices and edges
+	 * @param vertices 
+	 * @param neighbours neighbours.length == vertices.length, every row contains the index of adjacent vertices with a higher index
+	 *  for more info look above 
+	 */
+	public Graph(Vertex[] vertices, int[][] neighbours){
+		this.vertices = vertices;
+		this.neighbours = neighbours;
 	}
-	
+	/**
+	 * draws the graph's vertices and edges
+	 * @param g a graphics object from a image/canvas to draw on
+	 */
+	public void draw(Graphics g){
+		//drawing the edges 
+		//one could add a if-statement so that the edges change color if any adjacent vertex is highlighted
+		//also some kind of style information could be passed on to the constructor and used here
+		//drawing the vertices
+				for(Vertex v : vertices){
+					v.draw(g);
+				}
+		for(int i = 0;i<neighbours.length;i++)
+			for(int neighbour : neighbours[i])
+				g.drawLine(vertices[i].getX(), vertices[i].getY(), vertices[neighbour].getX(), vertices[neighbour].getY());
+		
+	}
+	/**
+	 * 
+	 * @param x-coordinate of a point on the game canvas
+	 * @param y-coordinate of a point on the game canvas
+	 * @return -1 if no vertex could be found, otherwise the vertex's index is returned
+	 */
+	public int getVertexAt(int x, int y){
+		for(int i = 0;i<vertices.length;i++){
+			if(vertices[i].contains(x,y))
+				return i;
+		}
+		return -1;
+	}
+	/**
+	 * 
+	 * @param v the index of a vertex (must be >= 0 and <n)
+	 * @return returns the vertex
+	 */
+	public Vertex getVertex(int v){
+		return vertices[v];
+	}
+
 	/**
 	* Constructs a graph, that's loaded from a file
 	*/
@@ -94,81 +69,72 @@ public class Graph{
 		
 		//return new Graph
 	//}
-	
-	/**
-	* Information about the edge is stored in here - this method is initially made by Jonas
-	* @param u represents the first connected vertex
-	* @param v represents the other connected vertex
-	*/
-	
-	static class Edge{
-		int u;
-		int v;
-		boolean isHighlited;
-		public Edge(int u, int v){
-			this.u = u;
-			this.v = v;
-		}
-	}
 
-	/**
-	* Information about the vertices is stored in here - this method is initially made by Jonas
-	* @param x represents the x coordinate of the vertex
-	* @param y represents the y coordinate of the vertex
-	* @param adjacentEdges is an array that contains all edges that are connected to this vertex
+	/** DEBUG ME, I NEVER GOT ACTUALLY TESTED, HELP ME D:
+	* Generates a random but connected graph
+	* @param n is the number of vertices, n>=2
+	* @param m is the number of edges, m is expected to be n-1<=m<=(n-1)*n*0.5 (the graph has to be at least connected and cannot contain more edges than a complete graph)
+	* @return Graph ....
 	*/
-	static class Vertex{
-
-		private static int STANDARD_DIAMETER = 30;
-		protected int color;
-		protected int x;
-		protected int y;
-		protected int[] adjacentEdges;
-		protected int diameter;
-    
-		public Vertex(int x, int y, int[] adjacentEdges){
-			this.x = x;
-			this.y = y;
-			this.adjacentEdges = adjacentEdges;
-			this.diameter = STANDARD_DIAMETER;
+	public static Graph generateRandomGraph(int n, int m){
+		//these arrays are going to be filled with the vertices and edges of the graph
+		Vertex[] vertices = new Vertex[n];
+		int[][] neighbours = new int[n][m];
+		for(int i = 0; i<n; i++){
+			int x = (int)  (Math.random()*((double) Game.WIDTH));
+			int y = (int)  (Math.random()*((double) Game.HEIGHT));
+			vertices[i] = new Vertex(x,y);
 		}
-	
-		public int getDiameter(){
-			return diameter;
+		//first, generate a path through the graph
+		for(int i = 1; i<n;i++){
+			neighbours[i-1][0] = i;
 		}
-	
-		public void setDiameter(int diameter){
-			this.diameter = diameter;
+		
+		//now randomly connected vertices that weren't connected before, until the desired number of edges is reached
+		//note: n-1 edges were used to create the path, so loop until m-(n-1)
+		for(int i=0; i<m-n+1; i++){
+			//randomly select two vertices to create a edge between them
+			int u = (int)(Math.random()*n);
+			int v = (int)(Math.random()*n);
+			//check for u==v
+			while(u==v){
+				v = (int)(Math.random()*n); //the random assigned vertex to v has to differ from u
+			}
+			boolean isSafeToAdd = true;
+			//check whether u and v are already connected
+			int min = Math.min(u, v);
+			int max = Math.max(u, v);
+			for(int j = 0; j<i;j++){
+				for(int k = 0;k<n-1;k++){
+					if(neighbours[min][k] == max){
+						isSafeToAdd = false;
+						i--;
+						break;
+					} else if(k>=1 && neighbours[min][k] == 0)
+						break;
+				}
+			}
+			if(isSafeToAdd){
+				//add to the first not used entry (as mentioned above the declaration of neighbours, 0 cannot occur naturally)
+				for(int j = 0;j<n;j++){
+					if(neighbours[min][j] == 0){
+						neighbours[min][j] = max;
+						break;
+					}
+				}
+			}
 		}
-	
-		public void draw(Graphics g){
-		//    Graphics2D g2 = (Graphics2D) g;
-			g.setColor(Color.ORANGE);
-			g.fillOval(x, y, diameter, diameter);
+		//now cut off the zeros (=unused entries) in every row of neighbours
+		for(int i = 0;i<n;i++){
+			for(int k = 0;k<m;k++){
+				if(neighbours[i][k] == 0){
+					int[] temp = neighbours[i];
+					neighbours[i] = new int[k];
+					System.arraycopy(temp, 0, neighbours[i], 0, k);
+					break;
+				}
+			}
 		}
-    
-		public int getX(){
-			return x;
-		}
-	
-		public int getY(){
-			return y;
-		}
-    
-		public void move(int x, int y){
-			this.x = x;
-			this.y = y;
-		}
-    
-		/**
-		* 
-		* @param px x-coordinate of a point
-		* @param py y-coordinate of a point
-		* @return true, if the point is inside the circle of the on-screen representation of the vertex, false otherwise
-		* 
-		*/
-		public boolean contains(int px, int py){
-			return (px-x)*(px-x)+(py-y)*(py-y) <= diameter*diameter;
-		}
+		return new Graph(vertices, neighbours);
 	}
 }

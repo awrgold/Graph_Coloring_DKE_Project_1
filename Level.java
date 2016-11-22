@@ -6,11 +6,15 @@ import java.awt.event.MouseAdapter;
 public abstract class Level extends MouseAdapter implements KeyListener{
 
 	protected GameState state;
-
-	public Level(GameState state){
+	protected Graph graph;
+	public Level(GameState state, Graph graph){
 		this.state = state;
+		this.graph = graph;
 	}
-	protected void terminate(){}
+	public void terminate(){
+		state.setState(GameState.MAIN_MENU);
+		
+	}
 	public abstract void draw(Graphics g);
 	public abstract void tick();
 	public void keyTyped(KeyEvent e) {}
