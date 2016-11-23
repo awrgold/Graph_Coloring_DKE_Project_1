@@ -1,5 +1,4 @@
 import java.awt.Graphics;
-import java.util.Arrays;
 
 /**
  * V1.2 Created by Jurriaan Berger edited by Jonas
