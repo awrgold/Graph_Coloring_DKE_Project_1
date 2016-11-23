@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.util.Arrays;
 
 /**
  * V1.2 Created by Jurriaan Berger edited by Jonas
@@ -71,7 +72,7 @@ public class Graph{
 	//}
 
 	/** DEBUG ME, I NEVER GOT ACTUALLY TESTED, HELP ME D:
-	 * Generates a random but connected graph
+	 * Generates a random but connected graph:
 	 * @param n is the number of vertices, n>=2
 	 * @param m is the number of edges, m is expected to be n-1<=m<=(n-1)*n*0.5 (the graph has to be at least connected and cannot contain more edges than a complete graph)
 	 * @return Graph ....
@@ -84,46 +85,56 @@ public class Graph{
 			int x = (int)  (Math.random()*((double) Game.WIDTH));
 			int y = (int)  (Math.random()*((double) Game.HEIGHT));
 			vertices[i] = new Vertex(x,y);
+			for(int j=0; j<m; j++){
+				neighbours [i][j] = -1; //This is necessary because a vertex can actually be adjacent to vertex 0 -> things go very very wrong when default value would be set to 0
+			}
 		}
 
 		//assigning neighbours to vertices for m times (== #edges)
 		for(int i = 0; i<m; i++){
 			//first, generate a path through the graph
-			if(i<n-1) neighbours[i][0] = i+2;//Actually the next vertex -> i+1 But this is due to issues on which place we start COUNTING
+			if(i<n-1) neighbours[i][0] = i+1;//Actually the next vertex -> i+1
 				//now randomly connected vertices that weren't connected before, until the desired number of edges is reached
 			else {
 				//randomly select two vertices to create a edge between them
-				int u = 1+(int) (Math.random() * n);//COUNTING
-				int v = 1+(int) (Math.random() * n);//COUNTING
+				int u = (int) (Math.random() * n);//COUNTING
+				int v = (int) (Math.random() * n);//COUNTING
 				//check for u==v
 				while (u == v) {
-					v = 1+(int) (Math.random() * n); //the random assigned vertex to v has to differ from u COUNTING
+					v = (int) (Math.random() * n); //the random assigned vertex to v has to differ from u COUNTING
 				}
 				//Check if the created edge already existed
+				boolean exists = true;
 				for(int j=0; j<i; j++){
-					if((neighbours[u-1][j]==v)||(neighbours[v-1][j]==u)){ //COUNTING
+					if((neighbours[u][j]==v)||(neighbours[v][j]==u)){ //COUNTING
+						exists = false;
+						System.out.println("FALSE "+u+" "+v);
 						i--; //Generate random vertices for edge[i] again
 						break;
 					}
 				}
 
-				int min = Math.min(u, v);
-				int max = Math.max(u, v);
+				if(exists){
+					int min = Math.min(u, v);
+					int max = Math.max(u, v);
 
-				// Store the new adjacent vertex at the right position
-				for (int j = 0; j < n; j++) {
-					if (neighbours[min-1][j] == 0) {
-						neighbours[min-1][j] = max;
-						break;
+					// Store the new adjacent vertex at the right position
+					for (int j = 0; j < n; j++) {
+						if (neighbours[min][j] == -1) {
+							neighbours[min][j] = max;
+							break;
+						}
 					}
 				}
+
+
 			}
 		}
 
 		//now cut off the zeros (=unused entries) in every row of neighbours COUNTING
 		for(int i = 0;i<n;i++){
 			for(int k = 0;k<m;k++){
-				if(neighbours[i][k] == 0){
+				if(neighbours[i][k] == -1){
 					int[] temp = neighbours[i];
 					neighbours[i] = new int[k];
 					System.arraycopy(temp, 0, neighbours[i], 0, k);
@@ -131,8 +142,14 @@ public class Graph{
 				}
 			}
 		}
+		for(int i = 0; i<n;i++){
+			System.out.println("Vertex: " +i+ " adjacent to: " +Arrays.toString(neighbours[i]));
+		}
 
 		return new Graph(vertices, neighbours);
 	}
 
+	public static void main (String[]args){
+		generateRandomGraph(3,3);
+	}
 }
