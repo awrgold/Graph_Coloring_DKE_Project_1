@@ -16,8 +16,8 @@ public class Menu extends Level {
     //	this.gameStates = gameStates;
     	clickedVertex = -1;
     	items = new MenuVertex[2];
-    	items[0] = new MenuVertex(Game.WIDTH/4, Game.HEIGHT/2, " Import");		// TODO We need to find a way to make these points equidistant from the edges, same as the...
-    	items[1] = new MenuVertex(Game.WIDTH/2, Game.HEIGHT/2, "Generate");		// TODO ...pause menu issue, where the vertices are displayed evenly in the frame. (ratio issue when dividing double/fraction)
+    	items[0] = new MenuVertex(Game.WIDTH/3, Game.HEIGHT/2, " Import");		// TODO We need to find a way to make these points equidistant from the edges, same as the...
+    	items[1] = new MenuVertex((Game.WIDTH*2)/3, Game.HEIGHT/2, "Generate");		// TODO ...pause menu issue, where the vertices are displayed evenly in the frame. (ratio issue when dividing double/fraction)
     	graph = new Graph(items, new int[][]{ new int[]{1}, new int[0]});
 
     }

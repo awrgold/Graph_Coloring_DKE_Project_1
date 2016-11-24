@@ -7,18 +7,19 @@ public class PauseMenu extends Level {
 	private int clickedVertex;
 	private int vmOffsetX;
 	private int vmOffsetY;
-	private MenuVertex[] items;
+
 
 	public PauseMenu(GameState state) {
 		super(state,null);
+		MenuVertex[] items;
 		clickedVertex = -1;
 		items = new MenuVertex[4];
 		items[0] = new MenuVertex(Game.WIDTH/4, Game.HEIGHT/2, "   Save");		// Spaces in string(s) to offset the text to be perfectly above the vertex.
-		items[1] = new MenuVertex(625, Game.HEIGHT/2, "   Quit");				// @ X=675 pixels, because double/fraction == lossy conversion. Need to find a way to...
-		items[2] = new MenuVertex(625, Game.HEIGHT/4, " Restart");				// ...find screen ratios without throwing an error.
+		items[1] = new MenuVertex((Game.WIDTH*2)/3, Game.HEIGHT/2, "   Quit");
+		items[2] = new MenuVertex((Game.WIDTH*2)/3, Game.HEIGHT/4, " Restart");
 		items[3] = new MenuVertex(Game.WIDTH/4, Game.HEIGHT/4, " Resume");
-		graph = new Graph(items, new int[][]{new int[]{0,1}, new int[]{1,2}, new int[]{2,3}, new int[]{3,0}});  // Creates the "square" of edges around the "PAUSED" text. 
-		// TODO Auto-generated constructor stub
+		graph = new Graph(items, new int[][]{new int[]{1,3}, new int[]{2}, new int[]{3}, new int[]{}});
+
 	}
 	public void mousePressed(MouseEvent e){
 		int x = e.getX();
@@ -50,7 +51,7 @@ public class PauseMenu extends Level {
 	@Override
 	public void draw(Graphics g) {
 		g.setFont(new Font("Pause Menu Font", Font.BOLD, 24));
-		g.drawString("PAUSED", (Game.WIDTH/2)-25, (Game.HEIGHT/2)-15); // Corrected for positioning in exact center.
+		g.drawString("PAUSED", (Game.WIDTH/2)-25, (Game.HEIGHT/2)-15);
 		graph.draw(g);
 	}
 
@@ -60,7 +61,7 @@ public class PauseMenu extends Level {
 
 	}
 	public void keyPressed(KeyEvent e){
-		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)  // Should we keep this, since there is a resume button? I think so, most games let you press escape in a menu.
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
 			state.setState(GameState.INGAME);
 	}
 }
