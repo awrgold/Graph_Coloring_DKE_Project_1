@@ -1,12 +1,13 @@
 import java.awt.Graphics;
 import java.util.Arrays;
+import java.io.*;
+import java.util.*;
 
 /**
  * V1.2 Created by Jurriaan Berger edited by Jonas
  * Random graph generator debugged by Jurriaan
  * An object of this class contains the basic information about the graph and its features, i.e. edges and vertices.
  * Please keep following in mind: labelling of edges and vertices starts at 0!!!
- * This class is able to: draw graph, whether an x-y coordinate is inside a vertex,
  */
 
 public class Graph{
@@ -14,6 +15,8 @@ public class Graph{
 	//also there cannot be a row containing 0, and most importantly, when looping through it, every edge occurs exactly once
 	private int[][] neighbours;
 	private Vertex vertices[];
+	private static final boolean DEBUG = true;
+	private static int chromaticNumber;
 	/**
 	 * Initialises a graph with given vertices and edges
 	 * @param vertices
@@ -66,10 +69,16 @@ public class Graph{
 	/**
 	 * Constructs a graph, that's loaded from a file
 	 */
-	//public static Graph readGraphFromFile(){
-
-	//return new Graph
-	//}
+	/*public static Graph readGraphFromFile(){
+		//Check if we can compute the chromatic number
+		if(computableGraph()){//At this moment, when we have five recursive calls, this method will be called five times -> not very clean
+			if(DEBUG){System.out.println("We have found the chromatic number");}
+			return new Graph(vertices, neighbours);
+		}else{
+			if(DEBUG){System.out.println("We have not found the chromatic number, so please load a new file");}
+			return;//we need to be able to handle an empty return -> ask for a new file
+		}
+	}*/
 
 	/** DEBUG ME, I NEVER GOT ACTUALLY TESTED, HELP ME D:
 	 * Generates a random but connected graph:
@@ -108,7 +117,7 @@ public class Graph{
 				for(int j=0; j<i; j++){
 					if((neighbours[u][j]==v)||(neighbours[v][j]==u)){ //COUNTING
 						exists = false;
-						System.out.println("FALSE "+u+" "+v);
+						if(DEBUG){System.out.println("FALSE "+u+" "+v);}
 						i--; //Generate random vertices for edge[i] again
 						break;
 					}
@@ -137,19 +146,129 @@ public class Graph{
 				if(neighbours[i][k] == -1){
 					int[] temp = neighbours[i];
 					neighbours[i] = new int[k];
-					System.arraycopy(temp, 0, neighbours[i], 0, k);
+					if(DEBUG) {System.arraycopy(temp, 0, neighbours[i], 0, k);}
 					break;
 				}
 			}
 		}
-		for(int i = 0; i<n;i++){
-			System.out.println("Vertex: " +i+ " adjacent to: " +Arrays.toString(neighbours[i]));
+		if(DEBUG){
+			for(int i = 0; i<n;i++){
+				System.out.println("Vertex: " +i+ " adjacent to: " +Arrays.toString(neighbours[i]));
+			}
 		}
 
-		return new Graph(vertices, neighbours);
+		//Check if we can compute the chromatic number
+		chromaticNumber = computableRandomGraph(n, m, neighbours);
+		if(chromaticNumber!=0) {//At this moment, when we have five recursive calls, this method will be called five times -> not very clean????
+		}//if(DEBUG){System.out.println("We have found the chromatic number");}
+			return new Graph(vertices, neighbours);
+		//}else{
+		//	if(DEBUG){System.out.println("We have not found the chromatic number, so we generate a new graph");}
+		//	return generateRandomGraph(n,m);
+		//}
+	}
+
+	/**V 1.0 Method created by Jurriaan Berger
+	 * Makes use of the algorithms that we wrote in the previous phase, however they are/need to bee adjusted to the int[][] that we have right now
+	 * Probably store the chromatic number somewhere -> HOW
+	 * @param n number of vertices
+	 * @param m number of edges
+	 * @param adjList
+	 * @return the chromatic number, if we couldn't compute it, we return 0.
+	 */
+	public static int computableRandomGraph(int n, int m, int [][] adjList){
+		//Creation of the adjacency matrix
+		int[][] adjMatrix = new int[n][n];
+		for (int i = 0; i < adjList.length; i++) {
+			for (int j = 0; j <adjList[i].length; j++){
+				adjMatrix[i][adjList[i][j]]=1;
+				adjMatrix[adjList[i][j]][i]=1;
+			}
+			if(DEBUG){
+				System.out.println(Arrays.toString(adjMatrix[i]));
+			}
+		}
+
+		//Checking whether the graph is either complete
+		if ( ( ( n*(n-1) ) / 2) == m ) {
+			if(DEBUG){System.out.println("Chromatic number = "+n);}
+			return n;
+		}
+
+		//Checking whether the graph is bipartite
+		if (is2colorable(adjMatrix) )
+		{
+			if(DEBUG){System.out.println("Chromatic number = 2");}
+			return 2;
+		}
+
+		//Greedy, back-track, welsh-powell and maximum-clique algorithms to figure out the chromatic number
+		MaximumClique cliqueFinder = new MaximumClique(adjMatrix);
+		//Greedy greedy = new Greedy(adjList);  //Adjecency list is not yet in the same format!!!
+		BacktrackGreedy backtrack = new BacktrackGreedy(adjMatrix);
+		int maxCliqueSize = cliqueFinder.maxCliqueSize;
+		System.out.println ("Maximum Clique gives (Lower Bound): "+maxCliqueSize);
+		int welshPowellOutput = WelshPowell.getchromaticnr(adjMatrix);
+		System.out.println ("Welsh Powell gives: "+welshPowellOutput);
+		//int greedyOutput = greedy.chromaticNumber;
+		//if(maxCliqueSize == Math.min(welshPowellOutput, greedyOutput)){
+		int backtrackOutput = backtrack.maxColor;
+		System.out.println ("Bakctrack Greedy gives: "+backtrackOutput);
+		if(maxCliqueSize == welshPowellOutput){
+			if(DEBUG){System.out.println("Chromatic number = "+ maxCliqueSize);}
+			return maxCliqueSize;
+		} else{
+			return 0;
+		}
+
+	}
+
+	/**This method makes the adjacency matrix, in the same format as we had it in the previous phase, therefore we can immediately start using our algorithms
+	 * @param n asks the number of vertices
+	 * @param adjList needs the matrix with neighbours of all vertices
+	 * @return
+	 */
+	private static int[][] makeAdjMatrix(int n, int[][] adjList) {
+		int[][] adjMatrix = new int[n][n];
+		for (int i = 0; i < adjList.length; i++) {
+			for (int j = 0; j <adjList[i].length; j++){
+				adjMatrix[i][adjList[i][j]]=1;
+				adjMatrix[adjList[i][j]][i]=1;
+			}
+		}
+		return adjMatrix;
+	}
+
+	private static boolean is2colorable(int[][] adjMatrix) {
+		int[] colorArr = new int[adjMatrix.length];
+		for (int i = 0; i < adjMatrix.length; i++)
+		{
+			colorArr[i] = -1;
+		}
+		colorArr[0] = 1;
+		LinkedList<Integer> q = new LinkedList<Integer>();
+		q.add(0);
+
+		while (q.size() != 0)
+		{
+			int u = q.poll();
+
+			for (int v = 0; v < adjMatrix.length; v++)
+			{
+				if (adjMatrix[u][v]==1 && colorArr[v]==-1)
+				{
+					colorArr[v] = 1-colorArr[u];
+					q.add(v);
+				}
+				else if (adjMatrix[u][v]==1 && colorArr[u]==colorArr[v]) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public static void main (String[]args){
-		generateRandomGraph(3,3);
+		generateRandomGraph(30,75);
 	}
 }
