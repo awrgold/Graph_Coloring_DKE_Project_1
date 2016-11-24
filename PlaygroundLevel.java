@@ -36,21 +36,6 @@ public class PlaygroundLevel extends Level {
 			graph.getVertex(clickedVertex).move(newX, newY);
 		}
 	}*/
-	public void mousePressed(MouseEvent e){
-		int x = e.getX();
-		int y = e.getY();
-		clickedVertex = graph.getVertexAt(x, y);
-		if(clickedVertex != -1){
-			// Enter here what needs to be done when mouse is pressed on a vertex
-		}
-	}
-	public void mouseReleased(MouseEvent e){
-		clickedVertex = -1;
-	}
-
-	public void keyPressed(KeyEvent e){
-		super.keyPressed(e);
-	}
 
 	public void draw(Graphics g) {
 		graph.draw(g);

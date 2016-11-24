@@ -8,7 +8,7 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 
 	protected GameState state;
 	protected Graph graph;
-	private int clickedVertex;
+	protected int clickedVertex;
 	private int vmOffsetX;
 	private int vmOffsetY;
 	public Level(GameState state, Graph graph){
@@ -29,11 +29,16 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
 			state.setState(GameState.PAUSE_MENU);
 	}
-	public void keyReleased(KeyEvent e) {}
+	public void keyReleased(KeyEvent e) {
+
+	}
+
+	public void mousePressed(MouseEvent e){
+		clickedVertex = graph.getVertexAt(e.getX(), e.getY());
+	}
 	public void mouseDragged(MouseEvent e){
 		int x = e.getX();
 		int y = e.getY();
-		clickedVertex = graph.getVertexAt(x, y);
 		if(clickedVertex != -1){
 			System.out.println("DRAG");
 			int newX = e.getX()-vmOffsetX;
@@ -48,9 +53,12 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 			if(newY < -v.getDiameter()/2)
 				newY = -v.getDiameter()/2;
 			//why 1.4? cuz i dunno, to prevent above mentioned weirdness.
-			if(newY > Game.HEIGHT-v.getDiameter()*1.4) newY = (int)
-					(Game.HEIGHT-v.getDiameter()*1.4);
+			if(newY > Game.HEIGHT-v.getDiameter()*1.4)
+				newY = (int) (Game.HEIGHT-v.getDiameter()*1.4);
 			graph.getVertex(clickedVertex).move(newX, newY);
 		}
+	}
+	public void mouseReleased(MouseEvent e){
+		clickedVertex = -1;
 	}
 }
