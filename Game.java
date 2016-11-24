@@ -113,9 +113,7 @@ public class Game extends Canvas implements Runnable {
             gamestate.getActiveLevel().mouseReleased(e);
         }
 
-        public void mouseDragged(MouseEvent e){
-            gamestate.getActiveLevel().mouseDragged(e);
-        }
+        public void mouseDragged(MouseEvent e){gamestate.getActiveLevel().mouseDragged(e);}
 
         public void mouseMoved(MouseEvent e){
             gamestate.getActiveLevel().mouseMoved(e);
