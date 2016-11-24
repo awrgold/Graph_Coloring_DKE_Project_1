@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 
 public class Menu extends Level {
 //	private int dir = 3;
-    private MenuVertex[] items;
+    
     private Graph graph;
     //vertex-mouse-offset: the offset of the mouse from the center of the vertex (used so that the vertex doesn't "jump" when starting to drag
     private int vmOffsetX;
@@ -22,7 +22,7 @@ public class Menu extends Level {
 	public Menu(GameState state){
 		super(state, null);
 		//	this.gameStates = gameStates;
-		items = new MenuVertex[2];
+		Vertex[] items = new MenuVertex[2];
 		items[0] = new MenuVertex(Game.WIDTH/4, Game.HEIGHT/2, " Import");		// TODO We need to find a way to make these points equidistant from the edges, same as the...
 		items[1] = new MenuVertex(Game.WIDTH/2, Game.HEIGHT/2, "Generate");		// TODO ...pause menu issue, where the vertices are displayed evenly in the frame. (ratio issue when dividing double/fraction)
 		graph = new Graph(items, new int[][]{ new int[]{1}, new int[0]});
