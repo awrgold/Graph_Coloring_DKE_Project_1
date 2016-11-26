@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.Arrays;
 import java.io.*;
 import java.util.*;
@@ -31,7 +32,7 @@ public class Graph{
 	 * draws the graph's vertices and edges
 	 * @param g a graphics object from a image/canvas to draw on
 	 */
-	public void draw(Graphics g){
+	public void draw(Graphics2D g){
 		//drawing the edges
 		//one could add a if-statement so that the edges change color if any adjacent vertex is highlighted
 		//also some kind of style information could be passed on to the constructor and used here
@@ -94,59 +95,49 @@ public class Graph{
 			int x = (int)  (Math.random()*((double) Game.WIDTH));
 			int y = (int)  (Math.random()*((double) Game.HEIGHT));
 			vertices[i] = new Vertex(x,y);
-			for(int j=0; j<m; j++){
-				neighbours [i][j] = -1; //This is necessary because a vertex can actually be adjacent to vertex 0 -> things go very very wrong when default value would be set to 0
-			}
 		}
-
-		//assigning neighbours to vertices for m times (== #edges)
-		for(int i = 0; i<m; i++){
-			//first, generate a path through the graph
-			if(i<n-1) neighbours[i][0] = i+1;//Actually the next vertex -> i+1
-				//now randomly connected vertices that weren't connected before, until the desired number of edges is reached
-			else {
-				//randomly select two vertices to create a edge between them
-				int u = (int) (Math.random() * n);//COUNTING
-				int v = (int) (Math.random() * n);//COUNTING
-				//check for u==v
-				while (u == v) {
-					v = (int) (Math.random() * n); //the random assigned vertex to v has to differ from u COUNTING
+		//make a path through all vertices, so that the graph is connected
+		for(int i = 0; i<n-1;i++){
+			neighbours[i][0] = i+1;
+		}
+		//generate m-(n-1) (=the edges left over after the path) edges randomly
+		for(int i = 0; i<m-n+1; i++){
+			//randomly select two vertices to create a edge between them
+			int u = (int) (Math.random() * n);
+			int v = (int) (Math.random() * n);
+			//check for u==v
+			while (u == v) {
+				v = (int) (Math.random() * n); //the random assigned vertex to v has to differ from u COUNTING
+			}
+			int min = Math.min(u, v);
+			int max = Math.max(u, v);
+			//Check if the created edge already existed
+			boolean exists = true;
+			for(int j=0; j<i; j++){
+				if((neighbours[min][j]==max)){ //COUNTING
+					exists = false;
+					if(DEBUG){System.out.println("FALSE "+u+" "+v);}
+					i--; //Generate random vertices for edge[i] again
+					break;
 				}
-				//Check if the created edge already existed
-				boolean exists = true;
-				for(int j=0; j<i; j++){
-					if((neighbours[u][j]==v)||(neighbours[v][j]==u)){ //COUNTING
-						exists = false;
-						if(DEBUG){System.out.println("FALSE "+u+" "+v);}
-						i--; //Generate random vertices for edge[i] again
+			}
+			if(exists){
+				// Store the new adjacent vertex at the right position
+				for (int j = 0; j < n; j++) {
+					if (neighbours[min][j] == 0) {
+						neighbours[min][j] = max;
 						break;
 					}
 				}
-
-				if(exists){
-					int min = Math.min(u, v);
-					int max = Math.max(u, v);
-
-					// Store the new adjacent vertex at the right position
-					for (int j = 0; j < n; j++) {
-						if (neighbours[min][j] == -1) {
-							neighbours[min][j] = max;
-							break;
-						}
-					}
-				}
-
-
 			}
 		}
-
 		//now cut off the zeros (=unused entries) in every row of neighbours COUNTING
 		for(int i = 0;i<n;i++){
 			for(int k = 0;k<m;k++){
-				if(neighbours[i][k] == -1){
+				if(neighbours[i][k] == 0){
 					int[] temp = neighbours[i];
 					neighbours[i] = new int[k];
-					if(DEBUG) {System.arraycopy(temp, 0, neighbours[i], 0, k);}
+					System.arraycopy(temp, 0, neighbours[i], 0, k);
 					break;
 				}
 			}
@@ -190,10 +181,10 @@ public class Graph{
 		}
 
 		//Checking whether the graph is either complete
-		//if ( ( ( n*(n-1) ) / 2) == m ) {
-		//	if(DEBUG){System.out.println("Chromatic number = "+n);}
-		//	return n;
-		//}
+		if ( ( ( n*(n-1) ) / 2) == m ) {
+			if(DEBUG){System.out.println("Chromatic number = "+n);}
+			return n;
+		}
 
 		//Checking whether the graph is bipartite
 		if (is2colorable(adjMatrix) )
@@ -220,11 +211,10 @@ public class Graph{
 		} else{
 			return -1;
 		}
-
 	}
 
 	/**This method makes the adjacency matrix, in the same format as we had it in the previous phase, therefore we can immediately start using our algorithms
-	 * @param n asks the number of vertices
+	 * @param n the number of vertices
 	 * @param adjList needs the matrix with neighbours of all vertices
 	 * @return
 	 */
@@ -266,9 +256,5 @@ public class Graph{
 			}
 		}
 		return true;
-	}
-
-	public static void main (String[]args){
-		generateRandomGraph(3,3);
 	}
 }

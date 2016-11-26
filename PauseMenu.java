@@ -49,7 +49,7 @@ public class PauseMenu extends Level {
 		}
 	}
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics2D g) {
 		g.setFont(new Font("Pause Menu Font", Font.BOLD, 24));
 		g.drawString("PAUSED", (Game.WIDTH/2)-25, (Game.HEIGHT/2)-15);
 		graph.draw(g);

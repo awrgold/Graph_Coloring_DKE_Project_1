@@ -10,7 +10,7 @@ public class MenuVertex extends Vertex {
 		setDiameter(DIAMETER);
 
 	}
-	public void draw(Graphics g){
+	public void draw(Graphics2D g){
 		g.setColor(Color.CYAN);
 		g.drawString(label, x, y-10);
 		//g.drawOval(x,y,diameter,diameter);

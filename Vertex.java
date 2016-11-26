@@ -1,5 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
+
+import javafx.scene.shape.Ellipse;
 
 /**
 * Information about the vertices is stored in here - this method is initially made by Jonas
@@ -29,10 +34,10 @@ public class Vertex{
 		this.diameter = diameter;
 	}
 
-	public void draw(Graphics g){
-	//    Graphics2D g2 = (Graphics2D) g;
-		g.setColor(Color.ORANGE);
-		g.fillOval(x, y, diameter, diameter);
+	public void draw(Graphics2D g){
+	    Graphics2D g2 = (Graphics2D) g;
+		g2.setColor(Color.ORANGE);
+		g2.fill(new Ellipse2D.Double(x,y,diameter,diameter));
 	}
 
 	public int getX(){
