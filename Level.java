@@ -35,10 +35,14 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 
 	public void mousePressed(MouseEvent e){
 		clickedVertex = graph.getVertexAt(e.getX(), e.getY());
+		if(clickedVertex != -1){
+			Vertex v = graph.getVertex(clickedVertex);
+    		vmOffsetX = e.getX()-v.getX();
+     		vmOffsetY = e.getY()-v.getY();
+		}
+			
 	}
 	public void mouseDragged(MouseEvent e){
-		int x = e.getX();
-		int y = e.getY();
 		if(clickedVertex != -1){
 			System.out.println("DRAG");
 			int newX = e.getX()-vmOffsetX;
