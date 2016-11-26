@@ -1,5 +1,6 @@
 import java.awt.Canvas;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -86,7 +87,7 @@ public class Game extends Canvas implements Runnable {
         }
         Graphics bg = bs.getDrawGraphics();
         BufferedImage dbi = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-        Graphics g = dbi.getGraphics();
+        Graphics2D g = (Graphics2D) dbi.getGraphics();
 
         gamestate.getActiveLevel().draw(g);
 
