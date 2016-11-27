@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -25,11 +26,25 @@ public class Menu extends Level {
 		if(e.getButton() == MouseEvent.BUTTON1){
     			//insert here what the menu items have to do
     			//start a level
-    			if(clickedVertex == 1){
-    				state.states[GameState.INGAME] = new PlaygroundLevel(state);
-    				state.setState(GameState.INGAME);
-    			}
-    			clickedVertex = -1;
+    		if(clickedVertex==0){
+				String input = JOptionPane.showInputDialog("PLease give the directory to your graph file");
+				String[] args = {input};
+				state.states[GameState.INGAME] = new PlaygroundLevel(state, args); //Start the actual game, what happens if we cannot compute the chromatic number??
+				state.setState(GameState.INGAME);
+			}
+			else if(clickedVertex == 1){
+				int n; //number of vertices
+				int m; //number of edges
+    			do{
+					String input = JOptionPane.showInputDialog("Please input the number of vertices and edges, seperated by a spaces.");
+					String in[] = input.split(" ");
+					n = Integer.parseInt(in[0]);
+					m = Integer.parseInt(in[1]);
+				}while(m<n-1||(m>((n*(n-1))/2))); //The #vertices and #edges were not compatible together (to less edges: always disconnected vertices, or to much edges: graph would be more than complete)
+    			state.states[GameState.INGAME] = new PlaygroundLevel(state, n, m); //Start the actual game
+    			state.setState(GameState.INGAME);
+    		}
+    		clickedVertex = -1;
     	}
     }
     
