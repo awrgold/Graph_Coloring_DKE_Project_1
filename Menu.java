@@ -29,7 +29,7 @@ public class Menu extends Level {
     		if(clickedVertex==0){
 				String input = JOptionPane.showInputDialog("PLease give the directory to your graph file");
 				String[] args = {input};
-				state.states[GameState.INGAME] = new PlaygroundLevel(state, args); //Start the actual game, what happens if we cannot compute the chromatic number??
+				state.states[GameState.INGAME] = new PlaygroundLevel(state, args); //Start the actual game. HOW to implement feedback: what happens if we cannot compute the chromatic number, or the file was corrupt??
 				state.setState(GameState.INGAME);
 			}
 			else if(clickedVertex == 1){
