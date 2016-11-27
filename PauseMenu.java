@@ -37,8 +37,8 @@ public class PauseMenu extends Level {
 				if (clickedVertex == 1) { // If they click "Quit," send them back to the start menu.
 					state.setState(GameState.MAIN_MENU);
 				}
-				if(clickedVertex == 2){ // TODO If they click "Restart," generate the same graph, back at square 1. (How???)
-					state.states[GameState.INGAME] = new PlaygroundLevel(state);
+				if(clickedVertex == 2){ // TODO If they click "Restart," generate the same graph, back at square 1. (How???) Values n and m should be recovered, or the whole graph.
+					state.states[GameState.INGAME] = new PlaygroundLevel(state,3,3);
 					state.setState(GameState.INGAME);
 				}
 				if (clickedVertex == 3) { // If they click "Resume," resume same game with no changes.
