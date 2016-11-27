@@ -27,7 +27,7 @@ public class Menu extends Level {
     			//insert here what the menu items have to do
     			//start a level
     		if(clickedVertex==0){
-				String input = JOptionPane.showInputDialog("PLease give the directory to your graph file");
+				String input = JOptionPane.showInputDialog("Please give the directory to your graph file, make use of \\"+"\\ instead of \\. ");//needs to be fixed
 				String[] args = {input};
 				state.states[GameState.INGAME] = new PlaygroundLevel(state, args); //Start the actual game. HOW to implement feedback: what happens if we cannot compute the chromatic number, or the file was corrupt??
 				state.setState(GameState.INGAME);
