@@ -1,4 +1,5 @@
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -18,7 +19,7 @@ public class Game extends Canvas implements Runnable {
 
     private Thread thread;
     private boolean running = false;
-    private GameState gamestate;
+    public GameState gamestate;
     //level 0 is the menu
     //level 1, needs to be added
     public Game() {
@@ -88,7 +89,8 @@ public class Game extends Canvas implements Runnable {
         Graphics bg = bs.getDrawGraphics();
         BufferedImage dbi = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = (Graphics2D) dbi.getGraphics();
-
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, WIDTH,HEIGHT);
         gamestate.getActiveLevel().draw(g);
 
         bg.drawImage(dbi, 0, 0, this);
