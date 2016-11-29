@@ -44,10 +44,11 @@ public class Graph{
 		//also some kind of style information could be passed on to the constructor and used here
 		//drawing the vertices
 		g.setColor(edgeColor);
-		for(int i = 0;i<neighbours.length;i++)
-			for(int neighbour : neighbours[i])
-				g.drawLine(vertices[i].getX()+vertices[i].getDiameter()/2, vertices[i].getY()+vertices[i].getDiameter()/2, vertices[neighbour].getX()+vertices[neighbour].getDiameter()/2, vertices[neighbour].getY()+vertices[neighbour].getDiameter()/2);
-	
+		if(neighbours != null)
+			for(int i = 0;i<neighbours.length;i++)
+				for(int neighbour : neighbours[i])
+					g.drawLine(vertices[i].getX()+vertices[i].getDiameter()/2, vertices[i].getY()+vertices[i].getDiameter()/2, vertices[neighbour].getX()+vertices[neighbour].getDiameter()/2, vertices[neighbour].getY()+vertices[neighbour].getDiameter()/2);
+
 		for(Vertex v : vertices){
 			v.draw(g);
 		}

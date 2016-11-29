@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.Graphics;
 
 public class MenuVertex extends Vertex {
-	public static final int DIAMETER = 200;
+	public static final int DIAMETER = 120;
 	private String label;
 	public MenuVertex(int x, int y, String label) {
 		super(x, y);
