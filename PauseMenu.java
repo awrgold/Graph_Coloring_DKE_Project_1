@@ -4,11 +4,6 @@ import java.awt.event.MouseEvent;
 
 public class PauseMenu extends Level {
 
-	private int clickedVertex;
-	private int vmOffsetX;
-	private int vmOffsetY;
-
-
 	public PauseMenu(GameState state) {
 		super(state,null);
 		MenuVertex[] items;
@@ -22,30 +17,21 @@ public class PauseMenu extends Level {
 
 	}
 	public void mousePressed(MouseEvent e){
-		int x = e.getX();
-		int y = e.getY();
-		clickedVertex = graph.getVertexAt(x, y);
-		if(clickedVertex != -1){
-			if(e.getButton() == MouseEvent.BUTTON3){
-				System.out.println("BUTTON 3!");
-				Vertex v = graph.getVertex(clickedVertex);
-				vmOffsetX = x-v.getX();
-				vmOffsetY = y-v.getY();
-			} else if(e.getButton() == MouseEvent.BUTTON1){
-				if (clickedVertex == 0) { // TODO: If they click "Save," save the current state of the game to a file in the game folder.
-				}
-				if (clickedVertex == 1) { // If they click "Quit," send them back to the start menu.
-					state.setState(GameState.MAIN_MENU);
-				}
-				if(clickedVertex == 2){ // TODO If they click "Restart," generate the same graph, back at square 1. (How???)
-					state.states[GameState.INGAME] = new PlaygroundLevel(state);
-					state.setState(GameState.INGAME);
-				}
-				if (clickedVertex == 3) { // If they click "Resume," resume same game with no changes.
-					state.setState(GameState.INGAME);
-				}
-				clickedVertex = -1;
+		super.mousePressed(e);
+		if(e.getButton() == MouseEvent.BUTTON1){
+			if (clickedVertex == 0) { // TODO: If they click "Save," save the current state of the game to a file in the game folder.
 			}
+			if (clickedVertex == 1) { // If they click "Quit," send them back to the start menu.
+				state.setState(GameState.MAIN_MENU);
+			}
+			if(clickedVertex == 2){ // TODO add a restart() function to the Level class
+				state.states[GameState.INGAME] = new PlaygroundLevel(state,Graph.generateRandomGraph(3, 3));
+				state.setState(GameState.INGAME);
+			}
+			if (clickedVertex == 3) { // If they click "Resume," resume same game with no changes.
+				state.setState(GameState.INGAME);
+			}
+			clickedVertex = -1;
 		}
 	}
 	@Override

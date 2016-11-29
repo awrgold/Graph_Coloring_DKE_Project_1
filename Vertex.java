@@ -14,19 +14,22 @@ import javafx.scene.shape.Ellipse;
 */
 public class Vertex{
 	private static final Color STANDARD_COLOR = Color.WHITE;
+	private static final Color STANDARD_HIGHLIGHT_COLOR = Color.RED;
 	private static final int STANDARD_DIAMETER = 30;
 	protected Color color;
 	protected int x;
 	protected int y;
 	protected int diameter;
-	public void highlight(boolean highlight){}
+
 	public Vertex(int x, int y){
 		this.x = x;
 		this.y = y;
 		this.diameter = STANDARD_DIAMETER;
 		this.color = STANDARD_COLOR;
 	}
-
+	public void highlight(boolean highlight){
+		
+	}
 	public int getDiameter(){
 		return diameter;
 	}

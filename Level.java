@@ -9,6 +9,7 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 	protected GameState state;
 	protected Graph graph;
 	protected int clickedVertex;
+	protected int hoveredVertex;
     //vertex-mouse-offset: the offset of the mouse from the center of the vertex (used so that the vertex doesn't "jump" when starting to drag
 	private int vmOffsetX;
 	private int vmOffsetY;
@@ -16,16 +17,19 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 	public Level(GameState state, Graph graph){
 		this.state = state;
 		this.graph = graph;
+		clickedVertex = -1;
+		hoveredVertex = -1;
 	}
 	
 	public void terminate(){
 		state.setState(GameState.MAIN_MENU);
+		state.states[GameState.INGAME] = null;
 	}
 	public void setGraph(Graph graph){
 		this.graph = graph;
 	}
 	public abstract void draw(Graphics2D g);
-	public abstract void tick();
+	public void tick(){}
 	public void keyTyped(KeyEvent e) {}
 	public void keyReleased(KeyEvent e) {}
 
@@ -33,6 +37,7 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
 			state.setState(GameState.PAUSE_MENU);
 	}
+	
 	public void mousePressed(MouseEvent e){
 		clickedVertex = graph.getVertexAt(e.getX(), e.getY());
 		if(clickedVertex != -1){
