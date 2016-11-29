@@ -2,9 +2,6 @@ import java.awt.Graphics2D;
 
 public class PlaygroundLevel extends Level {
 
-	public PlaygroundLevel(GameState state){
-		super(state, Graph.generateRandomGraph(15,60));
-	}
 	public PlaygroundLevel(GameState state, Graph g){
 		super(state,g);
 	}

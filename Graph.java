@@ -241,7 +241,7 @@ public class Graph{
 			int max = Math.max(u, v);
 			//Check if the created edge already existed
 			boolean exists = false;
-			for(int j=0; j<i; j++){
+			for(int j=0; j<neighbours[min].length; j++){
 				if((neighbours[min][j]==max)){ //COUNTING
 					exists = true;
 					if(DEBUG){System.out.println("FALSE "+u+" "+v);}
