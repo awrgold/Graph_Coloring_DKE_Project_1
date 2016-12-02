@@ -310,7 +310,9 @@ public class Graph{
 */
 		//Greedy, back-track, welsh-powell and maximum-clique algorithms to figure out the chromatic number
 		MaximumClique cliqueFinder = new MaximumClique(adjMatrix);
+		cliqueFinder.search();
 		//Greedy greedy = new Greedy(adjList);  //Adjecency list is not yet in the same format!!!
+		//greedy.search();
 		BacktrackGreedy backtrack = new BacktrackGreedy(adjMatrix);
 		int maxCliqueSize = cliqueFinder.maxCliqueSize;
 		System.out.println ("Maximum Clique gives (Lower Bound): "+maxCliqueSize);
@@ -319,7 +321,7 @@ public class Graph{
 		//int greedyOutput = greedy.chromaticNumber;
 		//if(maxCliqueSize == Math.min(welshPowellOutput, greedyOutput)){
 		int backtrackOutput = backtrack.maxColor;
-		System.out.println ("Bakctrack Greedy gives: "+backtrackOutput);
+		System.out.println ("Backtrack Greedy gives: "+backtrackOutput);
 		if(maxCliqueSize == welshPowellOutput){
 			if(DEBUG){System.out.println("Chromatic number = "+ maxCliqueSize);}
 			return maxCliqueSize;
