@@ -31,16 +31,38 @@ public class Menu extends Level {
 				state.setState(GameState.INGAME);
 			}
 			else if(clickedVertex == 1){
-				int n; //number of vertices
-				int m; //number of edges
-    			do{
-					String input = JOptionPane.showInputDialog("Please input the number of vertices and edges, seperated by a spaces.");
-					String in[] = input.split(" ");
-					n = Integer.parseInt(in[0]);
-					m = Integer.parseInt(in[1]);
-				}while(m<n-1||(m>((n*(n-1))/2))); //The #vertices and #edges were not compatible together (to less edges: always disconnected vertices, or to much edges: graph would be more than complete)
-    			state.states[GameState.INGAME] = new PlaygroundLevel(state, Graph.generateRandomGraph(n, m)); //Start the actual game
-    			state.setState(GameState.INGAME);
+				Boolean falseVertexEdgeComb=true;
+				int n = 0;
+				int m = 0;
+				while (falseVertexEdgeComb){
+					JTextField vertexField = new JTextField(5);
+					JTextField edgeField = new JTextField(5);
+
+					JPanel myPanel = new JPanel();
+					myPanel.add(new JLabel("vertices:"));
+					myPanel.add(vertexField);
+					myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+					myPanel.add(new JLabel("edges:"));
+					myPanel.add(edgeField);
+
+					int result = JOptionPane.showConfirmDialog(null, myPanel,
+							"Please Enter X and Y Values", JOptionPane.OK_CANCEL_OPTION);
+					if (result == JOptionPane.OK_OPTION) {
+						m = Integer.parseInt(vertexField.getText());//number of vertices
+						n = Integer.parseInt(edgeField.getText());//number of edges
+						//The #vertices and #edges were/were not compatible together (to less edges: always disconnected vertices, or to much edges: graph would be more than complete)
+						if((n<m-1)||(n>((m*(m-1))/2))){ //They were not > Throw an error message
+							JPanel newPanel = new JPanel();
+							JOptionPane.showMessageDialog(newPanel, "Problem with creating a graph, with: " + m + "vertices, and: "+n+" edges.","Backup problem", JOptionPane.ERROR_MESSAGE);
+						}else{ //They were > create the graph
+							falseVertexEdgeComb = false;
+							state.states[GameState.INGAME] = new PlaygroundLevel(state, Graph.generateRandomGraph(m, n)); //Start the actual game
+							state.setState(GameState.INGAME);
+						}
+					}else if(result == JOptionPane.CANCEL_OPTION){
+						falseVertexEdgeComb = false;
+					}
+				}
     		}
     		clickedVertex = -1;
     	}
