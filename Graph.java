@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.Arrays;
 import java.awt.Color;
 import java.io.*;
@@ -12,17 +13,26 @@ import java.util.*;
  */
 
 public class Graph{
-	private static Color STANDARD_EDGE_COLOR = Color.BLACK;
+
+	private static final boolean DEBUG = true;
+	private static final Random R = new Random();
+	private static final String COMMENT = "//";
+	private static final Color STANDARD_EDGE_COLOR = Color.BLACK;
+
+	// TODO: 12/4/2016 This is temporarily just an idea (which also fixes the out of screen vertex generation), devise implementation strategy.
+	// Rim around the screen in order not to draw vertices outside the screen
+	private static final int RIM = Vertex.STANDARD_DIAMETER / 2;
+	// A rectangle (maybe in the future Oval) to specify the bounds in which we can draw vertices. TODO non-static
+	private static final Rectangle vDrawLimits = new Rectangle(RIM, RIM, Game.WIDTH - 2*RIM, Game.HEIGHT - 2*RIM);
+
+
 	//some explanation for that variable: it's gonna be n long, and contains in every row all neighbouring vertices with a higher index, the last one would thus have no entries
 	//also there cannot be a row containing 0, and most importantly, when looping through it, every edge occurs exactly once
 	private int[][] neighbours;
 	private Vertex vertices[];
-	
 	private Color edgeColor;
-	//nope
-	private static final boolean DEBUG = true;
-	public final static String COMMENT = "//";
-	private static int chromaticNumber;
+	private static int chromaticNumber; // TODO Need to change this <<Avoid use of static fields that are not final>>
+
 	/**
 	 * Initialises a graph with given vertices and edges
 	 * @param vertices
@@ -33,7 +43,10 @@ public class Graph{
 		this.vertices = vertices;
 		this.neighbours = neighbours;
 		this.edgeColor = STANDARD_EDGE_COLOR;
+
+
 	}
+
 	/**
 	 * draws the graph's vertices and edges
 	 * @param g a Graphics2D object from a image/canvas to draw on
@@ -47,12 +60,13 @@ public class Graph{
 		if(neighbours != null)
 			for(int i = 0;i<neighbours.length;i++)
 				for(int neighbour : neighbours[i])
-					g.drawLine(vertices[i].getX()+vertices[i].getDiameter()/2, vertices[i].getY()+vertices[i].getDiameter()/2, vertices[neighbour].getX()+vertices[neighbour].getDiameter()/2, vertices[neighbour].getY()+vertices[neighbour].getDiameter()/2);
+					g.drawLine(vertices[i].getCX(), vertices[i].getCY(), vertices[neighbour].getCX(), vertices[neighbour].getCY());
 
 		for(Vertex v : vertices){
 			v.draw(g);
 		}
 	}
+
 	/**
 	 *
 	 * @param x-coordinate of a point on the game canvas
@@ -65,9 +79,10 @@ public class Graph{
 				return i;
 		return -1;
 	}
+
 	/**
 	 *
-	 * @param v the index of a vertex (must be >= 0 and <n)
+	 * @param v the index of a vertex (must be >= 0 and < n)
 	 * @return returns the vertex
 	 */
 	public Vertex getVertex(int v){
@@ -76,23 +91,22 @@ public class Graph{
 
 	/**
 	 * Reads-in the graph from a file, we make use of the code provided to us in the beginning of the project.
-	 * @param file for example: Graph09.txt (It's required that this graph is placed in the same folder, (we might need to change this)
+	 * @param file File loaded with JFileChooser in class Menu
 	 * @return Graph...
 	 */
-	public static Graph readGraphFromFile(String file[]){
-		if( file.length < 1 )
+	public static Graph readGraphFromFile(File file){  // TODO: 12/3/2016 Have to add protection against wrong file format being passed
+		if( file == null )
 		{
-			System.out.println("Error! No filename specified.");
+			System.out.println("Error! Empty file.");
 			System.exit(0);
 		}
-		String inputfile = file[0];
 		boolean seen[] = null;
 
 		int n = -1; //number of vertices
 		int m = -1; //number of edges
 
 		try 	{
-			FileReader fr = new FileReader(inputfile);
+			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
 
 			String record = new String();
@@ -114,8 +128,8 @@ public class Graph{
 			}
 			Vertex[] vertices = new Vertex[n];
 			for(int i = 0; i<n; i++){
-				int x = (int)  (Math.random()*((double) Game.WIDTH));
-				int y = (int)  (Math.random()*((double) Game.HEIGHT));
+				int x = R.nextInt((int) vDrawLimits.getWidth());
+				int y = R.nextInt((int) vDrawLimits.getHeight());
 				vertices[i] = new Vertex(x,y);
 			}
 
@@ -184,10 +198,10 @@ public class Graph{
 			}
 
 			//Check if we can compute the chromatic number
-			chromaticNumber = computableRandomGraph(n, m, neighbours);
+			chromaticNumber = computableRandomGraph(n, m, neighbours); // TODO Chromatic number shouldn't be static
 			//if(chromaticNumber>=0) {//At this moment, when we have five recursive calls, this method will be called five times -> not very clean????
 			//	if(DEBUG)System.out.println("We have found the chromatic number");
-				return new Graph(vertices, neighbours);
+			return new Graph(vertices, neighbours);
 			//}else{
 			//	if(DEBUG){System.out.println("We have not found the chromatic number, so please load a new graph.");}//How will the user know this
 			//	return null;
@@ -196,13 +210,13 @@ public class Graph{
 		catch (IOException ex)
 		{
 			// catch possible io errors from readLine()
-			System.out.println("Error! Problem reading file "+inputfile);
+			System.out.println("Error! Problem reading file "+ file.getName());
 			System.exit(0);
 		}
 
 		for( int x=1; x<=n; x++ )
 		{
-			if( seen[x] == false )
+			if(!seen[x])
 			{
 				if(DEBUG) System.out.println(COMMENT + " Warning: vertex "+x+" didn't appear in any edge : it will be considered a disconnected vertex on its own.");
 			}
@@ -221,8 +235,8 @@ public class Graph{
 		Vertex[] vertices = new Vertex[n];
 		int[][] neighbours = new int[n][m];
 		for(int i = 0; i<n; i++){
-			int x = (int)  (Math.random()*((double) Game.WIDTH));
-			int y = (int)  (Math.random()*((double) Game.HEIGHT));
+			int x = R.nextInt((int) vDrawLimits.getWidth());
+			int y = R.nextInt((int) vDrawLimits.getHeight());
 			vertices[i] = new Vertex(x,y);
 		}
 		//make a path through all vertices, so that the graph is connected
@@ -230,27 +244,29 @@ public class Graph{
 			neighbours[i][0] = i+1;
 		}
 		//generate m-(n-1) (=the edges left over after the path) edges randomly
-		for(int i = 0; i<m-n+1; i++){
+		for (int i = 0; i < m - n + 1; i++) {
 			//randomly select two vertices to create a edge between them
-			int u = (int) (Math.random() * n);
-			int v = (int) (Math.random() * n);
+			int u = R.nextInt(n);
+			int v = R.nextInt(n);
 			//check for u==v
 			while (u == v) {
-				v = (int) (Math.random() * n); //the random assigned vertex to v has to differ from u COUNTING
+				v = R.nextInt(n); //the random assigned vertex to v has to differ from u COUNTING
 			}
 			int min = Math.min(u, v);
 			int max = Math.max(u, v);
 			//Check if the created edge already existed
 			boolean exists = false;
-			for(int j=0; j<neighbours[min].length; j++){
-				if((neighbours[min][j]==max)){ //COUNTING
+			for (int j = 0; j < neighbours[min].length; j++) {
+				if ((neighbours[min][j] == max)) { //COUNTING
 					exists = true;
-					if(DEBUG){System.out.println("FALSE "+u+" "+v);}
+					if (DEBUG) {
+						System.out.println("FALSE " + u + " " + v);
+					}
 					i--; //Generate random vertices for edge[i] again
 					break;
 				}
 			}
-			if(!exists){
+			if (!exists) {
 				// Store the new adjacent vertex at the right position
 				for (int j = 0; j < n; j++) {
 					if (neighbours[min][j] == 0) {
@@ -374,6 +390,8 @@ public class Graph{
 		}
 		return true;
 	}
+
+
 	public static void main(String[] args){
 		Graph g = generateRandomGraph(4,6);
 		computableRandomGraph(4,6,g.neighbours);

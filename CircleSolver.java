@@ -1,8 +1,9 @@
-package CircleSolver;
-import java.lang.Math;
+import java.util.Arrays;
 
-public class CircleSolver {   
-    
+public class CircleSolver {
+
+
+
     //this method takes as parameters the x and y coordinates of the anchor point (top left, not the center of the circle), the radius, and number of vertices
     //if "inner" is set to true, all vertices will be offset by half a position clockwise
     //at this stage, it can be called with e.g. 20 nodes, and then again with 10 inner nodes and a reduced radius, to find 30 positions on 2 concentric circles such that no 2 positions fall on a line through the center
@@ -11,25 +12,28 @@ public class CircleSolver {
     //in a large space (radius values of over 500 or so), the int precision this gives should be okay
     //if it looks shit and we need higher precision, we could multiply the radius and all coordinates by 10 (or 100, or 1000) before running it, and then put a decimal point in the results where appropriate - that is way more precise and reliable than running the whole thing with doubles and accepting the compounding truncation errors
     //running it with doubles, I had cases where positions where "off" from where they should be by as much as a fifth of the radius
-    
-    public static void main (String[] args) {
-        int[][] outer = circlesolver (-600, 600, 600, 15, false);
-            for (int i = 0; i < 15; i++) {
-                System.out.println("Point " + (i+1) + " :     " + outer[i][0] + ",     " + outer[i][1]);
-            }
-        int[][] inner = circlesolver (-400, 400, 400, 15, true);
-            for (int i = 0; i < 15; i++) {
-                System.out.println("Point " + (i+1) + " :     " + inner[i][0] + ",     " + inner[i][1]);
-            }
-    }
-    
-    
+
+//    public static void main (String[] args) {
+//
+//
+//
+//        int[][] outer = circlesolver (-600, 600, 600, n, false);
+//            for (int i = 0; i < n; i++) {
+//                System.out.println("Point " + (i+1) + " :     " + outer[i][0] + ",     " + outer[i][1]);
+//            }
+//        int[][] inner = circlesolver (-400, 400, 400, n, true);
+//            for (int i = 0; i < n; i++) {
+//                System.out.println("Point " + (i+1) + " :     " + inner[i][0] + ",     " + inner[i][1]);
+//            }
+//    }
+
+
     public static int[][] circlesolver (double anchorx, double anchory, double radius, int n, boolean inner) {
-        
+
         double theta = ((2 * Math.PI) / n);
         int[][] points = new int[n][2];
         double cx = anchorx + radius;
-        double cy = anchory - radius;
+        double cy = anchory + radius;
         for (int i = 0; i < n; i++) {
             double angle = theta * i;
             points[i][0] = (int) (cx + (radius * (Math.cos(angle))));
@@ -46,5 +50,17 @@ public class CircleSolver {
             points[n-1][1] = (points[n-1][1] + temp2) / 2;
         }
         return points;
-    }  
+    }
+
+    public static Vertex[] getVertexObjects(int[][] points) {
+        Vertex[] output = new Vertex[15];
+
+        for (int i = 0; i < 15; i++) {
+            output[i] = new Vertex(points[i][0], points[i][1]);
+            System.out.println(Arrays.toString(points[i]));
+        }
+
+        return output;
+    }
 }
+

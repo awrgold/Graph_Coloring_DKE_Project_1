@@ -1,14 +1,18 @@
+import java.io.File;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 public class Menu extends Level {
+
 	private Font font;
+
 	public Menu(GameState state){
 		super(state, null);
-		Vertex[] items = new MenuVertex[2];
+		Vertex[] items = new MenuVertex[3];
 		items[0] = new MenuVertex(Game.WIDTH/4, Game.HEIGHT/2, "Import");		// TODO We need to find a way to make these points equidistant from the edges, same as the...
-		items[1] = new MenuVertex(Game.WIDTH/2, Game.HEIGHT/2, "Generate");		// TODO ...pause menu issue, where the vertices are displayed evenly in the frame. (ratio issue when dividing double/fraction)
+		items[1] = new MenuVertex(Game.WIDTH / 2, Game.HEIGHT / 2, "Generate");        // TODO ...pause menu issue, where the vertices are displayed evenly in the frame. (ratio issue when dividing double/fraction)
+		items[2] = new MenuVertex(200, 200, "CircleGraph");
 		super.setGraph(new Graph(items, new int[][]{ new int[]{1}, new int[0]}));
 		font = new Font("Main Menu Font", Font.BOLD, 20);
 	}
@@ -25,10 +29,21 @@ public class Menu extends Level {
     			//insert here what the menu items have to do
     			//start a level
 			if(clickedVertex==0){
-				String input = JOptionPane.showInputDialog("Please give the directory to your graph file, make use of \\"+"\\ instead of \\. ");//needs to be fixed
-				String[] args = {input};
-				state.states[GameState.INGAME] = new PlaygroundLevel(state, Graph.readGraphFromFile(args)); //Start the actual game. HOW to implement feedback: what happens if we cannot compute the chromatic number, or the file was corrupt??
-				state.setState(GameState.INGAME);
+				// For the file chooser I had to create a new field in the GameState class which stores the current instance
+				// of the Game, so I can access it from here, in order to pass it to the JFileChooser(it has to know where to appear)
+
+				JFileChooser fileChooser = new JFileChooser(); //underneath, commented, is my directory for the graph files
+															   //you can either run the code like this or add a directory in
+															   //the JFileChooser constructor, works either way. Also feel free to delete this code-cluttering comment :D
+//				JFileChooser fileChooser = new JFileChooser("C:\\Users\\antonwnk\\Project 1\\phase1\\Test set");
+				int hasFile = fileChooser.showDialog(state.game, "Choose graph file");
+				if (hasFile == JFileChooser.APPROVE_OPTION) {
+					File file = fileChooser.getSelectedFile();
+					state.states[GameState.INGAME] = new PlaygroundLevel(state, Graph.readGraphFromFile(file)); //Start the actual game. HOW to implement feedback: what happens if we cannot compute the chromatic number, or the file was corrupt??
+					state.setState(GameState.INGAME);
+				}
+//				String input = JOptionPane.showInputDialog("Please give the directory to your graph file, make use of \\"+"\\ instead of \\. ");//needs to be fixed
+//				String[] args = {input};
 			}
 			else if(clickedVertex == 1){
 				Boolean falseVertexEdgeComb=true;
@@ -64,7 +79,12 @@ public class Menu extends Level {
 					}
 				}
     		}
-    		clickedVertex = -1;
+			else if(clickedVertex == 2){
+				state.states[GameState.INGAME] = new PlaygroundLevel(state, new Graph(CircleSolver.getVertexObjects(CircleSolver.circlesolver (170, 0, 270, 15, false)), null)); //Here we test out CircleSolver
+				state.setState(GameState.INGAME);
+			}
+
+			clickedVertex = -1;
     	}
     }
     

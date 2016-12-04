@@ -13,18 +13,20 @@ import java.awt.image.BufferedImage;
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public static final int WIDTH = 900;
     public static final int HEIGHT = 600;
 
     private Thread thread;
     private boolean running = false;
     public GameState gamestate;
+
     //level 0 is the menu
     //level 1, needs to be added
     public Game() {
-    	gamestate = new GameState();
-        new Window(WIDTH, HEIGHT, "Build 0.0", this);
+        new Window(WIDTH, HEIGHT, "BeatTheKELK Build 0.1.2", this);
+        gamestate = new GameState();
+    	gamestate.game = this;
         gamestate.states[0] = new Menu(gamestate);
         gamestate.states[2] = new PauseMenu(gamestate);
         GameInputListener il = new GameInputListener();
