@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.*;
 public class Menu extends Level {
 
 	private Font font;
@@ -39,6 +40,8 @@ public class Menu extends Level {
 				int hasFile = fileChooser.showDialog(state.game, "Choose graph file");
 				if (hasFile == JFileChooser.APPROVE_OPTION) {
 					File file = fileChooser.getSelectedFile();
+					int mode = getMode();
+					System.out.println("mode is: "+mode);
 					state.states[GameState.INGAME] = new PlaygroundLevel(state, Graph.readGraphFromFile(file)); //Start the actual game. HOW to implement feedback: what happens if we cannot compute the chromatic number, or the file was corrupt??
 					state.setState(GameState.INGAME);
 				}
@@ -70,6 +73,8 @@ public class Menu extends Level {
 							JPanel newPanel = new JPanel();
 							JOptionPane.showMessageDialog(newPanel, "Problem with creating a graph, with: " + m + "vertices, and: "+n+" edges.","Backup problem", JOptionPane.ERROR_MESSAGE);
 						}else{ //They were > create the graph
+							int mode = getMode();
+							System.out.println("mode is: "+mode);
 							falseVertexEdgeComb = false;
 							state.states[GameState.INGAME] = new PlaygroundLevel(state, Graph.generateRandomGraph(m, n)); //Start the actual game
 							state.setState(GameState.INGAME);
@@ -93,4 +98,27 @@ public class Menu extends Level {
     		
     	}
     }
+
+    public int getMode(){
+    	//String[] buttons = {"one","two","three"};
+		int mode = 0;
+    	JRadioButton oneButton = new JRadioButton ("The bitter end.");
+		JRadioButton twoButton = new JRadioButton ("The best upper bound, in a fixed time.");
+		JRadioButton threeButton = new JRadioButton ("Random order.");
+		oneButton.setSelected(true);
+		ButtonGroup group = new ButtonGroup ();
+		group.add(oneButton);
+		group.add(twoButton);
+		group.add(threeButton);
+		JPanel panel = new JPanel();
+		panel.add(oneButton);
+    	panel.add(twoButton);
+    	panel.add(threeButton);
+
+		JOptionPane.showOptionDialog(null, panel,"Radio Test", JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, null, null, null);
+		if (oneButton.isSelected()) mode =1;
+		else if (twoButton.isSelected()) mode = 2;
+		else if (threeButton.isSelected()) mode = 3;
+		return mode;
+	}
 }
