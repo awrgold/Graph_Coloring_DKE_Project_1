@@ -1,5 +1,6 @@
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -24,7 +25,8 @@ public class Game extends Canvas implements Runnable {
     //level 0 is the menu
     //level 1, needs to be added
     public Game() {
-        new Window(WIDTH, HEIGHT, "BeatTheKELK Build 0.1.2", this);
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        new Window("BeatTheKELK Build 0.2.2", this);
         gamestate = new GameState();
     	gamestate.game = this;
         gamestate.states[0] = new Menu(gamestate);
@@ -98,6 +100,7 @@ public class Game extends Canvas implements Runnable {
         bg.drawImage(dbi, 0, 0, this);
         bs.show();
         bg.dispose();
+
     }
 
     public static void main(String[] args) {

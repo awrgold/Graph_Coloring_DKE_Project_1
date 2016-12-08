@@ -14,7 +14,7 @@ import java.util.*;
 
 public class Graph{
 
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	private static final Random R = new Random();
 	private static final String COMMENT = "//";
 	private static final Color STANDARD_EDGE_COLOR = Color.BLACK;
@@ -26,10 +26,14 @@ public class Graph{
 	private static final Rectangle vDrawLimits = new Rectangle(RIM, RIM, Game.WIDTH - 2*RIM, Game.HEIGHT - 2*RIM);
 
 
-	//some explanation for that variable: it's gonna be n long, and contains in every row all neighbouring vertices with a higher index, the last one would thus have no entries
+	//some explanation for that variable: it's gonna be n long, and contains in every row all neighbouring vertices with a higher index,
+	//the last one would thus have no entries
 	//also there cannot be a row containing 0, and most importantly, when looping through it, every edge occurs exactly once
 	private int[][] neighbours;
-	private Vertex vertices[];
+	private Vertex[] vertices;
+	private int[][] adjacencyMatrix;
+	private int[][] degreeMatrix;
+	private int[][] laplacianMatrix;
 	private Color edgeColor;
 	private static int chromaticNumber; // TODO Need to change this <<Avoid use of static fields that are not final>>
 
@@ -235,8 +239,6 @@ public class Graph{
 		Vertex[] vertices = new Vertex[n];
 		int[][] neighbours = new int[n][m];
 		for(int i = 0; i<n; i++){
-			int x = R.nextInt((int) vDrawLimits.getWidth());
-			int y = R.nextInt((int) vDrawLimits.getHeight());
 			vertices[i] = new Vertex(x,y);
 		}
 		//make a path through all vertices, so that the graph is connected
@@ -257,7 +259,6 @@ public class Graph{
 			//Check if the created edge already existed
 			boolean exists = false;
 			for (int j = 0; j < neighbours[min].length; j++) {
-				if ((neighbours[min][j] == max)) { //COUNTING
 					exists = true;
 					if (DEBUG) {
 						System.out.println("FALSE " + u + " " + v);
@@ -305,7 +306,6 @@ public class Graph{
 	 */
 	public static int computableRandomGraph(int n, int m, int [][] adjList){
 		//Creation of the adjacency matrix
-		int[][] adjMatrix = makeAdjMatrix(n,adjList);
 		if(DEBUG){
 			for(int[] row : adjMatrix)
 				System.out.println(Arrays.toString(row));
@@ -369,7 +369,6 @@ public class Graph{
 			colorArr[i] = -1;
 		}
 		colorArr[0] = 1;
-		LinkedList<Integer> q = new LinkedList<Integer>();
 		q.add(0);
 
 		while (q.size() != 0)

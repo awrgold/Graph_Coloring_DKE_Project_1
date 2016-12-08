@@ -1,15 +1,19 @@
 import java.util.ArrayList;
 
 public class MaximumClique {
+
 	private int[][] adjMatrix;
 	//here the maxClique is going to be stored, after search() has been performed, it contains all vertices from the maximum clique
 	public int[] maxClique = new int[0];
+
 	//size of maxClique after search() has been performed
 	public int maxCliqueSize;
+
 	//get the adjmatrix and store as instance variable
 	public MaximumClique(int[][] adjMatrix){
 		this.adjMatrix = adjMatrix;
 	}
+
 	//call this to trigger the search for the largest clique
 	public void search(){
 		//first time enlarge gets called, feed it with all vertices

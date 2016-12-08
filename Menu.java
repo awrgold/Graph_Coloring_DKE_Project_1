@@ -1,3 +1,4 @@
+import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ public class Menu extends Level {
 		Vertex[] items = new MenuVertex[3];
 		items[0] = new MenuVertex(Game.WIDTH/4, Game.HEIGHT/2, "Import");		// TODO We need to find a way to make these points equidistant from the edges, same as the...
 		items[1] = new MenuVertex(Game.WIDTH / 2, Game.HEIGHT / 2, "Generate");        // TODO ...pause menu issue, where the vertices are displayed evenly in the frame. (ratio issue when dividing double/fraction)
-		items[2] = new MenuVertex(200, 200, "CircleGraph");
+		items[2] = new MenuVertex(200, 140, "CircleGraph");
 		super.setGraph(new Graph(items, new int[][]{ new int[]{1}, new int[0]}));
 		font = new Font("Main Menu Font", Font.BOLD, 20);
 	}
@@ -30,13 +31,7 @@ public class Menu extends Level {
     			//insert here what the menu items have to do
     			//start a level
 			if(clickedVertex==0){
-				// For the file chooser I had to create a new field in the GameState class which stores the current instance
-				// of the Game, so I can access it from here, in order to pass it to the JFileChooser(it has to know where to appear)
-
-				JFileChooser fileChooser = new JFileChooser(); //underneath, commented, is my directory for the graph files
-															   //you can either run the code like this or add a directory in
-															   //the JFileChooser constructor, works either way. Also feel free to delete this code-cluttering comment :D
-//				JFileChooser fileChooser = new JFileChooser("C:\\Users\\antonwnk\\Project 1\\phase1\\Test set");
+				JFileChooser fileChooser = new JFileChooser("C:\\Users\\antonwnk\\Project 1\\phase1\\Test set");
 				int hasFile = fileChooser.showDialog(state.game, "Choose graph file");
 				if (hasFile == JFileChooser.APPROVE_OPTION) {
 					File file = fileChooser.getSelectedFile();
@@ -92,7 +87,7 @@ public class Menu extends Level {
 			clickedVertex = -1;
     	}
     }
-    
+
     public void keyPressed(KeyEvent e){
     	if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
     		
