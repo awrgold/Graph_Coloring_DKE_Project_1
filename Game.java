@@ -26,7 +26,7 @@ public class Game extends Canvas implements Runnable {
     //level 1, needs to be added
     public Game() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        new Window("BeatTheKELK Build 0.2.2", this);
+        new Window("BeatTheKELK Build 0.2.2, IntelliJ rules", this);
         gamestate = new GameState();
     	gamestate.game = this;
         gamestate.states[0] = new Menu(gamestate);
@@ -73,7 +73,7 @@ public class Game extends Canvas implements Runnable {
 
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                System.out.println("FPS: " + frames);
+//                System.out.println("FPS: " + frames);
                 frames = 0;
             }
         }

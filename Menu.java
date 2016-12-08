@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.*;
 public class Menu extends Level {
 
 	private Font font;
@@ -80,7 +79,7 @@ public class Menu extends Level {
 				}
     		}
 			else if(clickedVertex == 2){
-				state.states[GameState.INGAME] = new PlaygroundLevel(state, new Graph(CircleSolver.getVertexObjects(CircleSolver.circlesolver (170, 0, 270, 15, false)), null)); //Here we test out CircleSolver
+				state.states[GameState.INGAME] = new PlaygroundLevel(state, new Graph(CircleSolver.getVertexObjects(CircleSolver.circlesolver (170, 0, 270, 14, false)), new int[][]{})); //Here we test out CircleSolver
 				state.setState(GameState.INGAME);
 			}
 
@@ -90,7 +89,7 @@ public class Menu extends Level {
 
     public void keyPressed(KeyEvent e){
     	if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-    		
+			System.exit(0);
     	}
     }
 

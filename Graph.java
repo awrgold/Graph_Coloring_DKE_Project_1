@@ -1,3 +1,4 @@
+import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ public class Graph{
 	private static final Random R = new Random();
 	private static final String COMMENT = "//";
 	private static final Color STANDARD_EDGE_COLOR = Color.BLACK;
+	private static Color STANDARD_EDGE_HIGHLIGHT_COLOR = Color.RED;
 
 	// TODO: 12/4/2016 This is temporarily just an idea (which also fixes the out of screen vertex generation), devise implementation strategy.
 	// Rim around the screen in order not to draw vertices outside the screen
@@ -26,15 +28,17 @@ public class Graph{
 	private static final Rectangle vDrawLimits = new Rectangle(RIM, RIM, Game.WIDTH - 2*RIM, Game.HEIGHT - 2*RIM);
 
 
-	//some explanation for that variable: it's gonna be n long, and contains in every row all neighbouring vertices with a higher index,
+	//some explanation for the variable neighbours: it's gonna be n long, and contains in every row all neighbouring vertices with a higher index,
 	//the last one would thus have no entries
 	//also there cannot be a row containing 0, and most importantly, when looping through it, every edge occurs exactly once
+	//the following block is set by standard in the constructor
 	private int[][] neighbours;
 	private Vertex[] vertices;
+	private Color edgeColor;
+	private Color edgeHighlightColor;
 	private int[][] adjacencyMatrix;
 	private int[][] degreeMatrix;
 	private int[][] laplacianMatrix;
-	private Color edgeColor;
 	private static int chromaticNumber; // TODO Need to change this <<Avoid use of static fields that are not final>>
 
 	/**
@@ -47,22 +51,24 @@ public class Graph{
 		this.vertices = vertices;
 		this.neighbours = neighbours;
 		this.edgeColor = STANDARD_EDGE_COLOR;
+		this.edgeHighlightColor = STANDARD_EDGE_HIGHLIGHT_COLOR;
 		adjacencyMatrix = getAdjacencyMatrix();
 		degreeMatrix = getDegreeMatrix();
 		laplacianMatrix = getLaplacianMatrix();
 
-//		for (int i = 0; i < neighbours.length; i++) {
-//			System.out.println(Arrays.toString(adjacencyMatrix[i]));
-//		}
-//		System.out.println("BUBBA");
-//		for (int i = 0; i < neighbours.length; i++) {
-//			System.out.println(Arrays.toString(degreeMatrix[i]));
-//		}
-//		System.out.println("BOOBBA");
-//		for (int i = 0; i < neighbours.length; i++) {
-//			System.out.println(Arrays.toString(laplacianMatrix[i]));
-//		}
-//		System.out.println("blub");
+		for (int i = 0; i < neighbours.length; i++) {
+			System.out.println(Arrays.toString(adjacencyMatrix[i]));
+		}
+		System.out.println("BUBBA");
+		for (int i = 0; i < neighbours.length; i++) {
+			System.out.println(Arrays.toString(degreeMatrix[i]));
+		}
+		System.out.println("BOOBBA");
+		for (int i = 0; i < neighbours.length; i++) {
+			System.out.println(Arrays.toString(laplacianMatrix[i]));
+		}
+		System.out.println("blub");
+
 	}
 
 	/**
@@ -75,13 +81,32 @@ public class Graph{
 		//also some kind of style information could be passed on to the constructor and used here
 		//drawing the vertices
 		g.setColor(edgeColor);
-		if(neighbours != null)
-			for(int i = 0;i<neighbours.length;i++)
-				for(int neighbour : neighbours[i])
-					g.drawLine(vertices[i].getCX(), vertices[i].getCY(), vertices[neighbour].getCX(), vertices[neighbour].getCY());
-
-		for(Vertex v : vertices){
-			v.draw(g);
+		for(int i = 0;i<neighbours.length;i++)
+			for(int neighbour : neighbours[i]){
+				g.drawLine(vertices[i].getCX(), vertices[i].getCY(), vertices[neighbour].getCX(), vertices[neighbour].getCY());
+			}
+		Vertex highlightedVertex = vertices[vertices.length-1];
+		int highlightedVertexIndex = -1;
+		//drawing the vertices
+		for (int i = 0; i < vertices.length; i++) {
+			Vertex v = vertices[i];
+			if(v.isHighlighted){
+				highlightedVertex = v;
+				highlightedVertexIndex = i;
+			}
+			else v.draw(g);
+		}
+		highlightedVertex.draw(g);
+		//draw all highlighted edges
+		if(highlightedVertexIndex != -1){
+			g.setColor(edgeHighlightColor);
+			g.setStroke(new BasicStroke(3));
+			for (int i = 0; i < adjacencyMatrix.length; i++) {
+				if(adjacencyMatrix[highlightedVertexIndex][i] == 1){
+					g.drawLine(highlightedVertex.getCX(), highlightedVertex.getCY(), vertices[i].getCX(), vertices[i].getCY());
+				}
+			}
+			g.setStroke(new BasicStroke(1));
 		}
 	}
 
