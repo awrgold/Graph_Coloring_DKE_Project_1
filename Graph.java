@@ -47,8 +47,22 @@ public class Graph{
 		this.vertices = vertices;
 		this.neighbours = neighbours;
 		this.edgeColor = STANDARD_EDGE_COLOR;
+		adjacencyMatrix = getAdjacencyMatrix();
+		degreeMatrix = getDegreeMatrix();
+		laplacianMatrix = getLaplacianMatrix();
 
-
+//		for (int i = 0; i < neighbours.length; i++) {
+//			System.out.println(Arrays.toString(adjacencyMatrix[i]));
+//		}
+//		System.out.println("BUBBA");
+//		for (int i = 0; i < neighbours.length; i++) {
+//			System.out.println(Arrays.toString(degreeMatrix[i]));
+//		}
+//		System.out.println("BOOBBA");
+//		for (int i = 0; i < neighbours.length; i++) {
+//			System.out.println(Arrays.toString(laplacianMatrix[i]));
+//		}
+//		System.out.println("blub");
 	}
 
 	/**
@@ -239,6 +253,8 @@ public class Graph{
 		Vertex[] vertices = new Vertex[n];
 		int[][] neighbours = new int[n][m];
 		for(int i = 0; i<n; i++){
+			int x = R.nextInt((int) vDrawLimits.getWidth());  // was Game.WIDHT
+			int y = R.nextInt((int) vDrawLimits.getHeight()); // was Game.HEIGHT
 			vertices[i] = new Vertex(x,y);
 		}
 		//make a path through all vertices, so that the graph is connected
@@ -259,6 +275,7 @@ public class Graph{
 			//Check if the created edge already existed
 			boolean exists = false;
 			for (int j = 0; j < neighbours[min].length; j++) {
+				if (neighbours[min][j] == max) { //COUNTING
 					exists = true;
 					if (DEBUG) {
 						System.out.println("FALSE " + u + " " + v);
@@ -306,6 +323,9 @@ public class Graph{
 	 */
 	public static int computableRandomGraph(int n, int m, int [][] adjList){
 		//Creation of the adjacency matrix
+				//int[][] adjMatrix = makeAdjMatrix(n,adjList);
+		int[][] adjMatrix = new Graph(null, adjList).getAdjacencyMatrix();//CAN make a graph with NULL vertices, errors only when attempting to draw
+
 		if(DEBUG){
 			for(int[] row : adjMatrix)
 				System.out.println(Arrays.toString(row));
@@ -361,6 +381,41 @@ public class Graph{
 		}
 		return adjMatrix;
 	}
+	private int[][] getAdjacencyMatrix() {
+		if (adjacencyMatrix == null) {
+			int[][] newAdjMatrix = new int[neighbours.length][neighbours.length];
+			for (int i = 0; i < neighbours.length; i++)
+				for (int neighbour : neighbours[i]) {
+					newAdjMatrix[i][neighbour] = 1;
+					newAdjMatrix[neighbour][i] = 1;
+				}
+			return newAdjMatrix;
+		}else
+			return adjacencyMatrix;
+	}
+
+	private int[][] getDegreeMatrix() {
+		if (degreeMatrix == null) {
+			int[][] newDegMat = new int[neighbours.length][neighbours.length];
+			for (int i = 0; i < neighbours.length; i++)
+				for (int j = 0; j < neighbours.length; j++)
+					newDegMat[i][i] += getAdjacencyMatrix()[i][j];
+			return newDegMat;
+		}else
+			return degreeMatrix;
+	}
+
+	private int[][] getLaplacianMatrix() {
+		if (laplacianMatrix == null) {
+			int[][] newLaplacian = new int[neighbours.length][neighbours.length];
+			for (int i = 0; i < neighbours.length; i++)
+				for (int j = 0; j < neighbours.length; j++)
+					newLaplacian[i][j] = getDegreeMatrix()[i][j]
+											- getAdjacencyMatrix()[i][j];
+			return newLaplacian;
+		}else
+			return laplacianMatrix;
+	}
 
 	private static boolean is2colorable(int[][] adjMatrix) {
 		int[] colorArr = new int[adjMatrix.length];
@@ -369,6 +424,7 @@ public class Graph{
 			colorArr[i] = -1;
 		}
 		colorArr[0] = 1;
+		LinkedList<Integer> q = new LinkedList<>();
 		q.add(0);
 
 		while (q.size() != 0)
@@ -396,5 +452,8 @@ public class Graph{
 		computableRandomGraph(4,6,g.neighbours);
 		Game game = new Game();
 		game.gamestate.states[GameState.INGAME] = new PlaygroundLevel(game.gamestate,g);
+		game.gamestate.setState(GameState.INGAME);
+
+//		Graph g = generateRandomGraph(5,5);
 	}
 }
