@@ -1,6 +1,5 @@
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.util.Arrays;
 import java.awt.Color;
 import java.io.*;
@@ -16,23 +15,15 @@ import java.util.*;
 public class Graph{
 
 	private static final boolean DEBUG = false;
-	private static final Random R = new Random();
 	private static final String COMMENT = "//";
 	private static final Color STANDARD_EDGE_COLOR = Color.BLACK;
-	private static Color STANDARD_EDGE_HIGHLIGHT_COLOR = Color.RED;
-
-	// TODO: 12/4/2016 This is temporarily just an idea (which also fixes the out of screen vertex generation), devise implementation strategy.
-	// Rim around the screen in order not to draw vertices outside the screen
-	private static final int RIM = Vertex.STANDARD_DIAMETER / 2;
-	// A rectangle (maybe in the future Oval) to specify the bounds in which we can draw vertices. TODO non-static
-	private static final Rectangle vDrawLimits = new Rectangle(RIM, RIM, Game.WIDTH - 2*RIM, Game.HEIGHT - 2*RIM);
-
+	private static final Color STANDARD_EDGE_HIGHLIGHT_COLOR = Color.RED;
 
 	//some explanation for the variable neighbours: it's gonna be n long, and contains in every row all neighbouring vertices with a higher index,
 	//the last one would thus have no entries
 	//also there cannot be a row containing 0, and most importantly, when looping through it, every edge occurs exactly once
 	//the following block is set by standard in the constructor
-	private int[][] neighbours;
+	private int[][] neighbours; // TODO: 12/9/2016 make to neighbours
 	private Vertex[] vertices;
 	private Color edgeColor;
 	private Color edgeHighlightColor;
@@ -75,11 +66,11 @@ public class Graph{
 	 * draws the graph's vertices and edges
 	 * @param g a Graphics2D object from a image/canvas to draw on
 	 */
+/*
 	public void draw(Graphics2D g){
+		//some kind of style information could be passed on to the constructor and used here
+
 		//drawing the edges
-		//one could add a if-statement so that the edges change color if any adjacent vertex is highlighted
-		//also some kind of style information could be passed on to the constructor and used here
-		//drawing the vertices
 		g.setColor(edgeColor);
 		for(int i = 0;i<neighbours.length;i++)
 			for(int neighbour : neighbours[i]){
@@ -108,6 +99,55 @@ public class Graph{
 			}
 			g.setStroke(new BasicStroke(1));
 		}
+	}
+*/
+
+	// TODO: 12/9/2016 Ask Jonas how we should handle the g.setColor() calls. I see that vertices call the setColor internally
+	public void draw(Graphics2D g) {
+		// Draw all the edges of the graph.
+		g.setColor(edgeColor);  // TODO: 12/9/2016 make it so we draw edges only 1ce.
+		for (int i = 0; i < neighbours.length; i++) {
+			if (!vertices[i].isHighlighted()) {
+				for (int neighbour : neighbours[i]) {
+					g.drawLine(vertices[i].getCX(), vertices[i].getCY(), vertices[neighbour].getCX(), vertices[neighbour].getCY());
+				}
+			}
+		}
+		// Draw all the vertices except the one that's highlighted (if there is a highlighted vertex) .
+		int highlightedVertex = -1;
+		for (int i = 0; i < vertices.length; i++) {
+			if (vertices[i].isHighlighted()) {
+				highlightedVertex = i;
+			}
+			else {
+				vertices[i].draw(g);
+			}
+		}
+		// If we find a highlighted vertex then:
+		if (highlightedVertex != -1) {
+			// Store it and initialize a list of it's neighbours
+			Vertex v = vertices[highlightedVertex];
+			Vertex n;
+			List<Vertex> nList = new LinkedList<>();
+			// Highlight all it's incident edges
+			g.setColor(edgeHighlightColor);
+			g.setStroke(new BasicStroke(3));
+			for (int i = 0; i < adjacencyMatrix.length; i++) {
+				if(adjacencyMatrix[highlightedVertex][i] == 1) {
+					n = vertices[i];
+					g.drawLine(v.getCX(), v.getCY(), n.getCX(), n.getCY());
+					nList.add(n);
+				}
+			}
+			nList.add(v);
+			g.setStroke(new BasicStroke(1));
+			// Redraw all the neighbours
+			for (Vertex neighbour : nList) {
+				// TODO neighbour.setBorderColor(Vertex.)
+				neighbour.draw(g);
+			}
+		}
+
 	}
 
 	/**
@@ -138,6 +178,7 @@ public class Graph{
 	 * @return Graph...
 	 */
 	public static Graph readGraphFromFile(File file){  // TODO: 12/3/2016 Have to add protection against wrong file format being passed
+		Random r = new Random();
 		if( file == null )
 		{
 			System.out.println("Error! Empty file.");
@@ -171,8 +212,8 @@ public class Graph{
 			}
 			Vertex[] vertices = new Vertex[n];
 			for(int i = 0; i<n; i++){
-				int x = R.nextInt((int) vDrawLimits.getWidth());
-				int y = R.nextInt((int) vDrawLimits.getHeight());
+				int x = r.nextInt(Game.WIDTH - Vertex.STANDARD_DIAMETER);
+				int y = r.nextInt(Game.HEIGHT - Vertex.STANDARD_DIAMETER);
 				vertices[i] = new Vertex(x,y);
 			}
 
@@ -275,25 +316,27 @@ public class Graph{
 	 */
 	public static Graph generateRandomGraph(int n, int m){
 		//these arrays are going to be filled with the vertices and edges of the graph
+		Random r = new Random();
 		Vertex[] vertices = new Vertex[n];
 		int[][] neighbours = new int[n][m];
 		for(int i = 0; i<n; i++){
-			int x = R.nextInt((int) vDrawLimits.getWidth());  // was Game.WIDHT
-			int y = R.nextInt((int) vDrawLimits.getHeight()); // was Game.HEIGHT
+			int x = r.nextInt(Game.WIDTH - Vertex.STANDARD_DIAMETER);  // was Game.WIDHT
+			int y = r.nextInt(Game.HEIGHT - Vertex.STANDARD_DIAMETER); // was Game.HEIGHT
 			vertices[i] = new Vertex(x,y);
 		}
 		//make a path through all vertices, so that the graph is connected
 		for(int i = 0; i<n-1;i++){
 			neighbours[i][0] = i+1;
 		}
+
 		//generate m-(n-1) (=the edges left over after the path) edges randomly
 		for (int i = 0; i < m - n + 1; i++) {
 			//randomly select two vertices to create a edge between them
-			int u = R.nextInt(n);
-			int v = R.nextInt(n);
+			int u = r.nextInt(n);
+			int v = r.nextInt(n);
 			//check for u==v
 			while (u == v) {
-				v = R.nextInt(n); //the random assigned vertex to v has to differ from u COUNTING
+				v = r.nextInt(n); //the random assigned vertex to v has to differ from u COUNTING
 			}
 			int min = Math.min(u, v);
 			int max = Math.max(u, v);
@@ -348,7 +391,7 @@ public class Graph{
 	 */
 	public static int computableRandomGraph(int n, int m, int [][] adjList){
 		//Creation of the adjacency matrix
-				//int[][] adjMatrix = makeAdjMatrix(n,adjList);
+				//int[][] adjMatrix = makeAdjMatrix(n,neighbours);
 		int[][] adjMatrix = new Graph(null, adjList).getAdjacencyMatrix();//CAN make a graph with NULL vertices, errors only when attempting to draw
 
 		if(DEBUG){
@@ -372,7 +415,7 @@ public class Graph{
 		//Greedy, back-track, welsh-powell and maximum-clique algorithms to figure out the chromatic number
 		MaximumClique cliqueFinder = new MaximumClique(adjMatrix);
 		cliqueFinder.search();
-		//Greedy greedy = new Greedy(adjList);  //Adjecency list is not yet in the same format!!!
+		//Greedy greedy = new Greedy(neighbours);  //Adjecency list is not yet in the same format!!!
 		//greedy.search();
 		BacktrackGreedy backtrack = new BacktrackGreedy(adjMatrix);
 		int maxCliqueSize = cliqueFinder.maxCliqueSize;
@@ -473,7 +516,7 @@ public class Graph{
 
 
 	public static void main(String[] args){
-		Graph g = generateRandomGraph(4,6);
+		Graph g = generateRandomGraph(10,20);
 		computableRandomGraph(4,6,g.neighbours);
 		Game game = new Game();
 		game.gamestate.states[GameState.INGAME] = new PlaygroundLevel(game.gamestate,g);

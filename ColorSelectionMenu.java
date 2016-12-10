@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 
+// TODO: 12/9/2016 Cleanup
 public class ColorSelectionMenu {
     //the standard radius
     public final static int STANDARD_RADIUS = 60;

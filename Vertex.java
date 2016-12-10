@@ -13,12 +13,13 @@ public class Vertex {
 	private static final Color STANDARD_COLOR = Color.WHITE;
 	private static final Color STANDARD_HIGHLIGHT_BORDER_COLOR = Color.RED;
 	private static final Color STANDARD_BORDER_COLOR = Color.BLACK;
+	private static final Color STANDARD_NEIGHBOUR_COLOR = new Color(150, 0, 0);
 	protected static final int STANDARD_DIAMETER = 30;
 	protected Color color;
 	protected int x;
 	protected int y;
 	protected int diameter;
-	protected boolean isHighlighted;
+	private boolean isHighlighted;
 
 	public Vertex(int x, int y){
 		this.x = x;
