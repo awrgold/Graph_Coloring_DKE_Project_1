@@ -20,13 +20,13 @@ public class PlaygroundLevel extends Level {
 	public void mousePressed(MouseEvent e){
 		super.mousePressed(e);
 		if(clickedVertex != -1 && e.getButton() == MouseEvent.BUTTON1){
- 			csm = new ColorSelectionMenu(graph.getVertex(clickedVertex),new int[]{0,1,2,3,4,5,6});
+ 			csm = new ColorSelectionMenu(graph.getVertex(clickedVertex),graph.getVertexColor(clickedVertex),graph.getAvailableColors(clickedVertex));
  		}
 	}
 	public void mouseReleased(MouseEvent e){
 		if(clickedVertex != -1 && e.getButton() == MouseEvent.BUTTON1){
 			Vertex v = graph.getVertex(clickedVertex);
-			v.setColor(csm.getSelection(e.getX(),e.getY()));
+			graph.setVertexColor(clickedVertex, csm.getSelection(e.getX(),e.getY()));
 			csm = null;
 		}
 		super.mouseReleased(e);

@@ -10,8 +10,7 @@ import java.util.List;
  */
 
 public class Graph{
-
-	private static final boolean DEBUG = false;
+	public final static Color[] COLORS = new Color[]{Color.WHITE, Color.BLUE, Color.PINK, new Color(0x9B30FF), Color.CYAN, Color.GREEN, Color.darkGray, Color.LIGHT_GRAY};
 	private static final Color STANDARD_EDGE_COLOR = Color.BLACK;
 	private static final Color STANDARD_EDGE_HIGHLIGHT_COLOR = Color.RED;
 
@@ -24,6 +23,7 @@ public class Graph{
 	private Color edgeColor;
 	private Color edgeHighlightColor;
 	private int[][] adjacencyMatrix;
+	//0 is not colored
 	private int[] coloring;
 	private int usedColors;
 	/**
@@ -38,11 +38,42 @@ public class Graph{
 		this.edgeColor = STANDARD_EDGE_COLOR;
 		this.edgeHighlightColor = STANDARD_EDGE_HIGHLIGHT_COLOR;
 		adjacencyMatrix = getAdjacencyMatrix();
+		coloring = new int[neighbours.length];
+		usedColors = 1;
 	}
 
 	public int[] getAvailableColors(int vertex){
-
-		return null;
+		int[] availableColors = new int[usedColors];
+		availableColors[0] = usedColors;
+		int count = 1;
+		//significantly optimizable
+		for (int i = 1; i < usedColors; i++) {
+			boolean isUsedByNeighbour = false;
+			for (int j = 0; j < adjacencyMatrix.length; j++) {
+				if(adjacencyMatrix[vertex][j] == 1 && getVertexColor(j) == i) {
+					isUsedByNeighbour = true;
+					break;
+				}
+			}
+			System.out.println("color "+i+" "+isUsedByNeighbour);
+			if(!isUsedByNeighbour) {
+				availableColors[count] = i;
+				count++;
+			}
+		}
+		//cut off the unused 0s
+		int[] temp = new int[count];
+		System.arraycopy(availableColors,0, temp,0,count);
+		availableColors = temp;
+		return availableColors;
+	}
+	public int getVertexColor(int v){
+		return coloring[v];
+	}
+	public void setVertexColor(int v, int color){
+		if(color >= usedColors)
+			usedColors = color+1;
+		coloring[v] = color;
 	}
 	/**
 	 * draws the graph's vertices and edges
@@ -65,7 +96,7 @@ public class Graph{
 				highlightedVertex = i;
 			}
 			else {
-				vertices[i].draw(g);
+				vertices[i].draw(g, COLORS[coloring[i]]);
 			}
 		}
 		// If we find a highlighted vertex then:
@@ -73,7 +104,7 @@ public class Graph{
 			// Store it and initialize a list of it's neighbours
 			Vertex v = vertices[highlightedVertex];
 			Vertex n;
-			List<Vertex> nList = new LinkedList<>();
+			List<Integer> nList = new LinkedList<>();
 			// Highlight all it's incident edges
 			g.setColor(edgeHighlightColor);
 			g.setStroke(new BasicStroke(3));
@@ -81,15 +112,15 @@ public class Graph{
 				if(adjacencyMatrix[highlightedVertex][i] == 1) {
 					n = vertices[i];
 					g.drawLine(v.getCX(), v.getCY(), n.getCX(), n.getCY());
-					nList.add(n);
+					nList.add(i);
 				}
 			}
-			nList.add(v);
+			nList.add(highlightedVertex);
 			g.setStroke(new BasicStroke(1));
 			// Redraw all the neighbours
-			for (Vertex neighbour : nList) {
+			for (int neighbour : nList) {
 				// TODO neighbour.setBorderColor(Vertex.)
-				neighbour.draw(g);
+				vertices[neighbour].draw(g,COLORS[getVertexColor(neighbour)]);
 			}
 		}
 
