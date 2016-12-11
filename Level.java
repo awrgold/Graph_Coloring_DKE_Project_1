@@ -88,4 +88,8 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 			isDragging = false;
 		}
 	}
+//  Implementation for these methods can be added.
+//	public void mouseClicked(MouseEvent e){}
+//	public void mouseEntered(MouseEvent e){}
+//	public void mouseExited(MouseEvent e) {}
 }

@@ -14,7 +14,7 @@ public class Menu extends Level {
 		items[0] = new MenuVertex(Game.WIDTH/4, Game.HEIGHT/2, "Import");		// TODO We need to find a way to make these points equidistant from the edges, same as the...
 		items[1] = new MenuVertex(Game.WIDTH / 2, Game.HEIGHT / 2, "Generate");        // TODO ...pause menu issue, where the vertices are displayed evenly in the frame. (ratio issue when dividing double/fraction)
 		items[2] = new MenuVertex(200, 140, "CircleGraph");
-		super.setGraph(new Graph(items, new int[][]{ new int[]{1}, new int[0]}));
+		super.setGraph(new Graph(items, new int[][]{ new int[]{1}, new int[0], new int[]{1}}));
 		font = new Font("Main Menu Font", Font.BOLD, 20);
 	}
     public void draw(Graphics2D g) {
