@@ -58,7 +58,10 @@ public class Game extends Canvas implements Runnable {
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
+        long timer2 = System.currentTimeMillis();
         int frames = 0;
+        //cap to ~60 fps, by forcing a minimum time between frames
+        long minTimeBetweenFrames =(long) 17; //in ms
         while(running) {
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
@@ -67,13 +70,21 @@ public class Game extends Canvas implements Runnable {
                 tick();
                 delta--;
             }
-            if (running)
+            now = System.currentTimeMillis();
+            if (running && now - timer > minTimeBetweenFrames) {
+                timer += minTimeBetweenFrames;
                 render();
-            frames++;
-
-            if (System.currentTimeMillis() - timer > 1000) {
-                timer += 1000;
-//                System.out.println("FPS: " + frames);
+                frames++;
+            } else {
+                try {
+                    Thread.sleep(minTimeBetweenFrames - (now - timer));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(System.currentTimeMillis() - timer2 > 1000){
+                timer2 += 1000;
+                System.out.println("FPS: "+frames);
                 frames = 0;
             }
         }
