@@ -14,7 +14,7 @@ public class MenuVertex extends Vertex {
         //g.drawOval(x,y,diameter,diameter);
         super.draw(g);
 		g.setColor(Color.BLACK);
-		g.drawString(label, this.getCX(), this.getCY()));
+		g.drawString(label, this.getCX(), this.getCY());
 	}
 
 }
