@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 public class PlaygroundLevel extends Level {
 	protected ColorSelectionMenu csm;
 	public PlaygroundLevel(GameState state){
-		super(state, Graph.generateRandomGraph(15,60));
+		super(state, GraphUtil.generateRandomGraph(15,60));
 	}
 
 	public PlaygroundLevel(GameState state, Graph g){

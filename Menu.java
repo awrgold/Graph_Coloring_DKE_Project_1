@@ -36,7 +36,7 @@ public class Menu extends Level {
 					File file = fileChooser.getSelectedFile();
 					int mode = getMode();
 					System.out.println("mode is: "+mode);
-					state.states[GameState.INGAME] = new PlaygroundLevel(state, Graph.readGraphFromFile(file)); //Start the actual game. HOW to implement feedback: what happens if we cannot compute the chromatic number, or the file was corrupt??
+					state.states[GameState.INGAME] = new PlaygroundLevel(state, GraphUtil.readGraphFromFile(file)); //Start the actual game. HOW to implement feedback: what happens if we cannot compute the chromatic number, or the file was corrupt??
 					state.setState(GameState.INGAME);
 				}
 //				String input = JOptionPane.showInputDialog("Please give the directory to your graph file, make use of \\"+"\\ instead of \\. ");//needs to be fixed
@@ -70,7 +70,7 @@ public class Menu extends Level {
 							int mode = getMode();
 							System.out.println("mode is: "+mode);
 							falseVertexEdgeComb = false;
-							state.states[GameState.INGAME] = new PlaygroundLevel(state, Graph.generateRandomGraph(m, n)); //Start the actual game
+							state.states[GameState.INGAME] = new PlaygroundLevel(state, GraphUtil.generateRandomGraph(m, n)); //Start the actual game
 							state.setState(GameState.INGAME);
 						}
 					}else if(result == JOptionPane.CANCEL_OPTION){

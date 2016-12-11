@@ -61,6 +61,7 @@ public class ColorSelectionMenu {
         return COLORS[colors[getSelectedTile(x,y)]];
     }
     public void highlight(int x, int y){
+
         highlightedTile = getSelectedTile(x,y);
     }
 
