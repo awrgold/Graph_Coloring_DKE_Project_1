@@ -25,7 +25,7 @@ public class PauseMenu extends Level {
 				state.setState(GameState.MAIN_MENU);
 			}
 			if(clickedVertex == 2){ // TODO add a restart() function to the Level class
-				state.states[GameState.INGAME] = new PlaygroundLevel(state,Graph.generateRandomGraph(3, 3));
+				state.states[GameState.INGAME] = new PlaygroundLevel(state,GraphUtil.generateRandomGraph(3, 3));
 				state.setState(GameState.INGAME);
 			}
 			if (clickedVertex == 3) { // If they click "Resume," resume same game with no changes.

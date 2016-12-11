@@ -9,8 +9,9 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 	protected GameState state;
 	protected Graph graph;
 	protected int clickedVertex;
-	protected int hoveredVertex;
-    //vertex-mouse-offset: the offset of the mouse from the coordinates of the vertex (used so that the vertex doesn't "jump" when starting to drag)
+	protected int lastHoveredVertex;
+	protected boolean isDragging;
+    //vertex-mouse-offset: the offset of the mouse from the center of the vertex (used so that the vertex doesn't "jump" when starting to drag
 	private int vmOffsetX;
 	private int vmOffsetY;
 
@@ -18,7 +19,8 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 		this.state = state;
 		this.graph = graph;
 		clickedVertex = -1;
-		hoveredVertex = -1;
+		lastHoveredVertex = 0;
+		isDragging = false;
 	}
 
 	public void terminate(){
@@ -39,22 +41,34 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
 			state.setState(GameState.PAUSE_MENU);
 	}
-	
+
+	public void mouseMoved(MouseEvent e){
+		int currHoveredVertex = graph.getVertexAt(e.getX(), e.getY());
+		if(currHoveredVertex != lastHoveredVertex)
+			graph.getVertex(lastHoveredVertex).highlight(false);
+		if(currHoveredVertex != -1){
+			Vertex v = graph.getVertex(currHoveredVertex);
+			v.highlight(true);
+			lastHoveredVertex = currHoveredVertex;
+		}
+	}
+
 	public void mousePressed(MouseEvent e){
 		clickedVertex = graph.getVertexAt(e.getX(), e.getY());
 		if(clickedVertex != -1){
 			Vertex v = graph.getVertex(clickedVertex);
-    		vmOffsetX = e.getX() - v.getX();
-     		vmOffsetY = e.getY() - v.getY();
-		}			
+    		vmOffsetX = e.getX()-v.getX();
+     		vmOffsetY = e.getY()-v.getY();
+     		if(e.getButton() == MouseEvent.BUTTON3){
+     			isDragging = true;
+     		}
+		}
 	}
 	
 	public void mouseDragged(MouseEvent e){
-
-		if(clickedVertex != -1){
+		if(clickedVertex != -1 && isDragging){
 			int newX = e.getX() - vmOffsetX;
 			int newY = e.getY() - vmOffsetY;
-
 			Vertex v = graph.getVertex(clickedVertex);
 			if(newX < 0)
 				newX = 0;
@@ -70,5 +84,12 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 
 	public void mouseReleased(MouseEvent e){
 		clickedVertex = -1;
+		if(e.getButton() == MouseEvent.BUTTON3){
+			isDragging = false;
+		}
 	}
+//  Implementation for these methods can be added.
+//	public void mouseClicked(MouseEvent e){}
+//	public void mouseEntered(MouseEvent e){}
+//	public void mouseExited(MouseEvent e) {}
 }

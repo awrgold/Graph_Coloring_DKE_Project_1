@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.*;
 public class Menu extends Level {
 
 	private Font font;
@@ -15,7 +14,7 @@ public class Menu extends Level {
 		items[0] = new MenuVertex(Game.WIDTH/4, Game.HEIGHT/2, "Import");		// TODO We need to find a way to make these points equidistant from the edges, same as the...
 		items[1] = new MenuVertex(Game.WIDTH / 2, Game.HEIGHT / 2, "Generate");        // TODO ...pause menu issue, where the vertices are displayed evenly in the frame. (ratio issue when dividing double/fraction)
 		items[2] = new MenuVertex(200, 140, "CircleGraph");
-		super.setGraph(new Graph(items, new int[][]{ new int[]{1}, new int[0]}));
+		super.setGraph(new Graph(items, new int[][]{ new int[]{1}, new int[0], new int[]{1}}));
 		font = new Font("Main Menu Font", Font.BOLD, 20);
 	}
     public void draw(Graphics2D g) {
@@ -37,7 +36,7 @@ public class Menu extends Level {
 					File file = fileChooser.getSelectedFile();
 					int mode = getMode();
 					System.out.println("mode is: "+mode);
-					state.states[GameState.INGAME] = new PlaygroundLevel(state, Graph.readGraphFromFile(file)); //Start the actual game. HOW to implement feedback: what happens if we cannot compute the chromatic number, or the file was corrupt??
+					state.states[GameState.INGAME] = new PlaygroundLevel(state, GraphUtil.readGraphFromFile(file)); //Start the actual game. HOW to implement feedback: what happens if we cannot compute the chromatic number, or the file was corrupt??
 					state.setState(GameState.INGAME);
 				}
 //				String input = JOptionPane.showInputDialog("Please give the directory to your graph file, make use of \\"+"\\ instead of \\. ");//needs to be fixed
@@ -71,7 +70,7 @@ public class Menu extends Level {
 							int mode = getMode();
 							System.out.println("mode is: "+mode);
 							falseVertexEdgeComb = false;
-							state.states[GameState.INGAME] = new PlaygroundLevel(state, Graph.generateRandomGraph(m, n)); //Start the actual game
+							state.states[GameState.INGAME] = new PlaygroundLevel(state, GraphUtil.generateRandomGraph(m, n)); //Start the actual game
 							state.setState(GameState.INGAME);
 						}
 					}else if(result == JOptionPane.CANCEL_OPTION){
@@ -80,7 +79,7 @@ public class Menu extends Level {
 				}
     		}
 			else if(clickedVertex == 2){
-				state.states[GameState.INGAME] = new PlaygroundLevel(state, new Graph(CircleSolver.getVertexObjects(CircleSolver.circlesolver (170, 0, 270, 15, false)), null)); //Here we test out CircleSolver
+				state.states[GameState.INGAME] = new PlaygroundLevel(state, new Graph(CircleSolver.getVertexObjects(CircleSolver.circlesolver (170, 0, 270, 14, false)), new int[][]{})); //Here we test out CircleSolver
 				state.setState(GameState.INGAME);
 			}
 
@@ -88,9 +87,10 @@ public class Menu extends Level {
     	}
     }
 
+    @Override
     public void keyPressed(KeyEvent e){
     	if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-    		
+			System.exit(0);
     	}
     }
 
