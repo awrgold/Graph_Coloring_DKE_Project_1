@@ -3,6 +3,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.sound.sampled.*;
+import java.io.File;
 
 public abstract class Level extends MouseAdapter implements KeyListener{
 
@@ -42,6 +44,8 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 			state.setState(GameState.PAUSE_MENU);
 	}
 
+	// TODO mousepress soundFX here.
+
 	public void mouseMoved(MouseEvent e){
 		int currHoveredVertex = graph.getVertexAt(e.getX(), e.getY());
 		if(currHoveredVertex != lastHoveredVertex)
@@ -56,15 +60,17 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 	public void mousePressed(MouseEvent e){
 		clickedVertex = graph.getVertexAt(e.getX(), e.getY());
 		if(clickedVertex != -1){
+			//TODO: If clicked, do: (insert SFX)
+			//super.mousePressed allows me to reference this class from a subclass
+			//and make individual changes based on the class (on top of what already exists)
 			Vertex v = graph.getVertex(clickedVertex);
-    		vmOffsetX = e.getX()-v.getX();
-     		vmOffsetY = e.getY()-v.getY();
-     		if(e.getButton() == MouseEvent.BUTTON3){
+    		vmOffsetX = e.getX() - v.getX();
+     		vmOffsetY = e.getY() - v.getY();
+if(e.getButton() == MouseEvent.BUTTON3){
      			isDragging = true;
-     		}
-		}
+     		}		}
 	}
-	
+
 	public void mouseDragged(MouseEvent e){
 		if(clickedVertex != -1 && isDragging){
 			int newX = e.getX() - vmOffsetX;

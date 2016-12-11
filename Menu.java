@@ -17,10 +17,12 @@ public class Menu extends Level {
 		super.setGraph(new Graph(items, new int[][]{ new int[]{1}, new int[0], new int[]{1}}));
 		font = new Font("Main Menu Font", Font.BOLD, 20);
 	}
+	// TODO: drawing the image for the menu
     public void draw(Graphics2D g) {
 		g.setFont(font);
 		graph.draw(g);
-    }
+
+	}
 
     public void tick(){}
 

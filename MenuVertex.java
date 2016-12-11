@@ -11,10 +11,10 @@ public class MenuVertex extends Vertex {
 
 	}
 	public void draw(Graphics2D g){
-		//g.drawOval(x,y,diameter,diameter);
-		super.draw(g);
-		g.setColor(Color.CYAN);
-		g.drawString(label, this.getCX(), this.getCY());
+        //g.drawOval(x,y,diameter,diameter);
+        super.draw(g);
+		g.setColor(Color.BLACK);
+		g.drawString(label, this.getCX(), this.getCY()));
 	}
 
 }

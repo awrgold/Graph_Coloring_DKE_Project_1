@@ -10,6 +10,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import javax.sound.sampled.*;
+import java.io.File;
+
 
 public class Game extends Canvas implements Runnable {
 
@@ -84,6 +87,7 @@ public class Game extends Canvas implements Runnable {
     	gamestate.getActiveLevel().tick();
     }
 
+    // What implements everything visual. ***
     public void render() {
         BufferStrategy bs = this.getBufferStrategy();
         if(bs == null){
@@ -92,11 +96,12 @@ public class Game extends Canvas implements Runnable {
         }
         Graphics bg = bs.getDrawGraphics();
         BufferedImage dbi = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g = (Graphics2D) dbi.getGraphics();
+        Graphics2D g = (Graphics2D) dbi.getGraphics(); // Base graphics 2D (g)
         g.setColor(Color.WHITE);
+        // TODO: Set the background image (image with graphics 2D)
         g.fillRect(0, 0, WIDTH,HEIGHT);
+        //getActiveLevel is in GameState, and draws the level.
         gamestate.getActiveLevel().draw(g);
-
         bg.drawImage(dbi, 0, 0, this);
         bs.show();
         bg.dispose();
