@@ -25,19 +25,24 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
     public GameState gamestate;
 
+    private AudioPlayer SFX;
+    private AudioPlayer bgMusic;
+
     //level 0 is the menu
     //level 1, needs to be added
     public Game() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        new Window("BeatTheKELK Build 0.2.2, IntelliJ rules", this);
         gamestate = new GameState();
     	gamestate.game = this;
         gamestate.states[0] = new Menu(gamestate);
         gamestate.states[2] = new PauseMenu(gamestate);
         GameInputListener il = new GameInputListener();
+        bgMusic = new AudioPlayer("/resources/Music/bgMusic1.wav");
         this.addMouseListener(il);
         this.addMouseMotionListener(il);
         this.addKeyListener(il);
+        new Window("BeatTheKELK Build 0.2.2, IntelliJ rules", this);
+        //Temporary placeholder for background music as a test. TODO - FIX THIS AND INPUT REAL MUSIC (FIND OUT HOW TO LOOP?)
     }
 
     public synchronized void start() {
@@ -97,7 +102,7 @@ public class Game extends Canvas implements Runnable {
         Graphics bg = bs.getDrawGraphics();
         BufferedImage dbi = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = (Graphics2D) dbi.getGraphics(); // Base graphics 2D (g)
-        g.setColor(Color.WHITE);
+        g.setColor(Color.LIGHT_GRAY);
         // TODO: Set the background image (image with graphics 2D)
         g.fillRect(0, 0, WIDTH,HEIGHT);
         //getActiveLevel is in GameState, and draws the level.

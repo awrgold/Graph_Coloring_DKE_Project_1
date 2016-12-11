@@ -6,21 +6,29 @@ import java.io.File;
 
 public class PauseMenu extends Level {
 
+	private AudioPlayer blip1;
+
 	public PauseMenu(GameState state) {
 		super(state,null);
 		MenuVertex[] items;
 		clickedVertex = -1;
 		items = new MenuVertex[4];
-		items[3] = new MenuVertex(Game.WIDTH/5, Game.HEIGHT/5, " Resume");
-		items[2] = new MenuVertex((Game.WIDTH*2)/3, Game.HEIGHT/5, "   Restart");
-		items[0] = new MenuVertex(Game.WIDTH/5, Game.HEIGHT*2/3, "    Save");		// Spaces in string(s) to offset the text to be perfectly above the vertex.
-		items[1] = new MenuVertex((Game.WIDTH*2)/3, Game.HEIGHT*2/3, "     Quit");
+		items[3] = new MenuVertex(Game.WIDTH/5, Game.HEIGHT/5, "Resume");
+		items[2] = new MenuVertex((Game.WIDTH*2)/3, Game.HEIGHT/5, "Restart");
+		items[0] = new MenuVertex(Game.WIDTH/5, Game.HEIGHT*2/3, "Save");		// Spaces in string(s) to offset the text to be perfectly above the vertex.
+		items[1] = new MenuVertex((Game.WIDTH*2)/3, Game.HEIGHT*2/3, "Quit");
 		graph = new Graph(items, new int[][]{new int[]{2}, new int[]{3}, new int[]{}, new int[]{}});
+		blip1 = new AudioPlayer("/resources/SFX/blip 1.wav");
+
 
 	}
 	public void mousePressed(MouseEvent e){
 		super.mousePressed(e);
 		if(e.getButton() == MouseEvent.BUTTON1){
+			if (clickedVertex != -1){
+				blip1.play();
+				elevMusic.stop();
+			}
 			if (clickedVertex == 0) { // TODO: If they click "Save," save the current state of the game to a file in the game folder.
 			}
 			if (clickedVertex == 1) { // If they click "Quit," send them back to the start menu.
