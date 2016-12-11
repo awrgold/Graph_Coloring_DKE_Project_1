@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6f9e1055-a98f-48ea-af36-9a1b0a0c0358" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project-1/.gitignore" afterPath="$PROJECT_DIR$/out/production/Project-1/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project-1/.idea/workspace.xml" afterPath="$PROJECT_DIR$/out/production/Project-1/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Game.java" afterPath="$PROJECT_DIR$/Game.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,21 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="36" lean-forward="false" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Graph.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Graph.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1768">
-              <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+            <state relative-caret-position="454">
+              <caret line="79" column="18" lean-forward="false" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -55,42 +44,69 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Graph.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Graph.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1122">
+              <caret line="66" column="18" lean-forward="false" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ColorSelectionMenu.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ColorSelectionMenu.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="24">
+              <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PauseMenu.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PauseMenu.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="28" column="49" lean-forward="false" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Menu.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Menu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="578">
+              <caret line="39" column="53" lean-forward="false" selection-start-line="39" selection-start-column="53" selection-end-line="39" selection-end-column="53" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Canvas.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/java/awt/Canvas.java">
+      <file leaf-file-name="PlaygroundLevel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PlaygroundLevel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2346">
-              <caret line="167" column="16" lean-forward="false" selection-start-line="167" selection-start-column="16" selection-end-line="167" selection-end-column="16" />
-              <folding />
+            <state relative-caret-position="68">
+              <caret line="6" column="31" lean-forward="false" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+              <folding>
+                <element signature="e#183#184#0" expanded="true" />
+                <element signature="e#240#241#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JPanel.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/javax/swing/JPanel.java">
+      <file leaf-file-name="GraphUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GraphUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="64" column="33" lean-forward="false" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JComponent.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/javax/swing/JComponent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2023">
-              <caret line="183" column="22" lean-forward="false" selection-start-line="183" selection-start-column="22" selection-end-line="183" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="449">
+              <caret line="232" column="5" lean-forward="false" selection-start-line="232" selection-start-column="5" selection-end-line="232" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -138,7 +154,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/PlaygroundLevel.java" />
         <option value="$PROJECT_DIR$/MenuVertex.java" />
         <option value="$PROJECT_DIR$/GameState.java" />
         <option value="$PROJECT_DIR$/ScreenTest.java" />
@@ -146,11 +161,15 @@
         <option value="$PROJECT_DIR$/Vertex.java" />
         <option value="$PROJECT_DIR$/ChooseGameMode.form" />
         <option value="$PROJECT_DIR$/MaximumClique.java" />
-        <option value="$PROJECT_DIR$/Menu.java" />
         <option value="$PROJECT_DIR$/CircleSolver.java" />
         <option value="$PROJECT_DIR$/Window.java" />
-        <option value="$PROJECT_DIR$/Game.java" />
+        <option value="$PROJECT_DIR$/GraphUtil.java" />
+        <option value="$PROJECT_DIR$/Menu.java" />
+        <option value="$PROJECT_DIR$/PlaygroundLevel.java" />
+        <option value="$PROJECT_DIR$/PauseMenu.java" />
         <option value="$PROJECT_DIR$/Graph.java" />
+        <option value="$PROJECT_DIR$/ColorSelectionMenu.java" />
+        <option value="$PROJECT_DIR$/Game.java" />
       </list>
     </option>
   </component>
@@ -174,6 +193,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -188,9 +210,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -516,7 +535,14 @@
       <option name="project" value="LOCAL" />
       <updated>1480876314225</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="cfgh">
+      <created>1481458370082</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1481458370082</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -531,14 +557,14 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3400621" sideWeight="0.50292826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29096478" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32763976" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15007657" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32618684" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32763976" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2532943" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25623053" sideWeight="0.4937888" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1588785" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20404984" sideWeight="0.4937888" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -548,7 +574,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32763976" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32618684" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919255" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -559,7 +585,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added the option to pass null object to edges component of the Graph constructor&#10;&#10;and made the menu vertices smaller; not everyone has a nice 4k display as Andrew" />
     <MESSAGE value="1. Added JFileChooser to &quot;import graph&quot; button&#10;   - This required some changes in the Graph class, i.e. making the generateGraphFromFile method to work with a file, not a string&#10;   - For this I also had to add a variable of type Game to the GameState class because the FileChooser needed to know where to appear(the game canvas); this also allows us access to other stuff in the Game class, idk if it's gonna be useful later but it might.&#10;   - WARNING: &quot;&quot;You can overwrite stuff with the filechooser&quot;&quot; says here: https://docs.oracle.com/javase/tutorial/uiswing/components/filechooser.html ~~ I'd say disregard this, we're computer scientists&#10;   &#10; 2. Fixed the drawing/dragging of vertices outside the screen. Explained in parts:&#10;    2.1. The JFrame's size was increased by a small amount in order for us to actually have 900x600 pixels to draw our stuff onto. Game.WIDTH and HEIGHT still hold 900 and 600 respectively, but are now used to indicate the actual size/bounds of our screen.&#10;    2.2. For graph generation (Graph class) I added a static(for now) Rectangle variable to represent the perimeter inside of which we can actually draw vertices, so that vertices will now be drawn integrally inside our screen, not with part of the vertex obscured by the frame limits. My approach may seem kinda &quot;abstract&quot; or not straightforward but I think this can be used if we want to restrict our graph drawing inside an oval or smth else. More explanation on this will be done in person.&#10;    2.3. Lastly I made small changes where the vertex dragging is handled, cleaning up the code and making them not draggable out of screen bounds.&#10;    &#10;3. Many small things:&#10;   - Added spacing wherever I stumbled upon what I consider cluttered code.&#10;   - In Graph I added a static final Random object to change the &quot;Math.random * something (casted to int) &quot; into R.nextInt(upperBound) which gives a random int between 0 and the upperBound.&#10;   - In Vertex I added 2 methods, getCX and getCY which return x+diameter/2 and y+diam/2, and changed a vertex.getX+vertex.getDiameter/2 into just vertex.getCX, you could also do that where you find the unnecessary addition.&#10;    - Added some TODO comments, already forgot what they were.&#10;    - Probably other minor stuff which I forgot.&#10;    - OH, YEAH! Now, the game window has a new title, figured it was about time to advance to Build 0.1." />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Added JFileChooser to &quot;import graph&quot; button&#10;   - This required some changes in the Graph class, i.e. making the generateGraphFromFile method to work with a file, not a string&#10;   - For this I also had to add a variable of type Game to the GameState class because the FileChooser needed to know where to appear(the game canvas); this also allows us access to other stuff in the Game class, idk if it's gonna be useful later but it might.&#10;   - WARNING: &quot;&quot;You can overwrite stuff with the filechooser&quot;&quot; says here: https://docs.oracle.com/javase/tutorial/uiswing/components/filechooser.html ~~ I'd say disregard this, we're computer scientists&#10;   &#10; 2. Fixed the drawing/dragging of vertices outside the screen. Explained in parts:&#10;    2.1. The JFrame's size was increased by a small amount in order for us to actually have 900x600 pixels to draw our stuff onto. Game.WIDTH and HEIGHT still hold 900 and 600 respectively, but are now used to indicate the actual size/bounds of our screen.&#10;    2.2. For graph generation (Graph class) I added a static(for now) Rectangle variable to represent the perimeter inside of which we can actually draw vertices, so that vertices will now be drawn integrally inside our screen, not with part of the vertex obscured by the frame limits. My approach may seem kinda &quot;abstract&quot; or not straightforward but I think this can be used if we want to restrict our graph drawing inside an oval or smth else. More explanation on this will be done in person.&#10;    2.3. Lastly I made small changes where the vertex dragging is handled, cleaning up the code and making them not draggable out of screen bounds.&#10;    &#10;3. Many small things:&#10;   - Added spacing wherever I stumbled upon what I consider cluttered code.&#10;   - In Graph I added a static final Random object to change the &quot;Math.random * something (casted to int) &quot; into R.nextInt(upperBound) which gives a random int between 0 and the upperBound.&#10;   - In Vertex I added 2 methods, getCX and getCY which return x+diameter/2 and y+diam/2, and changed a vertex.getX+vertex.getDiameter/2 into just vertex.getCX, you could also do that where you find the unnecessary addition.&#10;    - Added some TODO comments, already forgot what they were.&#10;    - Probably other minor stuff which I forgot.&#10;    - OH, YEAH! Now, the game window has a new title, figured it was about time to advance to Build 0.1." />
+    <MESSAGE value="cfgh" />
+    <option name="LAST_COMMIT_MESSAGE" value="cfgh" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -572,20 +599,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Vertex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Graph.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -597,13 +610,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PlaygroundLevel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="5" lean-forward="false" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -757,13 +763,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PauseMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/java/util/Random.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
@@ -846,6 +845,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="30" column="33" lean-forward="false" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -867,7 +867,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
           <caret line="64" column="33" lean-forward="false" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -875,15 +874,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2023">
           <caret line="183" column="22" lean-forward="false" selection-start-line="183" selection-start-column="22" selection-end-line="183" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/java/awt/Canvas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2346">
-          <caret line="167" column="16" lean-forward="false" selection-start-line="167" selection-start-column="16" selection-end-line="167" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -895,26 +885,76 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Game.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/java/awt/Canvas.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="36" lean-forward="false" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
-          <folding />
+        <state relative-caret-position="17">
+          <caret line="167" column="16" lean-forward="false" selection-start-line="167" selection-start-column="16" selection-end-line="167" selection-end-column="16" />
+          <folding>
+            <element signature="e#4952#4953#0" expanded="false" />
+            <element signature="e#5006#5007#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Menu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="578">
+          <caret line="39" column="53" lean-forward="false" selection-start-line="39" selection-start-column="53" selection-end-line="39" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlaygroundLevel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="31" lean-forward="false" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+          <folding>
+            <element signature="e#183#184#0" expanded="true" />
+            <element signature="e#240#241#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PauseMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="28" column="49" lean-forward="false" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ColorSelectionMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Graph.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1768">
-          <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+        <state relative-caret-position="1122">
+          <caret line="66" column="18" lean-forward="false" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GraphUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="232" column="5" lean-forward="false" selection-start-line="232" selection-start-column="5" selection-end-line="232" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="454">
+          <caret line="79" column="18" lean-forward="false" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
