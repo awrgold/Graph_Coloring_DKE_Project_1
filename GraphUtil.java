@@ -15,6 +15,7 @@ public class GraphUtil {
      */
     public static Graph readGraphFromFile(File file){  // TODO: 12/3/2016 Have to add protection against wrong file format being passed
         String COMMENT = "//";
+	Random r = new Random();
         if( file == null )
         {
             System.out.println("Error! Empty file.");
@@ -52,6 +53,10 @@ public class GraphUtil {
 			//Insert the coordinates
 			for(int i = 0; i<n; i++){
 				vertices[i] = new Vertex(coordinates[i][0],coordinates[i][1]);
+				//old way of positioning (can be recovered if necessary)
+				//int x = r.nextInt(Game.WIDTH - Vertex.STANDARD_DIAMETER);
+                		//int y = r.nextInt(Game.HEIGHT - Vertex.STANDARD_DIAMETER);
+				//vertices[i] = new Vertex(x,y);
 			}
 
             seen = new boolean[n+1];
@@ -138,13 +143,18 @@ public class GraphUtil {
      */
     public static Graph generateRandomGraph(int n, int m){
         //these arrays are going to be filled with the vertices and edges of the graph
-        Vertex[] vertices = new Vertex[n];
+        Random r = new Random();
+	Vertex[] vertices = new Vertex[n];
 		int[][] neighbours = new int[n][m];
 		
 		//Get the coordinates from the method that calculates them
 		int[][] coordinates = setCoordinates(n,0);
 		//Insert the coordinates
 		for(int i = 0; i<n; i++){
+			//old way of positioning (can be recovered if necessary)
+			//int x = r.nextInt(Game.WIDTH - Vertex.STANDARD_DIAMETER);
+                	//int y = r.nextInt(Game.HEIGHT - Vertex.STANDARD_DIAMETER);
+			//vertices[i] = new Vertex(x,y);
 			vertices[i] = new Vertex(coordinates[i][0],coordinates[i][1]);
 		}
         
@@ -154,8 +164,7 @@ public class GraphUtil {
         }
 
         //generate m-(n-1) (=the edges left over after the path) edges randomly
-        Random r = new Random();
-		for (int i = 0; i < m - n + 1; i++) {
+	    for (int i = 0; i < m - n + 1; i++) {
             //randomly select two vertices to create a edge between them
             int u = r.nextInt(n);
             int v = r.nextInt(n);
