@@ -1,3 +1,4 @@
+import static constants.Drawing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,7 +16,6 @@ public class GraphUtil {
      */
     public static Graph readGraphFromFile(File file){  // TODO: 12/3/2016 Have to add protection against wrong file format being passed
         String COMMENT = "//";
-	Random r = new Random();
         if( file == null )
         {
             System.out.println("Error! Empty file.");
@@ -144,9 +144,9 @@ public class GraphUtil {
     public static Graph generateRandomGraph(int n, int m){
         //these arrays are going to be filled with the vertices and edges of the graph
         Random r = new Random();
-	Vertex[] vertices = new Vertex[n];
+	    Vertex[] vertices = new Vertex[n];
 		int[][] neighbours = new int[n][m];
-		
+
 		//Get the coordinates from the method that calculates them
 		int[][] coordinates = setCoordinates(n,0);
 		//Insert the coordinates
@@ -157,7 +157,7 @@ public class GraphUtil {
 			//vertices[i] = new Vertex(x,y);
 			vertices[i] = new Vertex(coordinates[i][0],coordinates[i][1]);
 		}
-        
+
         //make a path through all vertices, so that the graph is connected
         for(int i = 0; i<n-1;i++){
             neighbours[i][0] = i+1;
@@ -243,7 +243,7 @@ public class GraphUtil {
         }
         return true;
     }
-	/**Made by Jurriaan Berger, 
+	/**Made by Jurriaan Berger,
 	 * Calculates x and y coordinates for the vertices of a graph
 	 * @param n the number of vertices
 	 * @return the matrix with the x and y coordinates
@@ -252,13 +252,13 @@ public class GraphUtil {
 		cntr++;
 		int [][] coordinates = new int[n][2];
 		int radius;
-		if(Game.HEIGHT>Game.WIDTH){
-			radius = (int) ((Game.HEIGHT/2)/(Math.sqrt(cntr))-Vertex.STANDARD_DIAMETER/(cntr*1.5));//Can be optimized
+		if(GRAPH_SPACE.getHeight() > GRAPH_SPACE.getWidth()){
+			radius = (int) ((GRAPH_SPACE.getHeight() / 2) / Math.sqrt(cntr) - Vertex.STANDARD_DIAMETER / (cntr*1.5));//Can be optimized
 		}else{
-			radius = (int) ((Game.HEIGHT/2)/(Math.sqrt(cntr))-Vertex.STANDARD_DIAMETER/(cntr*1.5));//Can be optimized
+			radius = (int) ((GRAPH_SPACE.getHeight() / 2) / Math.sqrt(cntr) - Vertex.STANDARD_DIAMETER / (cntr*1.5));//Can be optimized
 		}
-		int cX = Game.WIDTH/2; //Define the center x-coordinate
-		int cY = Game.HEIGHT/2; //Define the center y-coordinate
+		int cX = (int) GRAPH_SPACE.getCenterX(); //Define the center x-coordinate
+		int cY = (int) GRAPH_SPACE.getCenterY(); //Define the center y-coordinate
 		if(n<(50/cntr)){//Not to much vertices to use only a outer circle
 			for(int i=0;i<coordinates.length; i++){
 				coordinates[i][0] = (int) Math.round(cX + (radius) * Math.cos(i* 2*Math.PI / n))-Vertex.STANDARD_DIAMETER/2; //x coordinate

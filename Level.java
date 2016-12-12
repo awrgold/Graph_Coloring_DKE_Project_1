@@ -1,3 +1,4 @@
+import static constants.Drawing.*;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -69,15 +70,15 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 		if(clickedVertex != -1 && isDragging){
 			int newX = e.getX() - vmOffsetX;
 			int newY = e.getY() - vmOffsetY;
-			Vertex v = graph.getVertex(clickedVertex);
-			if(newX < 0)
-				newX = 0;
-			if(newX > Game.WIDTH - v.getDiameter())
-				newX = Game.WIDTH - v.getDiameter();
-			if(newY < 0)
-				newY = 0;
-			if(newY > Game.HEIGHT - v.getDiameter())
-				newY = Game.HEIGHT - v.getDiameter();
+			Vertex v = graph.getVertex(clickedVertex);    // TODO: 12/12/2016 Should we not do this internally?
+			if(newX < GRAPH_SPACE.getX())
+				newX = (int) GRAPH_SPACE.getX();
+			if(newX > GRAPH_SPACE.getMaxX() - v.getDiameter())
+				newX = (int) GRAPH_SPACE.getMaxX() - v.getDiameter();
+			if(newY < GRAPH_SPACE.getY())
+				newY = (int) GRAPH_SPACE.getY();
+			if(newY > GRAPH_SPACE.getMaxY() - v.getDiameter())
+				newY = (int) GRAPH_SPACE.getMaxY() - v.getDiameter();
 			v.move(newX, newY);
 		}
 	}

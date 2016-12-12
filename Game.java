@@ -1,3 +1,4 @@
+import constants.Drawing;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,8 +21,10 @@ public class Game extends Canvas implements Runnable {
 
     private Thread thread;
     private boolean running = false;
-    public GameState gamestate;
 
+    private int fps;
+
+    public GameState gamestate;
     //level 0 is the menu
     //level 1, needs to be added
     public Game() {
@@ -53,14 +56,14 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
-    public void run() {                                                         
+    public void run() {
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
         long timer2 = System.currentTimeMillis();
-        int frames = 0;
+        fps = 0;
         //cap to ~60 fps, by forcing a minimum time between frames
         long minTimeBetweenFrames =(long) 17; //in ms
         while(running) {
@@ -74,8 +77,8 @@ public class Game extends Canvas implements Runnable {
             now = System.currentTimeMillis();
             if (running && now - timer > minTimeBetweenFrames) {
                 timer += minTimeBetweenFrames;
-                render();
-                frames++;
+                draw();
+                fps++;
             } else {
                 try {
                     Thread.sleep(minTimeBetweenFrames - (now - timer));
@@ -85,18 +88,22 @@ public class Game extends Canvas implements Runnable {
             }
             if(System.currentTimeMillis() - timer2 > 1000){
                 timer2 += 1000;
-                //System.out.println("FPS: "+frames);
-                frames = 0;
+                //System.out.println("FPS: "+fps);
+                fps = 0;
             }
         }
         stop();
+    }
+
+    public int getFps() {
+        return fps;
     }
 
     public void tick() {
     	gamestate.getActiveLevel().tick();
     }
 
-    public void render() {
+    public void draw() {
         BufferStrategy bs = this.getBufferStrategy();
         if(bs == null){
             this.createBufferStrategy(3);
@@ -107,6 +114,8 @@ public class Game extends Canvas implements Runnable {
         Graphics2D g = (Graphics2D) dbi.getGraphics();
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, WIDTH,HEIGHT);
+        g.setColor(Color.BLACK);
+        g.draw(Drawing.GRAPH_SPACE);
         gamestate.getActiveLevel().draw(g);
 
         bg.drawImage(dbi, 0, 0, this);

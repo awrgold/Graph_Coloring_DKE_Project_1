@@ -1,4 +1,3 @@
-import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.*;
 import java.awt.*;
@@ -7,6 +6,7 @@ import java.awt.event.MouseEvent;
 public class Menu extends Level {
 
 	private Font font;
+	private HUD hud;
 
 	public Menu(GameState state){
 		super(state, null);
@@ -15,14 +15,18 @@ public class Menu extends Level {
 		items[1] = new MenuVertex(Game.WIDTH / 2, Game.HEIGHT / 2, "Generate");        // TODO ...pause menu issue, where the vertices are displayed evenly in the frame. (ratio issue when dividing double/fraction)
 		items[2] = new MenuVertex(200, 140, "CircleGraph");
 		super.setGraph(new Graph(items, new int[][]{ new int[]{1}, new int[0], new int[]{1}}));
-		font = new Font("Main Menu Font", Font.BOLD, 20);
+		this.font = new Font("Main Menu Font", Font.BOLD, 20);
+		this.hud = new HUD(state.game);
 	}
+	public void tick(){
+		hud.tick();
+	}
+
     public void draw(Graphics2D g) {
 		g.setFont(font);
 		graph.draw(g);
+		hud.draw(g);
     }
-
-    public void tick(){}
 
     public void mousePressed(MouseEvent e){
     	super.mousePressed(e);

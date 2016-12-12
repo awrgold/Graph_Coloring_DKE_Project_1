@@ -4,21 +4,29 @@ import java.awt.event.MouseEvent;
 public class PlaygroundLevel extends Level {
 
 	protected ColorSelectionMenu csm;
+	protected HUD hud;
 
 	public PlaygroundLevel(GameState state){
 		super(state, GraphUtil.generateRandomGraph(15,60));
+		hud = new HUD(state.game);
 	}
 
 	public PlaygroundLevel(GameState state, Graph g){
 		super(state,g);
 		//menu = new ColorSelectionMenu(graph.getVertex(0), new int[]{0,1,2,3});
+		hud = new HUD(state.game);
 
+	}
+
+	public void tick(){
+		hud.tick();
 	}
 
 	public void draw(Graphics2D g) {
 		graph.draw(g);
 		if(csm != null)
 			csm.draw(g);
+		hud.draw(g);
 	}
 
 	public void mousePressed(MouseEvent e){
@@ -43,6 +51,4 @@ public class PlaygroundLevel extends Level {
 			csm.highlight(e.getX(),e.getY());
 		}
 	}
-
-	public void tick(){}
 }
