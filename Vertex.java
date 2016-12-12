@@ -13,9 +13,7 @@ public class Vertex {
 	private static final Color STANDARD_COLOR = Color.WHITE;
 	private static final Color STANDARD_HIGHLIGHT_BORDER_COLOR = Color.RED;
 	private static final Color STANDARD_BORDER_COLOR = Color.BLACK;
-	private static final Color STANDARD_NEIGHBOUR_COLOR = new Color(150, 0, 0);
 	protected static final int STANDARD_DIAMETER = 30;
-	protected Color color;
 	protected int x;
 	protected int y;
 	protected int diameter;
@@ -25,7 +23,6 @@ public class Vertex {
 		this.x = x;
 		this.y = y;
 		this.diameter = STANDARD_DIAMETER;
-		this.color = STANDARD_COLOR;
 	}
 	public void highlight(boolean highlight){ //setter
 		this.isHighlighted = highlight;
@@ -43,7 +40,7 @@ public class Vertex {
 		this.diameter = diameter;
 	}
 
-	public void draw(Graphics2D g){
+	public void draw(Graphics2D g, Color c){
 		if(isHighlighted){
 			g.setColor(STANDARD_HIGHLIGHT_BORDER_COLOR);
 		} else {
@@ -52,15 +49,9 @@ public class Vertex {
 		//draw a border around the inner circle, red or black, if highlighted or not, respectively
 		g.fill(new Ellipse2D.Double(x, y, diameter, diameter));
 
-		g.setColor(color);
+		g.setColor(c);
 		g.fill(new Ellipse2D.Double(x+((double)diameter)/12,y+((double)diameter/12),((double)diameter*5)/6,((double)diameter*5)/6));
 
-	}
-	public void setColor(Color color){
-		this.color = color;
-	}
-	public Color getColor(){
-		return color;
 	}
 
 	public int getX(){
@@ -71,10 +62,17 @@ public class Vertex {
 		return y;
 	}
 
+	/**
+	 *
+	 * @return the x-coordinate of the center
+	 */
 	public int getCX() {
 		return x + diameter / 2;
 	}
-
+	/**
+	 *
+	 * @return the y-coordinate of the center
+	 */
 	public int getCY() {
 		return y + diameter / 2;
 	}
