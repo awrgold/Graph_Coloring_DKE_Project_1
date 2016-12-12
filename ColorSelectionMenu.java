@@ -70,17 +70,16 @@ public class ColorSelectionMenu {
             g.draw(new Ellipse2D.Double(v.getCX() - 10, v.getCY() - 10, 20, 20));
             g.setStroke(new BasicStroke(1));
         } else if(colors.length == 2){
-            fillTile(g,Graph.COLORS[colors[0]], v.getCX(),v.getCY()+STANDARD_RADIUS, v.getCX()-STANDARD_RADIUS,v.getCY());
-            fillTile(g,Graph.COLORS[colors[0]], v.getCX()-STANDARD_RADIUS,v.getCY(), v.getCX(),v.getCY()-STANDARD_RADIUS);
-            fillTile(g,Graph.COLORS[colors[1]], v.getCX(),v.getCY()-STANDARD_RADIUS, v.getCX()+STANDARD_RADIUS,v.getCY());
-            fillTile(g,Graph.COLORS[colors[1]], v.getCX()+STANDARD_RADIUS,v.getCY(), v.getCX(),v.getCY()+STANDARD_RADIUS);
+            g.setColor(Graph.COLORS[colors[0]]);
+            g.fillPolygon(new int[]{v.getCX()-STANDARD_RADIUS,v.getCX(),v.getCX()+STANDARD_RADIUS},new int[]{v.getCY(),v.getCY()-STANDARD_RADIUS,v.getCY()},3);
+            g.setColor(Graph.COLORS[colors[1]]);
+            g.fillPolygon(new int[]{v.getCX()-STANDARD_RADIUS,v.getCX(),v.getCX()+STANDARD_RADIUS},new int[]{v.getCY(),v.getCY()+STANDARD_RADIUS,v.getCY()},3);
             g.setStroke(new BasicStroke(3));
-            if(highlightedTile == 1){
-                drawTile(g,HIGHLIGHT_COLOR, v.getCX(),v.getCY()+STANDARD_RADIUS, v.getCX()-STANDARD_RADIUS,v.getCY());
-                drawTile(g,HIGHLIGHT_COLOR, v.getCX()-STANDARD_RADIUS,v.getCY(), v.getCX(),v.getCY()-STANDARD_RADIUS);
+            g.setColor(HIGHLIGHT_COLOR);
+            if(highlightedTile == 0){
+                g.drawPolygon(new int[]{v.getCX()-STANDARD_RADIUS,v.getCX(),v.getCX()+STANDARD_RADIUS},new int[]{v.getCY(),v.getCY()-STANDARD_RADIUS,v.getCY()},3);
             } else {
-                drawTile(g,HIGHLIGHT_COLOR, v.getCX(),v.getCY()-STANDARD_RADIUS, v.getCX()+STANDARD_RADIUS,v.getCY());
-                drawTile(g,HIGHLIGHT_COLOR, v.getCX()+STANDARD_RADIUS,v.getCY(), v.getCX(),v.getCY()+STANDARD_RADIUS);
+                g.drawPolygon(new int[]{v.getCX()-STANDARD_RADIUS,v.getCX(),v.getCX()+STANDARD_RADIUS},new int[]{v.getCY(),v.getCY()+STANDARD_RADIUS,v.getCY()},3);
             }
             g.setStroke(new BasicStroke(1));
         } else if(colors.length == 1){

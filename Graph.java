@@ -3,10 +3,8 @@ import java.util.*;
 import java.util.List;
 
 /**
- * V1.2 Created by Jurriaan Berger edited by Jonas
- * Random graph generator debugged by Jurriaan
  * An object of this class contains the basic information about the graph and its features, i.e. edges and vertices.
- * Please keep following in mind: labelling of edges and vertices starts at 0!!!
+ * labelling of edges and vertices starts at 0
  */
 
 public class Graph{
@@ -42,6 +40,11 @@ public class Graph{
 		usedColors = 1;
 	}
 
+	/**
+	 * Computes the for a proper coloring available colors for a given vertex
+	 * @param vertex the index of a vertex of this graph
+	 * @return possible colors for the vertex, including a new color which is positioned at index 0
+	 */
 	public int[] getAvailableColors(int vertex){
 		int[] availableColors = new int[usedColors];
 		availableColors[0] = usedColors;
@@ -163,7 +166,7 @@ public class Graph{
 		}else
 			return adjacencyMatrix;
 	}
-
+	//just here for debugging
 	public static void main(String[] args){
 		Graph g = GraphUtil.generateRandomGraph(10,20);
 		Game game = new Game();
