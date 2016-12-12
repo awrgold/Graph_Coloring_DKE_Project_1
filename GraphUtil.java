@@ -15,7 +15,6 @@ public class GraphUtil {
      */
     public static Graph readGraphFromFile(File file){  // TODO: 12/3/2016 Have to add protection against wrong file format being passed
         String COMMENT = "//";
-        Random r = new Random();
         if( file == null )
         {
             System.out.println("Error! Empty file.");
@@ -48,11 +47,12 @@ public class GraphUtil {
                 if(DEBUG) System.out.println(COMMENT + " Number of vertices = "+n);
             }
             Vertex[] vertices = new Vertex[n];
-            for(int i = 0; i<n; i++){
-                int x = r.nextInt(Game.WIDTH - Vertex.STANDARD_DIAMETER);
-                int y = r.nextInt(Game.HEIGHT - Vertex.STANDARD_DIAMETER);
-                vertices[i] = new Vertex(x,y);
-            }
+			//Get the coordinates from the method that calculates them
+			int[][] coordinates = setCoordinates(n,0);
+			//Insert the coordinates
+			for(int i = 0; i<n; i++){
+				vertices[i] = new Vertex(coordinates[i][0],coordinates[i][1]);
+			}
 
             seen = new boolean[n+1];
             record = br.readLine();
@@ -138,21 +138,24 @@ public class GraphUtil {
      */
     public static Graph generateRandomGraph(int n, int m){
         //these arrays are going to be filled with the vertices and edges of the graph
-        Random r = new Random();
         Vertex[] vertices = new Vertex[n];
-        int[][] neighbours = new int[n][m];
-        for(int i = 0; i<n; i++){
-            int x = r.nextInt(Game.WIDTH - Vertex.STANDARD_DIAMETER);  // was Game.WIDHT
-            int y = r.nextInt(Game.HEIGHT - Vertex.STANDARD_DIAMETER); // was Game.HEIGHT
-            vertices[i] = new Vertex(x,y);
-        }
+		int[][] neighbours = new int[n][m];
+		
+		//Get the coordinates from the method that calculates them
+		int[][] coordinates = setCoordinates(n,0);
+		//Insert the coordinates
+		for(int i = 0; i<n; i++){
+			vertices[i] = new Vertex(coordinates[i][0],coordinates[i][1]);
+		}
+        
         //make a path through all vertices, so that the graph is connected
         for(int i = 0; i<n-1;i++){
             neighbours[i][0] = i+1;
         }
 
         //generate m-(n-1) (=the edges left over after the path) edges randomly
-        for (int i = 0; i < m - n + 1; i++) {
+        Random r = new Random();
+		for (int i = 0; i < m - n + 1; i++) {
             //randomly select two vertices to create a edge between them
             int u = r.nextInt(n);
             int v = r.nextInt(n);
@@ -231,4 +234,49 @@ public class GraphUtil {
         }
         return true;
     }
+	/**Made by Jurriaan Berger, 
+	 * Calculates x and y coordinates for the vertices of a graph
+	 * @param n the number of vertices
+	 * @return the matrix with the x and y coordinates
+	 */
+	public static int[][] setCoordinates(int n, int cntr){
+		cntr++;
+		int [][] coordinates = new int[n][2];
+		int radius;
+		if(Game.HEIGHT>Game.WIDTH){
+			radius = (int) ((Game.HEIGHT/2)/(Math.sqrt(cntr))-Vertex.STANDARD_DIAMETER/(cntr*1.5));//Can be optimized
+		}else{
+			radius = (int) ((Game.HEIGHT/2)/(Math.sqrt(cntr))-Vertex.STANDARD_DIAMETER/(cntr*1.5));//Can be optimized
+		}
+		int cX = Game.WIDTH/2; //Define the center x-coordinate
+		int cY = Game.HEIGHT/2; //Define the center y-coordinate
+		if(n<(50/cntr)){//Not to much vertices to use only a outer circle
+			for(int i=0;i<coordinates.length; i++){
+				coordinates[i][0] = (int) Math.round(cX + (radius) * Math.cos(i* 2*Math.PI / n))-Vertex.STANDARD_DIAMETER/2; //x coordinate
+				coordinates[i][1] = (int) Math.round(cY + (radius) * Math.sin(i* 2*Math.PI / n + Math.PI))-Vertex.STANDARD_DIAMETER/2; //y coordinate
+			}
+		}else{//Use inner circles (it might still happen that there are more than 50 vertices placed in the outer circle
+			int innerVert;
+			int outerVert;
+			if(n%2!=0){
+				innerVert = n/2;
+				outerVert = n/2+1;
+			}else{
+				innerVert = n/2;
+				outerVert = n/2;
+			}
+
+			int [][] innerCoordinates = setCoordinates(innerVert,cntr);// set the coordinates of the inner circle(s)
+			for(int i=0;i<(outerVert); i++){// set the coordinates of the outer circle
+				coordinates[i][0] = (int) Math.round(cX + (radius) * Math.cos(i* 2*Math.PI / outerVert))-Vertex.STANDARD_DIAMETER/2; //x coordinate
+				coordinates[i][1] = (int) Math.round(cY + (radius) * Math.sin(i* 2*Math.PI / outerVert + Math.PI))-Vertex.STANDARD_DIAMETER/2; //y coordinate
+			}
+			for(int i=0; i<n/2;i++){// import the coordinates of the inner circle(s)
+				coordinates[i+outerVert][0] = innerCoordinates[i][0];
+				coordinates[i+outerVert][1] = innerCoordinates[i][1];
+			}
+		}
+
+		return coordinates;
+	}
 }
