@@ -50,7 +50,7 @@ public class Graph{
 	 */
 	public void draw(Graphics2D g) {
 		// Draw all the edges of the graph.
-		g.setColor(edgeColor);  // TODO: 12/9/2016 make it so we draw edges only 1ce.
+		g.setColor(edgeColor);
 		for (int i = 0; i < neighbours.length; i++) {
 			if (!vertices[i].isHighlighted()) {
 				for (int neighbour : neighbours[i]) {
