@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class GraphUtil {
-    private static boolean DEBUG = false;
+    private static final boolean DEBUG = false;
     /**
      * Reads-in the graph from a file, we make use of the code provided to us in the beginning of the project.
      * @param file File loaded with JFileChooser in class Menu

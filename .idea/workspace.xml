@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f9e1055-a98f-48ea-af36-9a1b0a0c0358" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Project-1/.idea/uiDesigner.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ColorSelectionMenu.java" afterPath="$PROJECT_DIR$/ColorSelectionMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Game.java" afterPath="$PROJECT_DIR$/Game.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GraphUtil.java" afterPath="$PROJECT_DIR$/GraphUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Level.java" afterPath="$PROJECT_DIR$/Level.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Menu.java" afterPath="$PROJECT_DIR$/Menu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlaygroundLevel.java" afterPath="$PROJECT_DIR$/PlaygroundLevel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Window.java" afterPath="$PROJECT_DIR$/Window.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project-1/.idea/workspace.xml" afterPath="$PROJECT_DIR$/out/production/Project-1/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -90,27 +83,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlaygroundLevel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PlaygroundLevel.java">
+      <file leaf-file-name="Optics.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/constants/Optics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="28" column="18" lean-forward="false" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
-              <folding>
-                <element signature="e#491#492#0" expanded="true" />
-                <element signature="e#508#509#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Menu.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Menu.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="51">
+              <caret line="3" column="60" lean-forward="true" selection-start-line="3" selection-start-column="60" selection-end-line="3" selection-end-column="60" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -127,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GraphUtil.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GraphUtil.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GraphUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="258" column="9" lean-forward="true" selection-start-line="258" selection-start-column="9" selection-end-line="258" selection-end-column="9" />
+            <state relative-caret-position="170">
+              <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -203,6 +181,7 @@
         <option value="$PROJECT_DIR$/HUD.java" />
         <option value="$PROJECT_DIR$/PlaygroundLevel.java" />
         <option value="$PROJECT_DIR$/GraphUtil.java" />
+        <option value="$PROJECT_DIR$/constants/Optics.java" />
       </list>
     </option>
   </component>
@@ -611,7 +590,14 @@
       <option name="project" value="LOCAL" />
       <updated>1481480382672</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="New branch with HUD, constants package and graph-space delimitation">
+      <created>1481586987281</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1481586987281</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -657,7 +643,8 @@
     <MESSAGE value="cfgh" />
     <MESSAGE value="Capped FPS to ~60&#10;&#10;This saves a lot of processing power, is realized by introducing a minimum time which has to pass between each time. (Sleeps otherwise)" />
     <MESSAGE value="Fixed a misordering in the starting sequence, added ColorSelectionMenu functionality, &#10;&#10;displaying bug for 2 colors tho" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed a misordering in the starting sequence, added ColorSelectionMenu functionality, &#10;&#10;displaying bug for 2 colors tho" />
+    <MESSAGE value="New branch with HUD, constants package and graph-space delimitation" />
+    <option name="LAST_COMMIT_MESSAGE" value="New branch with HUD, constants package and graph-space delimitation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -670,7 +657,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ChooseGameMode.form" />
     <entry file="file://$PROJECT_DIR$/ChooseGameMode.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/javax/swing/JOptionPane.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -979,14 +965,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/constants/Drawing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6">
-          <caret line="7" column="26" lean-forward="false" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GameState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -1005,16 +983,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Menu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
@@ -1023,18 +991,6 @@
             <element signature="imports" expanded="true" />
             <element signature="e#2933#2934#0" expanded="true" />
             <element signature="e#2959#2960#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HUD.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2346#2347#0" expanded="true" />
-            <element signature="e#2389#2390#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1062,11 +1018,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GraphUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="258" column="9" lean-forward="true" selection-start-line="258" selection-start-column="9" selection-end-line="258" selection-end-column="9" />
+        <state relative-caret-position="170">
+          <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HUD.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-34">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="e#2389#2390#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Menu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/constants/Drawing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="24" column="5" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="24" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/constants/Optics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="60" lean-forward="true" selection-start-line="3" selection-start-column="60" selection-end-line="3" selection-end-column="60" />
+          <folding />
         </state>
       </provider>
     </entry>
