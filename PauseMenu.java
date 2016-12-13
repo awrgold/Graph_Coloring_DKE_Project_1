@@ -24,9 +24,10 @@ public class PauseMenu extends Level {
 			if (clickedVertex == 1) { // If they click "Quit," send them back to the start menu.
 				state.setState(GameState.MAIN_MENU);
 			}
-			if(clickedVertex == 2){ // TODO add a restart() function to the Level class
-				state.states[GameState.INGAME] = new PlaygroundLevel(state,GraphUtil.generateRandomGraph(3, 3));
-				state.setState(GameState.INGAME);
+			if(clickedVertex == 2){ // Reset the coloring
+				Graph inGameGraph = PlaygroundLevel.getPlayGraph(); //Grab the graph the user played with.
+				inGameGraph.decolorGraph(); //Reset the colors of this graph
+				state.setState(GameState.INGAME); //Return to the playgroundlevel
 			}
 			if (clickedVertex == 3) { // If they click "Resume," resume same game with no changes.
 				state.setState(GameState.INGAME);
