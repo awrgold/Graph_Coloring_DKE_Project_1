@@ -12,7 +12,7 @@ public class Graph{
 	private static final Color STANDARD_EDGE_COLOR = Color.BLACK;
 	private static final Color STANDARD_EDGE_HIGHLIGHT_COLOR = Color.RED;
 
-	//some explanation for the variable neighbours: it's gonna be n long, and contains in every row all neighbouring vertices with a higher index,
+    //some explanation for the variable neighbours: it's gonna be n long, and contains in every row all neighbouring vertices with a higher index,
 	//the last one would thus have no entries
 	//also there cannot be a row containing 0, and most importantly, when looping through it, every edge occurs exactly once
 	//the following block is set by standard in the constructor
@@ -170,7 +170,7 @@ public class Graph{
 	public static void main(String[] args){
 		Graph g = GraphUtil.generateRandomGraph(10,20);
 		Game game = new Game();
-		game.gamestate.states[GameState.INGAME] = new PlaygroundLevel(game.gamestate,g);
-		game.gamestate.setState(GameState.INGAME);
+		//game.gamestate.replaceState();
+		game.gamestate.changeState(GameState.INGAME);
 	}
 }

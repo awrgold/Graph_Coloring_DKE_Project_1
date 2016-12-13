@@ -10,7 +10,7 @@ public class GraphUtil {
     private static boolean DEBUG = false;
     /**
      * Reads-in the graph from a file, we make use of the code provided to us in the beginning of the project.
-     * @param file File loaded with JFileChooser in class Menu
+     * @param file A text file containing a graph in the format given for phase 1
      * @return Graph...
      */
     public static Graph readGraphFromFile(File file){  // TODO: 12/3/2016 Have to add protection against wrong file format being passed
@@ -30,13 +30,13 @@ public class GraphUtil {
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
-            String record = new String();
+            String record;
 
             //! THe first few lines of the file are allowed to be comments, staring with a // symbol.
             //! These comments are only allowed at the top of the file.
 
             //! -----------------------------------------
-            while ((record = br.readLine()) != null)
+            while (!((record = br.readLine()) == null))
             {
                 if( record.startsWith("//") ) continue;
                 break; // Saw a line that did not start with a comment -- time to start reading the data in!
@@ -252,7 +252,7 @@ public class GraphUtil {
 		cntr++;
 		int [][] coordinates = new int[n][2];
 		int radius;
-		if(Game.HEIGHT>Game.WIDTH){
+		if(Game.HEIGHT > Game.WIDTH){
 			radius = (int) ((Game.HEIGHT/2)/(Math.sqrt(cntr))-Vertex.STANDARD_DIAMETER/(cntr*1.5));//Can be optimized
 		}else{
 			radius = (int) ((Game.HEIGHT/2)/(Math.sqrt(cntr))-Vertex.STANDARD_DIAMETER/(cntr*1.5));//Can be optimized
