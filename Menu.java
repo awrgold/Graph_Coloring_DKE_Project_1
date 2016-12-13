@@ -1,28 +1,46 @@
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+
 public class Menu extends Level {
 
+	private BufferedImage MENU_BG;
 	private Font font;
+	private AudioPlayer menuMusic;
+	private boolean isMusic;
+	private AudioPlayer blip;
 	private HUD hud;
 
-	public Menu(GameState state){
-		super(state, null);
-		Vertex[] items = new MenuVertex[3];
-		items[0] = new MenuVertex(Game.WIDTH/4, Game.HEIGHT/2, "Import");		// TODO We need to find a way to make these points equidistant from the edges, same as the...
-		items[1] = new MenuVertex(Game.WIDTH / 2, Game.HEIGHT / 2, "Generate");        // TODO ...pause menu issue, where the vertices are displayed evenly in the frame. (ratio issue when dividing double/fraction)
-		items[2] = new MenuVertex(200, 140, "CircleGraph");
-		super.setGraph(new Graph(items, new int[][]{ new int[]{1}, new int[0], new int[]{1}}));
-		this.font = new Font("Main Menu Font", Font.BOLD, 20);
-		this.hud = new HUD(state.game);
-	}
+
+	public Menu(GameState state) {
+        super(state, null);
+        Vertex[] items = new MenuVertex[3];
+        items[0] = new MenuVertex((Game.WIDTH / 4) - MenuVertex.DIAMETER / 2, (Game.HEIGHT * 3 / 4) - MenuVertex.DIAMETER / 2, "Import");
+        items[1] = new MenuVertex((Game.WIDTH * 3 / 4) - MenuVertex.DIAMETER / 2, (Game.HEIGHT * 3 / 4) - MenuVertex.DIAMETER / 2, "Generate");
+        items[2] = new MenuVertex((Game.WIDTH / 2) - MenuVertex.DIAMETER / 2, (Game.HEIGHT / 4) - MenuVertex.DIAMETER / 2, "CircleGraph");
+        super.setGraph(new Graph(items, new int[][]{new int[]{1, 2}, new int[0], new int[]{1}}));
+        font = new Font("Main Menu Font", Font.BOLD, 20);
+        isMusic = false;
+        blip = new AudioPlayer("/resources/SFX/blip 1.wav");
+        hud = new HUD(state.game);
+		try {
+			MENU_BG = ImageIO.read((new File("BackgroundGrid1.jpg")));
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+    }
+
 	public void tick(){
-		hud.tick();
-	}
+        hud.tick();
+    }
 
     public void draw(Graphics2D g) {
+		g.drawImage(MENU_BG, 0, 0, null);
 		g.setFont(font);
 		graph.draw(g);
 		hud.draw(g);
@@ -33,6 +51,7 @@ public class Menu extends Level {
 		if(e.getButton() == MouseEvent.BUTTON1){
     			//insert here what the menu items have to do
     			//start a level
+			blip.play();
 			if(clickedVertex==0){
 				JFileChooser fileChooser = new JFileChooser("C:\\Users\\antonwnk\\Project 1\\phase1\\Test set");
 				int hasFile = fileChooser.showDialog(state.game, "Choose graph file");

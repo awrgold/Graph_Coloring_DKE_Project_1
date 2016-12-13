@@ -8,7 +8,7 @@ import java.util.List;
  */
 
 public class Graph{
-	public final static Color[] COLORS = new Color[]{Color.WHITE, Color.BLUE, Color.PINK, new Color(0x9B30FF), Color.CYAN, Color.GREEN, Color.darkGray, Color.LIGHT_GRAY};
+	public final static Color[] COLORS = new Color[]{Color.WHITE, Color.BLUE, Color.PINK, new Color(155, 48, 255), Color.CYAN, Color.GREEN, Color.darkGray, new Color(220, 231, 4), new Color(34, 189, 43), Color.LIGHT_GRAY};
 	private static final Color STANDARD_EDGE_COLOR = Color.BLACK;
 	private static final Color STANDARD_EDGE_HIGHLIGHT_COLOR = Color.RED;
 
@@ -20,7 +20,8 @@ public class Graph{
 	private Vertex[] vertices;
 	private Color edgeColor;
 	private Color edgeHighlightColor;
-	private int[][] adjacencyMatrix;
+	private int[][] adjMatrix;
+	private int[][] adjList;
 	//0 is not colored
 	private int[] coloring;
 	private int usedColors;
@@ -35,7 +36,7 @@ public class Graph{
 		this.neighbours = neighbours;
 		this.edgeColor = STANDARD_EDGE_COLOR;
 		this.edgeHighlightColor = STANDARD_EDGE_HIGHLIGHT_COLOR;
-		adjacencyMatrix = getAdjacencyMatrix();
+		adjMatrix = getAdjMatrix();
 		coloring = new int[neighbours.length];
 		usedColors = 1;
 	}
@@ -52,8 +53,8 @@ public class Graph{
 		//significantly optimizable
 		for (int i = 1; i < usedColors; i++) {
 			boolean isUsedByNeighbour = false;
-			for (int j = 0; j < adjacencyMatrix.length; j++) {
-				if(adjacencyMatrix[vertex][j] == 1 && getVertexColor(j) == i) {
+			for (int j = 0; j < adjMatrix.length; j++) {
+				if(adjMatrix[vertex][j] == 1 && getVertexColor(j) == i) {
 					isUsedByNeighbour = true;
 					break;
 				}
@@ -111,8 +112,8 @@ public class Graph{
 			// Highlight all it's incident edges
 			g.setColor(edgeHighlightColor);
 			g.setStroke(new BasicStroke(3));
-			for (int i = 0; i < adjacencyMatrix.length; i++) {
-				if(adjacencyMatrix[highlightedVertex][i] == 1) {
+			for (int i = 0; i < adjMatrix.length; i++) {
+				if(adjMatrix[highlightedVertex][i] == 1) {
 					n = vertices[i];
 					g.drawLine(v.getCX(), v.getCY(), n.getCX(), n.getCY());
 					nList.add(i);
@@ -154,8 +155,8 @@ public class Graph{
 	/**This method makes the adjacency matrix, in the same format as we had it in the previous phase, therefore we can immediately start using our algorithms
 	 * @return the adjMatrix
 	 */
-	private int[][] getAdjacencyMatrix() {
-		if (adjacencyMatrix == null) {
+	private int[][] getAdjMatrix() {
+		if (adjMatrix == null) {
 			int[][] newAdjMatrix = new int[neighbours.length][neighbours.length];
 			for (int i = 0; i < neighbours.length; i++)
 				for (int neighbour : neighbours[i]) {
@@ -164,8 +165,9 @@ public class Graph{
 				}
 			return newAdjMatrix;
 		}else
-			return adjacencyMatrix;
+			return adjMatrix;
 	}
+
 	//just here for debugging
 	public static void main(String[] args){
 		Graph g = GraphUtil.generateRandomGraph(10,20);

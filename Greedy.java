@@ -18,7 +18,7 @@ public class Greedy {
         {
             this.adjList = adjList;
             this.n = adjList.length;
-            S = new ArrayList<LinkedList<Integer>>();
+            S = new ArrayList<>();
 
         }
 
@@ -54,7 +54,7 @@ public class Greedy {
             return colorArray;
         }
 
-        public void toArray(int[] array)                      // A void method, just the same as the one above. This method will change an array of sufficent size.
+        public void toArray(int[] array)                      // A void method, just the same as the one above. This method will change an array of sufficient size.
         {
             int j = 0;
             for (LinkedList<Integer> cClass : S) {

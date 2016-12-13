@@ -9,9 +9,16 @@ public class GameState {
 
 	private int currentState;
 	public Level[] states = new Level[3];
+
+	public int getState(){
+		return currentState;
+	}
+
 	public void setState(int state){
 		currentState = state;
 	}
+
+
 	public Level getActiveLevel(){
 		return states[currentState];
 	}

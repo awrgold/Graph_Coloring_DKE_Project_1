@@ -17,10 +17,10 @@ public class MaximumClique {
 	//call this to trigger the search for the largest clique
 	public void search(){
 		//first time enlarge gets called, feed it with all vertices
-		ArrayList<Integer> allNodes = new ArrayList<Integer>();
+		ArrayList<Integer> allNodes = new ArrayList<>();
 		for(int i = 0;i<adjMatrix.length;i++)
 			allNodes.add(i);
-		enlarge(new ArrayList<Integer>(), allNodes);
+		enlarge(new ArrayList<>(), allNodes);
 		maxCliqueSize = maxClique.length;
 	}
 	//cliquemembers contains vertices which are a complete subgraph, commonNeighbours is the intersection of all neighbourhoods of all vertices in the graph
@@ -33,7 +33,7 @@ public class MaximumClique {
 			//take a element of commonneighbours, union cliquemembers and this element. after that cliquemembers is still complete, because the added element is a neighbour of all existing vertices in that subgraph
 			cliqueMembers.add(v);
 			//now take a look which vertices could potentionally added to the enlarged cliquemembers
-			ArrayList<Integer> newCommonNeighbours = new ArrayList<Integer>();
+			ArrayList<Integer> newCommonNeighbours = new ArrayList<>();
 			for(int w : commonNeighbours){
 				if(adjMatrix[v][w] == 1)
 					newCommonNeighbours.add(w);

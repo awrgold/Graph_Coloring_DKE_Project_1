@@ -10,7 +10,7 @@ public class Window {
 
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setResizable(true);
+        frame.setResizable(false);
         frame.add(c);
         frame.pack();
         frame.setLocationRelativeTo(null);

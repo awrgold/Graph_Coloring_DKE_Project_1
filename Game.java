@@ -77,6 +77,7 @@ public class Game extends Canvas implements Runnable {
             now = System.currentTimeMillis();
             if (running && now - timer > minTimeBetweenFrames) {
                 timer += minTimeBetweenFrames;
+
                 draw();
                 fps++;
             } else {

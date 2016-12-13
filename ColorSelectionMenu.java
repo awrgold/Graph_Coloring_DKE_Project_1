@@ -114,12 +114,12 @@ public class ColorSelectionMenu {
     }
 
     private int getSelectedTile(int x, int y){
-        double angle = Math.atan2(x - v.getCX(), y - v.getCY()) + 3*Math.PI/2;
+        double angle = atan2(x - v.getCX(), y - v.getCY()) + 3*Math.PI/2;
 
-        if (angle >= Math.PI*2) angle -= Math.PI*2.0;
-        if (angle < 0)          angle += 2*Math.PI;
+        if (angle >= PI*2) angle -= PI*2.0;
+        if (angle < 0)     angle += PI;
 
-        return (int)( (angle / (2*Math.PI)) * colors.length);
+        return (int)( (angle / (2*PI)) * colors.length);
     }
 
     private void fillTile(Graphics2D g, Color c, int x1, int y1, int x2, int y2){
