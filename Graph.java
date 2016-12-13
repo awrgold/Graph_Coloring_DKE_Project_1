@@ -78,6 +78,15 @@ public class Graph{
 			usedColors = color+1;
 		coloring[v] = color;
 	}
+	/**Created by Jurriaan Berger
+	 * This method provides the option to de-color all the vertices of the graph.
+	 * The method is public because it's called from outside the class Graph.
+	 */
+	public void decolorGraph(){
+		for(int i=0; i<coloring.length; i++){
+			coloring[i]=0;
+		}
+	}
 	/**
 	 * draws the graph's vertices and edges
 	 * @param g a Graphics2D object from a image/canvas to draw on

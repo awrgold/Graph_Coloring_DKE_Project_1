@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 public class PlaygroundLevel extends Level {
 
 	protected ColorSelectionMenu csm;
+	protected static Graph playGraph;
 
 	public PlaygroundLevel(GameState state){
 		super(state, GraphUtil.generateRandomGraph(15,60));
@@ -12,9 +13,19 @@ public class PlaygroundLevel extends Level {
 	public PlaygroundLevel(GameState state, Graph g){
 		super(state,g);
 		//menu = new ColorSelectionMenu(graph.getVertex(0), new int[]{0,1,2,3});
-
+		playGraph = g;
 	}
-
+	
+	/**Created By Jurriaan Berger
+	 * has to be static because it's used in a static context in the pause Menu, as far as I can see,
+	 * it wouldn't give errors because we have only one PlaygroundLevel at a time.
+	 * (and it's static because the IDE says it has to be)
+	 * @return the (reference to the) graph that has been used in the playground level
+	 */
+	public static Graph getPlayGraph(){
+		return playGraph;
+	}
+	
 	public void draw(Graphics2D g) {
 		graph.draw(g);
 		if(csm != null)
