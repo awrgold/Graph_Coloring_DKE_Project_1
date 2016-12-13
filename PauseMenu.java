@@ -19,6 +19,7 @@ public class PauseMenu extends Level {
 		items[1] = new MenuVertex((Game.WIDTH*2)/3, Game.HEIGHT*2/3, "Quit");
 		graph = new Graph(items, new int[][]{new int[]{2}, new int[]{3}, new int[]{}, new int[]{}});
 		blip1 = new AudioPlayer("/resources/SFX/blip 1.wav");
+		//elevMusic = new AudioPlayer("/resources/Music/Elevator.wav");
 
 
 	}
@@ -34,7 +35,7 @@ public class PauseMenu extends Level {
 			if (clickedVertex == 1) { // If they click "Quit," send them back to the start menu.
 				state.setState(GameState.MAIN_MENU);
 			}
-			if(clickedVertex == 2){ // TODO add a restart() function to the Level class
+			if(clickedVertex == 2){ //
 				state.states[GameState.INGAME] = new PlaygroundLevel(state,GraphUtil.generateRandomGraph(3, 3));
 				state.setState(GameState.INGAME);
 			}
@@ -58,7 +59,9 @@ public class PauseMenu extends Level {
 
 	}
 	public void keyPressed(KeyEvent e){
-		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			state.setState(GameState.INGAME);
+			elevMusic.stop();
+		}
 	}
 }
