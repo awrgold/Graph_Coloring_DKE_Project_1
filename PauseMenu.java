@@ -28,19 +28,21 @@ public class PauseMenu extends Level {
 		if(e.getButton() == MouseEvent.BUTTON1){
 			if (clickedVertex != -1){
 				blip1.play();
-				elevMusic.stop();
 			}
 			if (clickedVertex == 0) { // TODO: If they click "Save," save the current state of the game to a file in the game folder.
 			}
 			if (clickedVertex == 1) { // If they click "Quit," send them back to the start menu.
 				state.setState(GameState.MAIN_MENU);
+				elevMusic.stop();
 			}
 			if(clickedVertex == 2){ //
 				state.states[GameState.INGAME] = new PlaygroundLevel(state,GraphUtil.generateRandomGraph(3, 3));
 				state.setState(GameState.INGAME);
+				elevMusic.stop();
 			}
 			if (clickedVertex == 3) { // If they click "Resume," resume same game with no changes.
 				state.setState(GameState.INGAME);
+				elevMusic.stop();
 			}
 			clickedVertex = -1;
 		}
