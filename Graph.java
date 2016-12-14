@@ -100,10 +100,7 @@ public class Graph{
 	public int getChromaticNR(){
 		return chromaticNR;
 	}
-	/**Created by Jurriaan Berger
-	 * This method provides the option to de-color all the vertices of the graph.
-	 * The method is public because it's called from outside the class Graph.
-	 */
+	
 	public void decolorGraph(){
 		for(int i=0; i<coloring.length; i++){
 			coloring[i]=0;

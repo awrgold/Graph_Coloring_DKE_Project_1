@@ -19,12 +19,17 @@ public class Menu extends Level {
 
 	public Menu(GameState state) {
         super(state, null);
-        Vertex[] items = new MenuVertex[3];
+        /*Vertex[] items = new MenuVertex[3];
         items[0] = new MenuVertex((Game.WIDTH / 4) - MenuVertex.DIAMETER / 2, ((int) Game.HEIGHT * 3 / 4) - MenuVertex.DIAMETER / 2, "Import");
         items[1] = new MenuVertex((Game.WIDTH * 3 / 4) - MenuVertex.DIAMETER / 2, (Game.HEIGHT * 3 / 4) - MenuVertex.DIAMETER / 2, "Generate");
         items[2] = new MenuVertex((Game.WIDTH / 2) - MenuVertex.DIAMETER / 2, (Game.HEIGHT / 4) - MenuVertex.DIAMETER / 2, "CircleGraph");
         super.setGraph(new Graph(items, new int[][]{new int[]{1, 2}, new int[0], new int[]{1}}));
-        font = new Font("Main Menu Font", Font.BOLD, 20);
+        */
+		Vertex[] items = new MenuVertex[2];
+        items[0] = new MenuVertex((Game.WIDTH / 4) - MenuVertex.DIAMETER / 2, ((int) Game.HEIGHT * 3 / 4) - MenuVertex.DIAMETER / 2, "Import");
+        items[1] = new MenuVertex((Game.WIDTH * 3 / 4) - MenuVertex.DIAMETER / 2, (Game.HEIGHT * 3 / 4) - MenuVertex.DIAMETER / 2, "Generate");
+		super.setGraph(new Graph(items, new int[][]{new int[]{1},new int[]{}}));
+		font = new Font("Main Menu Font", Font.BOLD, 20);
         isMusic = false;
         blip = new AudioPlayer("/resources/SFX/blip 1.wav");
         hud = new HUD(state.game);

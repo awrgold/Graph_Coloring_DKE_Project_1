@@ -35,6 +35,7 @@ public class Game extends Canvas implements Runnable {
     	gamestate.game = this;
         gamestate.states[0] = new Menu(gamestate);
         gamestate.states[2] = new PauseMenu(gamestate);
+		gamestate.states[3] = new GameOverMenu(gamestate);
         GameInputListener il = new GameInputListener();
         this.addMouseListener(il);
         this.addMouseMotionListener(il);

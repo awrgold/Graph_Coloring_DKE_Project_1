@@ -77,7 +77,8 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 		clickedVertex = graph.getVertexAt(e.getX(), e.getY());
 		if(clickedVertex != -1){
 			blip1.play();
-
+			//elevMusic.stop();
+			//System.out.println("Music killed");
 			//super.mousePressed allows me to reference this class from a subclass
 			//and make individual changes based on the class (on top of what already exists)
 			Vertex v = graph.getVertex(clickedVertex);
