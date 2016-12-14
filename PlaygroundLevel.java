@@ -6,12 +6,12 @@ public class PlaygroundLevel extends Level {
 	protected ColorSelectionMenu csm;
 	protected static Graph playGraph;
 	private int mode;
-	protected HUD hud;
+	private HUD hud;
 
 
 	public PlaygroundLevel(GameState state, int v, int e){
 		super(state, GraphUtil.generateRandomGraph(v, e));
-		hud = new HUD(state.game);
+		//hud = new HUD(state.game);
 	}
 
 	public PlaygroundLevel(GameState state, Graph g, int mode){
@@ -54,13 +54,26 @@ public class PlaygroundLevel extends Level {
 			Vertex v = graph.getVertex(clickedVertex);
 			graph.setVertexColor(clickedVertex, csm.getSelection(e.getX(),e.getY()));
 			if(graph.fullyColored()){
-				if(mode == 1){
-					if(graph.getUsedColors()==graph.getChromaticNR())state.setState(GameState.GAME_OVER); //WATCH OUT: CHROMATIC NUMBER IS NOT YET COMPUTED IN GRAPH
+				System.out.println("Mode "+mode+" finished");
+				int usedColors = graph.getUsedColors();
+				System.out.println("used "+ usedColors+" colors");
+				int chromNR = graph.getChromaticNR();
+				System.out.println("chromatic number: "+chromNR);
+				if(mode == 1){//In case of mode 1
+					if(usedColors-1==chromNR){ // The -1 is obviously not correct
+						GameOverMenu.setResult("SUCCESS");
+						System.out.println("Success");
+						state.setState(GameState.GAME_OVER); 
+					}
 				}else if(mode == 3){
-
+					if(usedColors-1==chromNR){
+						GameOverMenu.setResult("You found the optimal coloring");
+					}else{
+						GameOverMenu.setResult("You finished and used: "+(usedColors-1)+" colors. \n"+chromNR+" colors would have been sufficient either");
+					}
 					state.setState(GameState.GAME_OVER); //In case of mode 3,
 				}
-				state.setState(GameState.GAME_OVER);
+				//state.setState(GameState.GAME_OVER);
 			}
 			csm = null;
 		}

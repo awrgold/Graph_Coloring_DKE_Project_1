@@ -14,7 +14,7 @@ public class Menu extends Level {
 	private AudioPlayer menuMusic;
 	private boolean isMusic;
 	private AudioPlayer blip;
-	private HUD hud;
+	//private HUD hud;
 
 
 	public Menu(GameState state) {
@@ -32,7 +32,7 @@ public class Menu extends Level {
 		font = new Font("Main Menu Font", Font.BOLD, 20);
         isMusic = false;
         blip = new AudioPlayer("/resources/SFX/blip 1.wav");
-        hud = new HUD(state.game);
+        //hud = new HUD(state.game);
 		   menuMusic = new AudioPlayer("/resources/Music/bgMusic1.wav");
 		   menuMusic.play();
 		try {
@@ -43,14 +43,14 @@ public class Menu extends Level {
     }
 
 	public void tick(){
-        hud.tick();
+        //hud.tick();
     }
 
     public void draw(Graphics2D g) {
 		g.drawImage(MENU_BG, 0, 0, null);
 		g.setFont(font);
 		graph.draw(g);
-		hud.draw(g);
+		//hud.draw(g);
     }
 
     public void mousePressed(MouseEvent e){
