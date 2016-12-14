@@ -40,6 +40,8 @@ public class Graph{
 		adjacencyMatrix = getAdjacencyMatrix();
 		coloring = new int[neighbours.length];
 		usedColors = 1;
+		chromaticNR = GraphUtil.calculateChromaticNR(adjacencyMatrix);
+		System.out.println("chromatic number is: "+chromaticNR);
 	}
 
 	/**
@@ -195,11 +197,4 @@ public class Graph{
 			return adjacencyMatrix;
 	}
 
-	//just here for debugging
-	public static void main(String[] args){
-		Graph g = GraphUtil.generateRandomGraph(10,20);
-		Game game = new Game();
-		game.gamestate.states[GameState.INGAME] = new PlaygroundLevel(game.gamestate,g,1);
-		game.gamestate.setState(GameState.INGAME);
-	}
 }

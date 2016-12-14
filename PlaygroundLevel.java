@@ -55,9 +55,8 @@ public class PlaygroundLevel extends Level {
 			graph.setVertexColor(clickedVertex, csm.getSelection(e.getX(),e.getY()));
 			if(graph.fullyColored()){
 				if(mode == 1){
-					if(graph.getUsedColors()==graph.getChromaticNR())state.setState(GameState.GAME_OVER); //WATCH OUT: CHROMATIC NUMBER IS NOT YET COMPUTED IN GRAPH
+					if(graph.getUsedColors()==graph.getChromaticNR())state.setState(GameState.GAME_OVER); //In case of mode 2,
 				}else if(mode == 3){
-
 					state.setState(GameState.GAME_OVER); //In case of mode 3,
 				}
 				state.setState(GameState.GAME_OVER);
