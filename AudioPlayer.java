@@ -28,6 +28,9 @@ public class AudioPlayer {
             clip.open(dais);
         }
         catch (Exception e){
+            System.out.println("Game loaded.");
+            System.out.println("Hyperdrive set to 0.");
+            System.out.println("Flux capacitor at max.");
             e.printStackTrace();
         }
     }

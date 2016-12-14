@@ -12,6 +12,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
+
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;

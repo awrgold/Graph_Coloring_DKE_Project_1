@@ -20,11 +20,12 @@ public class Graph{
 	private Vertex[] vertices;
 	private Color edgeColor;
 	private Color edgeHighlightColor;
-	private int[][] adjMatrix;
-	private int[][] adjList;
+	private int[][] adjacencyMatrix;
 	//0 is not colored
 	private int[] coloring;
 	private int usedColors;
+	private int coloredVerticesCNTR;
+	private int chromaticNR;
 	/**
 	 * Initialises a graph with given vertices and edges
 	 * @param vertices
@@ -36,7 +37,7 @@ public class Graph{
 		this.neighbours = neighbours;
 		this.edgeColor = STANDARD_EDGE_COLOR;
 		this.edgeHighlightColor = STANDARD_EDGE_HIGHLIGHT_COLOR;
-		adjMatrix = getAdjMatrix();
+		adjacencyMatrix = getAdjacencyMatrix();
 		coloring = new int[neighbours.length];
 		usedColors = 1;
 	}
@@ -53,13 +54,14 @@ public class Graph{
 		//significantly optimizable
 		for (int i = 1; i < usedColors; i++) {
 			boolean isUsedByNeighbour = false;
-			for (int j = 0; j < adjMatrix.length; j++) {
-				if(adjMatrix[vertex][j] == 1 && getVertexColor(j) == i) {
+			for (int j = 0; j < adjacencyMatrix.length; j++) {
+				if(adjacencyMatrix[vertex][j] == 1 && getVertexColor(j) == i) {
 					isUsedByNeighbour = true;
 					break;
 				}
 			}
 			System.out.println("color "+i+" "+isUsedByNeighbour);
+			System.out.println("Used colors: "+usedColors);
 			if(!isUsedByNeighbour) {
 				availableColors[count] = i;
 				count++;
@@ -74,10 +76,38 @@ public class Graph{
 	public int getVertexColor(int v){
 		return coloring[v];
 	}
+
 	public void setVertexColor(int v, int color){
+		if(coloring[v]==0){
+			coloredVerticesCNTR++;
+			System.out.println("Already "+coloredVerticesCNTR+" colored.");
+		}
 		if(color >= usedColors)
 			usedColors = color+1;
 		coloring[v] = color;
+	}
+
+	public boolean fullyColored(){
+		if(coloredVerticesCNTR==vertices.length){
+			return true;
+		}else return false;
+	}
+
+	public int getUsedColors(){
+		return usedColors;
+	}
+
+	public int getChromaticNR(){
+		return chromaticNR;
+	}
+	/**Created by Jurriaan Berger
+	 * This method provides the option to de-color all the vertices of the graph.
+	 * The method is public because it's called from outside the class Graph.
+	 */
+	public void decolorGraph(){
+		for(int i=0; i<coloring.length; i++){
+			coloring[i]=0;
+		}
 	}
 	/**
 	 * draws the graph's vertices and edges
@@ -112,8 +142,8 @@ public class Graph{
 			// Highlight all it's incident edges
 			g.setColor(edgeHighlightColor);
 			g.setStroke(new BasicStroke(3));
-			for (int i = 0; i < adjMatrix.length; i++) {
-				if(adjMatrix[highlightedVertex][i] == 1) {
+			for (int i = 0; i < adjacencyMatrix.length; i++) {
+				if(adjacencyMatrix[highlightedVertex][i] == 1) {
 					n = vertices[i];
 					g.drawLine(v.getCX(), v.getCY(), n.getCX(), n.getCY());
 					nList.add(i);
@@ -155,8 +185,8 @@ public class Graph{
 	/**This method makes the adjacency matrix, in the same format as we had it in the previous phase, therefore we can immediately start using our algorithms
 	 * @return the adjMatrix
 	 */
-	private int[][] getAdjMatrix() {
-		if (adjMatrix == null) {
+	private int[][] getAdjacencyMatrix() {
+		if (adjacencyMatrix == null) {
 			int[][] newAdjMatrix = new int[neighbours.length][neighbours.length];
 			for (int i = 0; i < neighbours.length; i++)
 				for (int neighbour : neighbours[i]) {
@@ -165,14 +195,14 @@ public class Graph{
 				}
 			return newAdjMatrix;
 		}else
-			return adjMatrix;
+			return adjacencyMatrix;
 	}
 
 	//just here for debugging
 	public static void main(String[] args){
 		Graph g = GraphUtil.generateRandomGraph(10,20);
 		Game game = new Game();
-		game.gamestate.states[GameState.INGAME] = new PlaygroundLevel(game.gamestate,g);
+		game.gamestate.states[GameState.INGAME] = new PlaygroundLevel(game.gamestate,g,1);
 		game.gamestate.setState(GameState.INGAME);
 	}
 }

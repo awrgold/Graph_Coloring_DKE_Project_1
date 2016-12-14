@@ -1,11 +1,10 @@
 import java.awt.*;
-import java.awt.Graphics;
 
 public class MenuVertex extends Vertex {
 	public static final int DIAMETER = 120;
 	private String label;
 	public MenuVertex(int x, int y, String label) {
-		super(x, y);
+		super(x-DIAMETER/2, y-DIAMETER/2);
 		this.label = label;
 		setDiameter(DIAMETER);
 
@@ -14,7 +13,7 @@ public class MenuVertex extends Vertex {
 		//g.drawOval(x,y,diameter,diameter);
 		super.draw(g, Color.WHITE);
 		g.setColor(Color.CYAN);
-		g.drawString(label, this.getCX(), this.getCY());
+		g.drawString(label, this.getX()-10, this.getY()-10);
 	}
 
 }

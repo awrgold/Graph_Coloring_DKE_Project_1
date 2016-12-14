@@ -17,10 +17,10 @@ public abstract class Level extends MouseAdapter implements KeyListener{
     //vertex-mouse-offset: the offset of the mouse from the center of the vertex (used so that the vertex doesn't "jump" when starting to drag
 	private int vmOffsetX;
 	private int vmOffsetY;
-	private static AudioPlayer blip1;
-	private static AudioPlayer blip2;
-	public static AudioPlayer elevMusic;
-	public static AudioPlayer bgMusic;
+	private AudioPlayer blip1;
+	private AudioPlayer blip2;
+	private boolean doBlip;
+	protected AudioPlayer elevMusic;
 
 
 	public Level(GameState state, Graph graph){
@@ -31,6 +31,7 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 		isDragging = false;
 		elevMusic = new AudioPlayer("/resources/Music/Elevator.wav");
 		blip1 = new AudioPlayer("/resources/SFX/blip 1.wav");
+		blip2 = new AudioPlayer("/resources/SFX/blip 2.wav");
 	}
 
 	public void terminate(){
@@ -60,13 +61,15 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 		int currHoveredVertex = graph.getVertexAt(e.getX(), e.getY());
 		if(currHoveredVertex != lastHoveredVertex)
 			graph.getVertex(lastHoveredVertex).highlight(false);
+		if(currHoveredVertex == -1) doBlip = true;
 		if(currHoveredVertex != -1){
 			Vertex v = graph.getVertex(currHoveredVertex);
+			if(doBlip) blip2.play();
+			doBlip = false;
 			v.highlight(true);
 			lastHoveredVertex = currHoveredVertex;
 			// TODO - plays every time you hover, needs to play only once.
-			blip2 = new AudioPlayer("/resources/SFX/blip 2.wav");
-			blip2.play();
+
 		}
 	}
 

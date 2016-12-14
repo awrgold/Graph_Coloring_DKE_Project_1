@@ -1,8 +1,7 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import javax.sound.sampled.*;
-import java.io.File;
+import static constants.Drawing.*;
 
 public class PauseMenu extends Level {
 
@@ -13,15 +12,13 @@ public class PauseMenu extends Level {
 		MenuVertex[] items;
 		clickedVertex = -1;
 		items = new MenuVertex[4];
-		items[3] = new MenuVertex(Game.WIDTH/5, Game.HEIGHT/5, "Resume");
-		items[2] = new MenuVertex((Game.WIDTH*2)/3, Game.HEIGHT/5, "Restart");
-		items[0] = new MenuVertex(Game.WIDTH/5, Game.HEIGHT*2/3, "Save");		// Spaces in string(s) to offset the text to be perfectly above the vertex.
-		items[1] = new MenuVertex((Game.WIDTH*2)/3, Game.HEIGHT*2/3, "Quit");
-		graph = new Graph(items, new int[][]{new int[]{2}, new int[]{3}, new int[]{}, new int[]{}});
+		items[0] = new MenuVertex((int) GRAPH_SPACE.getWidth()/4, (int) GRAPH_SPACE.getHeight()*3/4, "   Save");		// Spaces in string(s) to offset the text to be perfectly above the vertex.
+		items[1] = new MenuVertex(((int) GRAPH_SPACE.getWidth()*2)/3, (int) GRAPH_SPACE.getHeight()*3/4, "   Quit");
+		items[2] = new MenuVertex(((int) GRAPH_SPACE.getWidth()*2)/3, (int) GRAPH_SPACE.getHeight()/4, " Restart");
+		items[3] = new MenuVertex((int) GRAPH_SPACE.getWidth()/4, (int) GRAPH_SPACE.getHeight()/4, " Resume");
+		graph = new Graph(items, new int[][]{new int[]{1,3}, new int[]{2}, new int[]{3}, new int[]{}});
 		blip1 = new AudioPlayer("/resources/SFX/blip 1.wav");
-		//elevMusic = new AudioPlayer("/resources/Music/Elevator.wav");
-
-
+				
 	}
 	public void mousePressed(MouseEvent e){
 		super.mousePressed(e);
@@ -34,13 +31,16 @@ public class PauseMenu extends Level {
 			}
 			if (clickedVertex == 1) { // If they click "Quit," send them back to the start menu.
 				state.setState(GameState.MAIN_MENU);
+				elevMusic.stop();
 			}
-			if(clickedVertex == 2){ // TODO add a restart() function to the Level class
-				state.states[GameState.INGAME] = new PlaygroundLevel(state,GraphUtil.generateRandomGraph(3, 3));
-				state.setState(GameState.INGAME);
+			if(clickedVertex == 2){ // Reset the coloring
+				Graph inGameGraph = PlaygroundLevel.getPlayGraph(); //Grab the graph the user played with.
+				inGameGraph.decolorGraph(); //Reset the colors of this graph
+				state.setState(GameState.INGAME); //Return to the playgroundlevel
 			}
 			if (clickedVertex == 3) { // If they click "Resume," resume same game with no changes.
 				state.setState(GameState.INGAME);
+				elevMusic.stop();
 			}
 			clickedVertex = -1;
 		}
@@ -49,7 +49,7 @@ public class PauseMenu extends Level {
 	@Override
 	public void draw(Graphics2D g) {
 		g.setFont(new Font("Pause Menu Font", Font.BOLD, 24));
-		g.drawString("PAUSED", (Game.WIDTH/2)-25, (Game.HEIGHT/2)-15);
+		g.drawString("PAUSED", ((int) GRAPH_SPACE.getWidth()/2)-25, ((int) GRAPH_SPACE.getHeight()/2)-15);
 		graph.draw(g);
 	}
 
@@ -62,6 +62,7 @@ public class PauseMenu extends Level {
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			state.setState(GameState.INGAME);
 			elevMusic.stop();
+			System.out.println("WTF, Why won't you stop??");
 		}
 	}
 }

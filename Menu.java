@@ -20,7 +20,7 @@ public class Menu extends Level {
 	public Menu(GameState state) {
         super(state, null);
         Vertex[] items = new MenuVertex[3];
-        items[0] = new MenuVertex((Game.WIDTH / 4) - MenuVertex.DIAMETER / 2, (Game.HEIGHT * 3 / 4) - MenuVertex.DIAMETER / 2, "Import");
+        items[0] = new MenuVertex((Game.WIDTH / 4) - MenuVertex.DIAMETER / 2, ((int) Game.HEIGHT * 3 / 4) - MenuVertex.DIAMETER / 2, "Import");
         items[1] = new MenuVertex((Game.WIDTH * 3 / 4) - MenuVertex.DIAMETER / 2, (Game.HEIGHT * 3 / 4) - MenuVertex.DIAMETER / 2, "Generate");
         items[2] = new MenuVertex((Game.WIDTH / 2) - MenuVertex.DIAMETER / 2, (Game.HEIGHT / 4) - MenuVertex.DIAMETER / 2, "CircleGraph");
         super.setGraph(new Graph(items, new int[][]{new int[]{1, 2}, new int[0], new int[]{1}}));
@@ -28,6 +28,8 @@ public class Menu extends Level {
         isMusic = false;
         blip = new AudioPlayer("/resources/SFX/blip 1.wav");
         hud = new HUD(state.game);
+		   menuMusic = new AudioPlayer("/resources/Music/bgMusic1.wav");
+		   menuMusic.play();
 		try {
 			MENU_BG = ImageIO.read((new File("BackgroundGrid1.jpg")));
 		} catch (IOException e){
@@ -59,7 +61,7 @@ public class Menu extends Level {
 					File file = fileChooser.getSelectedFile();
 					int mode = getMode();
 					System.out.println("mode is: "+mode);
-					state.states[GameState.INGAME] = new PlaygroundLevel(state, GraphUtil.readGraphFromFile(file)); //Start the actual game. HOW to implement feedback: what happens if we cannot compute the chromatic number, or the file was corrupt??
+					state.states[GameState.INGAME] = new PlaygroundLevel(state, GraphUtil.readGraphFromFile(file), mode); //Start the actual game. HOW to implement feedback: what happens if we cannot compute the chromatic number, or the file was corrupt??
 					state.setState(GameState.INGAME);
 				}
 //				String input = JOptionPane.showInputDialog("Please give the directory to your graph file, make use of \\"+"\\ instead of \\. ");//needs to be fixed
@@ -93,7 +95,7 @@ public class Menu extends Level {
 							int mode = getMode();
 							System.out.println("mode is: "+mode);
 							falseVertexEdgeComb = false;
-							state.states[GameState.INGAME] = new PlaygroundLevel(state, GraphUtil.generateRandomGraph(m, n)); //Start the actual game
+							state.states[GameState.INGAME] = new PlaygroundLevel(state, GraphUtil.generateRandomGraph(m, n), mode); //Start the actual game
 							state.setState(GameState.INGAME);
 						}
 					}else if(result == JOptionPane.CANCEL_OPTION){
@@ -101,11 +103,6 @@ public class Menu extends Level {
 					}
 				}
     		}
-			else if(clickedVertex == 2){
-				state.states[GameState.INGAME] = new PlaygroundLevel(state, new Graph(CircleSolver.getVertexObjects(CircleSolver.circlesolver (170, 0, 270, 14, false)), new int[][]{})); //Here we test out CircleSolver
-				state.setState(GameState.INGAME);
-			}
-
 			clickedVertex = -1;
     	}
     }
@@ -137,6 +134,7 @@ public class Menu extends Level {
 		if (oneButton.isSelected()) mode =1;
 		else if (twoButton.isSelected()) mode = 2;
 		else if (threeButton.isSelected()) mode = 3;
+		menuMusic.stop();
 		return mode;
 	}
 }
