@@ -7,7 +7,7 @@ import static constants.Drawing.*;
  * Created by jurri on 6-12-2016.
  */
 public class GameOverMenu extends Level {
-    private String result = "xxx";
+    private static String result = "xxx";
 	private AudioPlayer blip1;
 
     public GameOverMenu(GameState state) {
@@ -15,15 +15,16 @@ public class GameOverMenu extends Level {
         MenuVertex[] items;
         clickedVertex = -1;
         items = new MenuVertex[1];
-        items[0] = new MenuVertex(Game.WIDTH / 4, Game.HEIGHT / 2, "   Main Menu");
+        items[0] = new MenuVertex(Game.WIDTH / 4, Game.HEIGHT / 4, "   Main Menu");
         graph = new Graph(items, new int[][]{new int[]{}});
         //Add result, depending on how the player peformed
 		blip1 = new AudioPlayer("/resources/SFX/blip 1.wav");
         
     }
 
-    public void setResult(String x){
-        result = x;
+    public static void setResult(String x){
+        System.out.println("Changed string");
+		result = x;
     }
 	
 	
@@ -52,8 +53,8 @@ public class GameOverMenu extends Level {
 
     @Override
     public void draw(Graphics2D g) {
-        g.setFont(new Font("Pause Menu Font", Font.BOLD, 24));
-        g.drawString("GAME OVER", (Game.WIDTH/2)-25, (Game.HEIGHT/2)-15);
+        g.setFont(new Font("Game Over Menu Font", Font.BOLD, 18));
+        g.drawString(result, (Game.WIDTH/8), (Game.HEIGHT/2)-9);
         graph.draw(g);
     }
     @Override
