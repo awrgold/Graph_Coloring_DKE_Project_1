@@ -30,6 +30,7 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 		isDragging = false;
 		elevMusic = new AudioPlayer("/resources/Music/Elevator.wav");
 		blip1 = new AudioPlayer("/resources/SFX/blip 1.wav");
+		bgMusic = new AudioPlayer("/resources/Music/bgMusic1.wav");
 	}
 
 	public void terminate(){
@@ -65,6 +66,7 @@ public abstract class Level extends MouseAdapter implements KeyListener{
 			// TODO - plays every time you hover, needs to play only once.
 			blip2 = new AudioPlayer("/resources/SFX/blip 2.wav");
 			blip2.play();
+
 		}
 	}
 

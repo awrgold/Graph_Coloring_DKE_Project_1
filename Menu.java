@@ -21,6 +21,8 @@ public class Menu extends Level {
 		font = new Font("Main Menu Font", Font.BOLD, 20);
 		isMusic = false;
 		blip = new AudioPlayer("/resources/SFX/blip 1.wav");
+		menuMusic = new AudioPlayer("/resources/Music/bgMusic1.wav");
+		menuMusic.play();
 
 	}
 	// TODO: drawing the image for the menu
@@ -30,9 +32,7 @@ public class Menu extends Level {
 
 	}
 
-    public void tick(){
-
-	}
+    public void tick(){	}
 
     public void mousePressed(MouseEvent e){
     	super.mousePressed(e);
@@ -125,6 +125,7 @@ public class Menu extends Level {
 		if (oneButton.isSelected()) mode =1;
 		else if (twoButton.isSelected()) mode = 2;
 		else if (threeButton.isSelected()) mode = 3;
+		menuMusic.stop();
 		return mode;
 	}
 }

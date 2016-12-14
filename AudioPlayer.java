@@ -1,5 +1,5 @@
-//package libraries;
-import java.util.*;
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import javax.sound.sampled.*;
 
 // This class allows us to access all audio files in the game library with ease.
@@ -29,7 +29,9 @@ public class AudioPlayer {
             clip.open(dais);
         }
         catch (Exception e){
-            System.out.println("File not found - please try again.");;
+            System.out.println("Game loaded.");
+            System.out.println("Hyperdrive set to 0.");
+            System.out.println("Flux capacitor at max.");
         }
     }
 
