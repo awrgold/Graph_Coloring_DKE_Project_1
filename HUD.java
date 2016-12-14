@@ -72,7 +72,7 @@ public class HUD {
     public void draw(Graphics2D g){
         g.setFont(Optics.HUD_FONT);
         g.setColor(Optics.HUD_COLOR);
-        g.drawString(score, scoreX, scoreY);
+        //g.drawString(score, scoreX, scoreY);
         g.drawString("Time be tickin': " + timer, timerX, timerY);
         g.drawString("FPS: " + fps, fpsX, fpsY);
     }

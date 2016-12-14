@@ -7,6 +7,7 @@ public class PauseMenu extends Level {
 
 	private AudioPlayer blip1;
 
+
 	public PauseMenu(GameState state) {
 		super(state,null);
 		MenuVertex[] items;
@@ -18,7 +19,6 @@ public class PauseMenu extends Level {
 		items[3] = new MenuVertex((int) GRAPH_SPACE.getWidth()/4, (int) GRAPH_SPACE.getHeight()/4, " Resume");
 		graph = new Graph(items, new int[][]{new int[]{1,3}, new int[]{2}, new int[]{3}, new int[]{}});
 		blip1 = new AudioPlayer("/resources/SFX/blip 1.wav");
-				
 	}
 	public void mousePressed(MouseEvent e){
 		super.mousePressed(e);
@@ -30,21 +30,25 @@ public class PauseMenu extends Level {
 			if (clickedVertex == 0) { // TODO: If they click "Save," save the current state of the game to a file in the game folder.
 			}
 			if (clickedVertex == 1) { // If they click "Quit," send them back to the start menu.
-				state.setState(GameState.MAIN_MENU);
 				elevMusic.stop();
+				state.setState(GameState.MAIN_MENU);
+				
 			}
 			if(clickedVertex == 2){ // Reset the coloring
+				elevMusic.stop();
 				Graph inGameGraph = PlaygroundLevel.getPlayGraph(); //Grab the graph the user played with.
 				inGameGraph.decolorGraph(); //Reset the colors of this graph
 				state.setState(GameState.INGAME); //Return to the playgroundlevel
 			}
 			if (clickedVertex == 3) { // If they click "Resume," resume same game with no changes.
-				state.setState(GameState.INGAME);
 				elevMusic.stop();
+				state.setState(GameState.INGAME);
+				
 			}
 			clickedVertex = -1;
 		}
 	}
+	
 	// TODO: implement background image for pause menu here.
 	@Override
 	public void draw(Graphics2D g) {
@@ -60,8 +64,9 @@ public class PauseMenu extends Level {
 	}
 	public void keyPressed(KeyEvent e){
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-			state.setState(GameState.INGAME);
 			elevMusic.stop();
+			state.setState(GameState.INGAME);
+			
 			System.out.println("WTF, Why won't you stop??");
 		}
 	}
