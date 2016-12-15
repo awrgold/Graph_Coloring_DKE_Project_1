@@ -2,6 +2,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
+import static java.lang.Math.*;
 
 public class ColorSelectionMenu {
     //the standard radius
@@ -48,10 +49,10 @@ public class ColorSelectionMenu {
             int hy1 = v.getCY();
             int hy2 = hy1;
             for (int i = 1; i <= colors.length; i++) {
-                int x1 = (int) Math.round(v.getCX() + (radius) * Math.cos((i - 1) * 2 * Math.PI / colors.length));
-                int y1 = (int) Math.round(v.getCY() + (radius) * Math.sin((i - 1) * 2 * Math.PI / colors.length + Math.PI));
-                int x2 = (int) Math.round(v.getCX() + (radius) * Math.cos(i * 2 * Math.PI / colors.length));
-                int y2 = (int) Math.round(v.getCY() + (radius) * Math.sin(i * 2 * Math.PI / colors.length + Math.PI));
+                int x1 = (int) round(v.getCX() + (radius) * cos((i - 1) * 2 * PI / colors.length));
+                int y1 = (int) round(v.getCY() + (radius) * sin((i - 1) * 2 * PI / colors.length + PI));
+                int x2 = (int) round(v.getCX() + (radius) * cos(i * 2 * PI / colors.length));
+                int y2 = (int) round(v.getCY() + (radius) * sin(i * 2 * PI / colors.length + PI));
                 fillTile(g, Graph.COLORS[colors[i - 1]], x1, y1, x2, y2);
                 if (i - 1 == highlightedTile) {
                     hx1 = x1;
@@ -113,12 +114,12 @@ public class ColorSelectionMenu {
     }
 
     private int getSelectedTile(int x, int y){
-        double angle = Math.atan2(x - v.getCX(), y - v.getCY()) + 3*Math.PI/2;
+        double angle = atan2(x - v.getCX(), y - v.getCY()) + 3*Math.PI/2;
 
-        if (angle >= Math.PI*2) angle -= Math.PI*2.0;
-        if (angle < 0)          angle += 2*Math.PI;
+        if (angle >= PI*2) angle -= PI*2.0;
+        if (angle < 0)     angle += PI;
 
-        return (int)( (angle / (2*Math.PI)) * colors.length);
+        return (int)( (angle / (2*PI)) * colors.length);
     }
 
     private void fillTile(Graphics2D g, Color c, int x1, int y1, int x2, int y2){

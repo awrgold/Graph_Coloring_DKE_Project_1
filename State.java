@@ -8,7 +8,10 @@ public abstract class State extends JPanel implements KeyListener, MouseListener
 	public State(GameState gamestate){
 		this.gamestate = gamestate;
 		setPreferredSize(new Dimension(Game.WIDTH,Game.HEIGHT));
+		setFocusable(true);
+		setRequestFocusEnabled(true);
 	}
+
 	public abstract void exit();
 	public abstract void enter();
 	//override all event handling methods, so that this has not to be done by all subclasses

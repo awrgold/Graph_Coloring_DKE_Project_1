@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -26,6 +27,7 @@ public class GameMode extends State implements Runnable{
 		this.graph = graph;
 		running = false;
 		graphDisplay = new Canvas();
+		graphDisplay.setFocusable(true);
 		setLayout(new BorderLayout());
 		add(graphDisplay, BorderLayout.CENTER);
 		graphDisplay.addKeyListener(this);
@@ -38,6 +40,7 @@ public class GameMode extends State implements Runnable{
 	}
 	public void setVertexListener(VertexListener vl){ this.vl = vl;}
 	public GameState getGameState(){return gamestate;}
+	public Graph getGraph(){return graph;}
 	protected void tick(){}
 	private void render() {
 		BufferStrategy bs = graphDisplay.getBufferStrategy();
@@ -155,7 +158,7 @@ public class GameMode extends State implements Runnable{
 		csm = new ColorSelectionMenu(graph.getVertex(v),graph.getVertexColor(v),graph.getAvailableColors(v));
 	}
 	public void mouseReleased(MouseEvent e){
-		if(clickedVertex != -1 && e.getButton() == MouseEvent.BUTTON1){
+		if(clickedVertex != -1 && e.getButton() == MouseEvent.BUTTON1 && csm != null){
 			graph.setVertexColor(clickedVertex, csm.getSelection(e.getX(),e.getY()));
 			csm = null;
 		}
@@ -213,5 +216,12 @@ public class GameMode extends State implements Runnable{
 		 * @param v the moved vertex
 		 */
 		public void vertexMoved(int v){}
+	}
+	public abstract class HUD extends JPanel {
+		/**
+		 * Draws the elements of the HUD, which are visible on the graphDisplay canvas
+		 * @param g a Graphics2D object from the graphDisplay canvas
+		 */
+		public abstract void draw(Graphics2D g);
 	}
 }

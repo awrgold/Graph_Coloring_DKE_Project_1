@@ -73,10 +73,17 @@ public class Graph{
 	public int getVertexColor(int v){
 		return coloring[v];
 	}
+
 	public void setVertexColor(int v, int color){
 		if(color >= usedColors)
 			usedColors = color+1;
 		coloring[v] = color;
+	}
+	public void restoreInitialVertexPositions(){
+		int[][] pos = GraphUtil.setCoordinates(vertices.length,0);
+		for (int i = 0; i < vertices.length; i++) {
+			vertices[i] = new Vertex(pos[i][0],pos[i][1]);
+		}
 	}
 	/**
 	 * draws the graph's vertices and edges
@@ -141,7 +148,11 @@ public class Graph{
 				return i;
 		return -1;
 	}
-
+	public void flushColors(){
+		for (int i = 0; i < coloring.length; i++) {
+			coloring[i] = 0;
+		}
+	}
 	/**
 	 * Resolves the index of a vertex to the corresponding instance of the vertex class
 	 * @param v the index of a vertex (must be >= 0 and < n)

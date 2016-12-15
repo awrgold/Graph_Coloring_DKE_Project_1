@@ -6,7 +6,7 @@ public class PauseMenu extends GameMode {
 
 
 	public PauseMenu(GameState state) {
-		super(state,null);
+		super(state,getPauseMenuGraph());
 		MenuVertex[] items;
 		super.setVertexListener(new PauseMenuVertexListener());
 	}
@@ -20,7 +20,9 @@ public class PauseMenu extends GameMode {
                     state.changeState(GameState.MAIN_MENU);
                 }
                 if (v == 2) { // TODO add a restart() function to the State class
-                    state.replaceState(new GameMode(state, GraphUtil.generateRandomGraph(3, 3)), GameState.INGAME);
+                    Graph g = ((GameMode) state.getState(GameState.INGAME)).getGraph();
+                    g.flushColors();
+                    g.restoreInitialVertexPositions();
                     state.changeState(GameState.INGAME);
                 }
                 if (v == 3) { // If they click "Resume," resume same game with no changes.
@@ -35,7 +37,6 @@ public class PauseMenu extends GameMode {
 		g.drawString("PAUSED", (Game.WIDTH/2)-25, (Game.HEIGHT/2)-15);
 		super.draw(g);
 	}
-
 	public void keyPressed(KeyEvent e){
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
 			getGameState().changeState(GameState.INGAME);

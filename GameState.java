@@ -16,7 +16,8 @@ public class GameState {
         states[initialStateID] = initialState;
         currentState = initialStateID;
         game.add(initialState);
-    }
+
+	}
     public void enterInitialState(){
 	    states[currentState].enter();
     }
@@ -35,5 +36,8 @@ public class GameState {
 	public State getActiveState(){
 
 	return states[currentState];
+	}
+	public State getState(int n){
+		return states[n];
 	}
 }

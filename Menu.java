@@ -1,8 +1,11 @@
 import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+
 public class Menu extends GameMode {
 
 	private Font font;
@@ -11,7 +14,13 @@ public class Menu extends GameMode {
 
 		font = new Font("Main Menu Font", Font.BOLD, 20);
 		super.setVertexListener(new MenuVertexListener());
-	}
+		//load the background image and set it
+        try {
+            setBackgroundImage(ImageIO.read(new File("rsc/img/BackgroundGrid1.jpg")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void draw(Graphics2D g) {
 		g.setFont(font);
 		super.draw(g);
@@ -108,10 +117,9 @@ public class Menu extends GameMode {
 	//sigh... ugly workaround... SWIIING SWIIIIIIING, where are you? Probably there, where time is.
     //would have done that in JavaFX, but unfortunately Smirnov said no :(
 	private static Graph getMenuGraph(){
-        Vertex[] items = new MenuVertex[3];
-        items[0] = new MenuVertex(Game.WIDTH/4, Game.HEIGHT/2, "Import");		// TODO We need to find a way to make these points equidistant from the edges, same as the...
-        items[1] = new MenuVertex(Game.WIDTH / 2, Game.HEIGHT / 2, "Generate");        // TODO ...pause menu issue, where the vertices are displayed evenly in the frame. (ratio issue when dividing double/fraction)
-        items[2] = new MenuVertex(200, 140, "CircleGraph");
-        return new Graph(items, new int[][]{ new int[]{1}, new int[0], new int[]{1}});
+        Vertex[] items = new MenuVertex[2];
+        items[0] = new MenuVertex((Game.WIDTH / 4) - MenuVertex.DIAMETER / 2, ((int) Game.HEIGHT * 3 / 4) - MenuVertex.DIAMETER / 2, "Import");
+        items[1] = new MenuVertex((Game.WIDTH * 3 / 4) - MenuVertex.DIAMETER / 2, (Game.HEIGHT * 3 / 4) - MenuVertex.DIAMETER / 2, "Generate");
+        return new Graph(items, new int[][]{new int[]{1},new int[]{}});
     }
 }
