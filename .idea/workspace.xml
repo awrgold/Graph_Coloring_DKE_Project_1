@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6f9e1055-a98f-48ea-af36-9a1b0a0c0358" name="Default" comment="Fixed a misordering in the starting sequence, added ColorSelectionMenu functionality, &#10;&#10;displaying bug for 2 colors tho">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rsc/img/BackgroundGrid1.jpg" />
+    <list default="true" id="6f9e1055-a98f-48ea-af36-9a1b0a0c0358" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BitterEnd.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/RandomOrder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/UpperBound.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ColorSelectionMenu.java" afterPath="$PROJECT_DIR$/ColorSelectionMenu.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameMode.java" afterPath="$PROJECT_DIR$/GameMode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GameState.java" afterPath="$PROJECT_DIR$/GameState.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Graph.java" afterPath="$PROJECT_DIR$/Graph.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Menu.java" afterPath="$PROJECT_DIR$/Menu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PauseMenu.java" afterPath="$PROJECT_DIR$/PauseMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project-1.iml" afterPath="$PROJECT_DIR$/Project-1.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/State.java" afterPath="$PROJECT_DIR$/State.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project-1/.idea/workspace.xml" afterPath="$PROJECT_DIR$/out/production/Project-1/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project-1/Project-1.iml" afterPath="$PROJECT_DIR$/out/production/Project-1/Project-1.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,23 +37,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="State.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/State.java">
+      <file leaf-file-name="Menu.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Menu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="330">
+              <caret line="74" column="124" lean-forward="false" selection-start-line="74" selection-start-column="124" selection-end-line="74" selection-end-column="124" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Menu.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Menu.java">
+      <file leaf-file-name="UpperBound.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UpperBound.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1228">
-              <caret line="122" column="71" lean-forward="false" selection-start-line="122" selection-start-column="71" selection-end-line="122" selection-end-column="71" />
+            <state relative-caret-position="102">
+              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -77,10 +70,12 @@
       <file leaf-file-name="Graph.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Graph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="81" column="45" lean-forward="false" selection-start-line="81" selection-start-column="45" selection-end-line="81" selection-end-column="45" />
+            <state relative-caret-position="255">
+              <caret line="42" column="31" lean-forward="false" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1786#1787#0" expanded="true" />
+                <element signature="e#1815#1816#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,13 +94,35 @@
       <file leaf-file-name="GameMode.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GameMode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2091">
-              <caret line="127" column="36" lean-forward="false" selection-start-line="127" selection-start-column="36" selection-end-line="127" selection-end-column="36" />
+            <state relative-caret-position="1411">
+              <caret line="85" column="5" lean-forward="false" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2175#2176#0" expanded="true" />
                 <element signature="e#2189#2190#0" expanded="true" />
+                <element signature="e#2210#2211#0" expanded="true" />
+                <element signature="e#2223#2224#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RandomOrder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RandomOrder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="395">
+              <caret line="38" column="19" lean-forward="false" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BitterEnd.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BitterEnd.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -118,16 +135,6 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlaygroundMode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PlaygroundMode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -190,10 +197,13 @@
         <option value="$PROJECT_DIR$/PlaygroundMode.java" />
         <option value="$PROJECT_DIR$/Game.java" />
         <option value="$PROJECT_DIR$/State.java" />
-        <option value="$PROJECT_DIR$/Menu.java" />
         <option value="$PROJECT_DIR$/GameState.java" />
         <option value="$PROJECT_DIR$/PauseMenu.java" />
         <option value="$PROJECT_DIR$/Graph.java" />
+        <option value="$PROJECT_DIR$/RandomOrder.java" />
+        <option value="$PROJECT_DIR$/BitterEnd.java" />
+        <option value="$PROJECT_DIR$/Menu.java" />
+        <option value="$PROJECT_DIR$/UpperBound.java" />
         <option value="$PROJECT_DIR$/GameMode.java" />
       </list>
     </option>
@@ -715,7 +725,14 @@
       <option name="project" value="LOCAL" />
       <updated>1481480382672</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="dunno">
+      <created>1481772298205</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1481772298205</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -725,7 +742,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32511556" sideWeight="0.49683043" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32383808" sideWeight="0.49683043" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -761,7 +778,8 @@
     <MESSAGE value="cfgh" />
     <MESSAGE value="Capped FPS to ~60&#10;&#10;This saves a lot of processing power, is realized by introducing a minimum time which has to pass between each time. (Sleeps otherwise)" />
     <MESSAGE value="Fixed a misordering in the starting sequence, added ColorSelectionMenu functionality, &#10;&#10;displaying bug for 2 colors tho" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed a misordering in the starting sequence, added ColorSelectionMenu functionality, &#10;&#10;displaying bug for 2 colors tho" />
+    <MESSAGE value="dunno" />
+    <option name="LAST_COMMIT_MESSAGE" value="dunno" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -774,21 +792,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/javax/swing/RootPaneContainer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="80" column="17" lean-forward="false" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/java/awt/GraphicsEnvironment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="93" column="39" lean-forward="false" selection-start-line="93" selection-start-column="39" selection-end-line="93" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ScreenTest.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_101/src.zip!/java/awt/event/MouseAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
@@ -1015,6 +1018,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-128">
           <caret line="328" column="53" lean-forward="true" selection-start-line="328" selection-start-column="53" selection-end-line="329" selection-end-column="68" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1062,14 +1066,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="25" lean-forward="false" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GraphUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -1085,16 +1081,6 @@
         <state relative-caret-position="374">
           <caret line="26" column="29" lean-forward="false" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="29" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Graph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="81" column="45" lean-forward="false" selection-start-line="81" selection-start-column="45" selection-end-line="81" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1119,22 +1105,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="25" lean-forward="false" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Graph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="42" column="31" lean-forward="false" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1786#1787#0" expanded="true" />
+            <element signature="e#1815#1816#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RandomOrder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="38" column="19" lean-forward="false" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BitterEnd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Menu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1228">
-          <caret line="122" column="71" lean-forward="false" selection-start-line="122" selection-start-column="71" selection-end-line="122" selection-end-column="71" />
+        <state relative-caret-position="330">
+          <caret line="74" column="124" lean-forward="false" selection-start-line="74" selection-start-column="124" selection-end-line="74" selection-end-column="124" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UpperBound.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GameMode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2091">
-          <caret line="127" column="36" lean-forward="false" selection-start-line="127" selection-start-column="36" selection-end-line="127" selection-end-column="36" />
+        <state relative-caret-position="1411">
+          <caret line="85" column="5" lean-forward="false" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2175#2176#0" expanded="true" />
             <element signature="e#2189#2190#0" expanded="true" />
+            <element signature="e#2210#2211#0" expanded="true" />
+            <element signature="e#2223#2224#0" expanded="true" />
           </folding>
         </state>
       </provider>

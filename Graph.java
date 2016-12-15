@@ -39,7 +39,9 @@ public class Graph{
 		coloring = new int[neighbours.length];
 		usedColors = 1;
 	}
-
+	public int getNumberOfVertices(){
+		return vertices.length;
+	}
 	/**
 	 * Computes the for a proper coloring available colors for a given vertex
 	 * @param vertex the index of a vertex of this graph

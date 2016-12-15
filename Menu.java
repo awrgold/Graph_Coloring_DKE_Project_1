@@ -68,9 +68,16 @@ public class Menu extends GameMode {
                                 JOptionPane.showMessageDialog(newPanel, "Problem with creating a graph, with: " + m + "vertices, and: " + n + " edges.", "Backup problem", JOptionPane.ERROR_MESSAGE);
                             } else { //They were > create the graph
                                 int mode = getModeFromDialog();
-                                System.out.println("mode is: " + mode);
                                 falseVertexEdgeComb = false;
-                                state.replaceState(new GameMode(state, GraphUtil.generateRandomGraph(m, n)), GameState.INGAME); //Start the actual game
+                            if(mode == 1){
+                                state.replaceState(new BitterEnd(state, GraphUtil.generateRandomGraph(m, n)), GameState.INGAME); //Start the actual game
+                            } else if(mode == 2) {
+                                state.replaceState(new UpperBound(state,GraphUtil.generateRandomGraph(m,n)),GameState.INGAME);
+                            } else if(mode == 3) {
+                                    state.replaceState(new RandomOrder(state, GraphUtil.generateRandomGraph(m, n)), GameState.INGAME); //Start the actual game
+                                } else {
+                                    state.replaceState(new GameMode(state, GraphUtil.generateRandomGraph(m, n)), GameState.INGAME);
+                                }
                                 state.changeState(GameState.INGAME);
                             }
                         } else if (result == JOptionPane.CANCEL_OPTION) {
