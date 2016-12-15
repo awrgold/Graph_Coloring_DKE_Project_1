@@ -14,10 +14,8 @@ public class Game extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(true);
         gamestate = new GameState(this);
-        GameMode test = new PlaygroundMode(gamestate);
-        //gamestate.replaceState(new Menu(gamestate), GameState.MAIN_MENU);
-        //gamestate.replaceState(new PauseMenu(gamestate), GameState.PAUSE_MENU);
-        gamestate.setInitialState(test, GameState.MAIN_MENU);
+        gamestate.replaceState(new PauseMenu(gamestate), GameState.PAUSE_MENU);
+        gamestate.setInitialState(new Menu(gamestate), GameState.MAIN_MENU);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);

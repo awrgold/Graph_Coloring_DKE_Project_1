@@ -58,7 +58,7 @@ public class Graph{
 					break;
 				}
 			}
-			System.out.println("color "+i+" "+isUsedByNeighbour);
+			//System.out.println("color "+i+" "+isUsedByNeighbour);
 			if(!isUsedByNeighbour) {
 				availableColors[count] = i;
 				count++;

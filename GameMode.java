@@ -17,6 +17,7 @@ public class GameMode extends State implements Runnable{
 	private Image bgImg; //background image
 	private boolean running;
 	private Thread thread; //the thread for the game loop
+	private VertexListener vl;
 	public GameMode(GameState state, Graph graph){
 		super(state);
 		clickedVertex = -1;
@@ -30,10 +31,13 @@ public class GameMode extends State implements Runnable{
 		graphDisplay.addKeyListener(this);
 		graphDisplay.addMouseMotionListener(this);
 		graphDisplay.addMouseListener(this);
+		vl = new VertexListener();
 	}
 	public void setBackgroundImage(Image bgImg){
 		this.bgImg = bgImg;
 	}
+	public void setVertexListener(VertexListener vl){ this.vl = vl;}
+	public GameState getGameState(){return gamestate;}
 	protected void tick(){}
 	private void render() {
 		BufferStrategy bs = graphDisplay.getBufferStrategy();
@@ -58,15 +62,15 @@ public class GameMode extends State implements Runnable{
 		}
 	}
 	private synchronized void start() {
+		running = true;
 		thread = new Thread(this);
 		thread.start();
-		running = true;
 	}
 
 	private synchronized void stop() {
 		try {
-			thread.join();
 			running = false;
+			thread.join();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -123,13 +127,16 @@ public class GameMode extends State implements Runnable{
 	}
 	public void mouseMoved(MouseEvent e){
 		int currHoveredVertex = graph.getVertexAt(e.getX(), e.getY());
-		if(currHoveredVertex != lastHoveredVertex)
-			graph.getVertex(lastHoveredVertex).highlight(false);
+		if(currHoveredVertex != lastHoveredVertex) {
+			if(lastHoveredVertex != -1) graph.getVertex(lastHoveredVertex).highlight(false);
+			vl.vertexHovered(currHoveredVertex);
+		}
 		if(currHoveredVertex != -1){
 			Vertex v = graph.getVertex(currHoveredVertex);
 			v.highlight(true);
 			lastHoveredVertex = currHoveredVertex;
 		}
+		lastHoveredVertex = currHoveredVertex;
 	}
 
 	public void mousePressed(MouseEvent e){
@@ -141,15 +148,14 @@ public class GameMode extends State implements Runnable{
 			if(e.getButton() == MouseEvent.BUTTON3){
 				isDragging = true;
 			}
-		}
-		if(clickedVertex != -1 && e.getButton() == MouseEvent.BUTTON1){
-			csm = new ColorSelectionMenu(graph.getVertex(clickedVertex),graph.getVertexColor(clickedVertex),graph.getAvailableColors(clickedVertex));
+			vl.vertexPressed(clickedVertex, e.getButton());
 		}
 	}
-
+	private void showColorSelectionMenu(int v){
+		csm = new ColorSelectionMenu(graph.getVertex(v),graph.getVertexColor(v),graph.getAvailableColors(v));
+	}
 	public void mouseReleased(MouseEvent e){
 		if(clickedVertex != -1 && e.getButton() == MouseEvent.BUTTON1){
-			Vertex v = graph.getVertex(clickedVertex);
 			graph.setVertexColor(clickedVertex, csm.getSelection(e.getX(),e.getY()));
 			csm = null;
 		}
@@ -172,10 +178,40 @@ public class GameMode extends State implements Runnable{
 				newY = 0;
 			if(newY > Game.HEIGHT - v.getDiameter())
 				newY = Game.HEIGHT - v.getDiameter();
+
 			v.move(newX, newY);
 		}
 		if(csm != null){
 			csm.highlight(e.getX(),e.getY());
 		}
+	}
+	public class VertexListener{
+		/**
+		 * Gets invoked whenever the hovered vertex changes
+		 * @param v is the newly hovered vertex, v>=0 if an actual vertex, -1 if a vertex is just exited
+		 */
+		public void vertexHovered(int v){}
+
+		/**
+		 * Gets invoked whenever a mouse button is pressed on top of a vertex, by default a ColorSelectionMenu is shown.
+		 * @param v the pressed vertex, v>= 0
+		 * @param mouseButton the used mouse button, which is either 1,2 or 3
+		 */
+		public void vertexPressed(int v, int mouseButton){
+			if(mouseButton == 1) showColorSelectionMenu(v);
+		}
+
+		/**
+		 * Gets invoked whenever a mouse button is released on top of a vertex, and has been pressed on the same vertex
+		 * @param v the vertex
+		 * @param mouseButton the released mouse button, which is either 1,2 or 3
+		 */
+		public void vertexReleased(int v, int mouseButton){}
+
+		/**
+		 * Is called whenever a vertex is moved
+		 * @param v the moved vertex
+		 */
+		public void vertexMoved(int v){}
 	}
 }

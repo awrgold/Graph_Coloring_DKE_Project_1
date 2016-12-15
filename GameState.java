@@ -26,9 +26,10 @@ public class GameState {
 		currentState = state;
 		states[currentState].enter();
 		game.add(states[currentState]);
+		game.pack();
 	}
 	public void replaceState(State state, int number){
-		if (number == currentState && states[number] != null) states[number].exit();
+		if (states[number] != null) states[number].exit();
 		states[number] = state;
 	}
 	public State getActiveState(){

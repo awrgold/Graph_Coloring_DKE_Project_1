@@ -86,7 +86,7 @@ public class ColorSelectionMenu {
             g.setColor(HIGHLIGHT_COLOR);
             g.fill(new Ellipse2D.Double(v.getCX() - STANDARD_RADIUS/2, v.getCY() - STANDARD_RADIUS/2, STANDARD_RADIUS, STANDARD_RADIUS));
             g.setColor(Graph.COLORS[colors[0]]);
-            System.out.println("colors[0] = " + colors[0]);
+            //System.out.println("colors[0] = " + colors[0]);
             g.fill(new Ellipse2D.Double(v.getCX() - STANDARD_RADIUS/2+5,v.getCY() - STANDARD_RADIUS/2+5,STANDARD_RADIUS-10,STANDARD_RADIUS-10));
         }
     }
