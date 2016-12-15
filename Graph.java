@@ -175,7 +175,7 @@ public class Graph{
 	/**This method makes the adjacency matrix, in the same format as we had it in the previous phase, therefore we can immediately start using our algorithms
 	 * @return the adjMatrix
 	 */
-	private int[][] getAdjacencyMatrix() {
+	public int[][] getAdjacencyMatrix() {
 		if (adjacencyMatrix == null) {
 			int[][] newAdjMatrix = new int[neighbours.length][neighbours.length];
 			for (int i = 0; i < neighbours.length; i++)

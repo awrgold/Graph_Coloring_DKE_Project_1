@@ -15,6 +15,7 @@ public class ColorSelectionMenu {
     private int radius;
     private int highlightedTile;
     private int currVertexColor;
+    private boolean[] isRecommended;
 
     /**
      *
@@ -31,8 +32,15 @@ public class ColorSelectionMenu {
         } else {
             radius = STANDARD_RADIUS;
         }
+        isRecommended = new boolean[colors.length];
+        for (int i = 0; i < colors.length; i++) {
+            isRecommended[i] = true;
+        }
     }
-
+    public ColorSelectionMenu(Vertex v, int currVertexColor, int[] colors, boolean[] isRecommended){
+        this(v,currVertexColor,colors);
+        this.isRecommended = isRecommended;
+    }
     /**
      * draws the color selection menu
      * The ColorSelectionMenu is drawn centered around the vertex v and is a regular polygon with a small circle in the middle.
@@ -54,6 +62,12 @@ public class ColorSelectionMenu {
                 int x2 = (int) round(v.getCX() + (radius) * cos(i * 2 * PI / colors.length));
                 int y2 = (int) round(v.getCY() + (radius) * sin(i * 2 * PI / colors.length + PI));
                 fillTile(g, Graph.COLORS[colors[i - 1]], x1, y1, x2, y2);
+                if(!isRecommended[i-1]){
+                    g.setStroke(new BasicStroke(4));
+                    fillTile(g,Color.BLACK, x1,y1,x2,y2);
+                    g.setStroke(new BasicStroke(1));
+                }
+
                 if (i - 1 == highlightedTile) {
                     hx1 = x1;
                     hx2 = x2;
@@ -77,6 +91,7 @@ public class ColorSelectionMenu {
             g.fillPolygon(new int[]{v.getCX()-STANDARD_RADIUS,v.getCX(),v.getCX()+STANDARD_RADIUS},new int[]{v.getCY(),v.getCY()+STANDARD_RADIUS,v.getCY()},3);
             g.setStroke(new BasicStroke(3));
             g.setColor(HIGHLIGHT_COLOR);
+
             if(highlightedTile == 0){
                 g.drawPolygon(new int[]{v.getCX()-STANDARD_RADIUS,v.getCX(),v.getCX()+STANDARD_RADIUS},new int[]{v.getCY(),v.getCY()-STANDARD_RADIUS,v.getCY()},3);
             } else {
@@ -109,7 +124,6 @@ public class ColorSelectionMenu {
      * @param y y-coordinate
      */
     public void highlight(int x, int y){
-
         highlightedTile = getSelectedTile(x,y);
     }
 

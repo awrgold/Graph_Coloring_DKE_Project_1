@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
 public abstract class State extends JPanel implements KeyListener, MouseListener, MouseMotionListener{
@@ -7,7 +6,6 @@ public abstract class State extends JPanel implements KeyListener, MouseListener
 	protected GameState gamestate;
 	public State(GameState gamestate){
 		this.gamestate = gamestate;
-		setPreferredSize(new Dimension(Game.WIDTH,Game.HEIGHT));
 		setFocusable(true);
 		setRequestFocusEnabled(true);
 	}

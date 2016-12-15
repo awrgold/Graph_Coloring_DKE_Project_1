@@ -29,6 +29,7 @@ public class GameMode extends State implements Runnable{
 		running = false;
 		graphDisplay = new Canvas();
 		graphDisplay.setFocusable(true);
+		graphDisplay.setPreferredSize(new Dimension(Game.WIDTH, Game.HEIGHT));
 		setLayout(new BorderLayout());
 		add(graphDisplay, BorderLayout.CENTER);
 		graphDisplay.addKeyListener(this);
@@ -92,6 +93,17 @@ public class GameMode extends State implements Runnable{
 	public void exit(){
 		stop();
 	}
+
+    /**
+     * shows the ColorSelection menu on top of v, with colors[]. The not recommended colors get a thick black frame.
+     * @param v the vertex on which the CSM appears
+     * @param colors the colors which the CSM depicts
+     * @param notRecommended the colors which are not recommended, e.g. notRecommended[0] == false
+     *                       if colors[0] isn't recommended (used for the hint option)
+     */
+	public void showCSM(int v, int[] colors, boolean[] notRecommended){
+
+    }
 	public void run(){
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
@@ -155,8 +167,8 @@ public class GameMode extends State implements Runnable{
 			vl.vertexPressed(clickedVertex, e.getButton());
 		}
 	}
-	private void showColorSelectionMenu(int v){
-		csm = new ColorSelectionMenu(graph.getVertex(v),graph.getVertexColor(v),graph.getAvailableColors(v));
+	public void showColorSelectionMenu(int v, int[] colors){
+		csm = new ColorSelectionMenu(graph.getVertex(v),graph.getVertexColor(v),colors);
 	}
 	public void mouseReleased(MouseEvent e){
 		if(clickedVertex != -1 && e.getButton() == MouseEvent.BUTTON1 && csm != null){
@@ -206,7 +218,8 @@ public class GameMode extends State implements Runnable{
 		 * @param mouseButton the used mouse button, which is either 1,2 or 3
 		 */
 		public void vertexPressed(int v, int mouseButton){
-			if(mouseButton == 1) showColorSelectionMenu(v);
+
+		    if(mouseButton == 1) showColorSelectionMenu(v,graph.getAvailableColors(v));
 		}
 
 		/**
