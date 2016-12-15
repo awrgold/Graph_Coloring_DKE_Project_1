@@ -214,7 +214,37 @@ public class GraphUtil {
         }
         return new Graph(vertices, neighbours);
     }
-
+	
+	/** 
+	 * This method calculates the chromatic number for a certain graph based on the adjacency matrix, 
+	 * therefore we use the algorithms of the previous phase, of which BacktrackGreedy is improved.
+	 *@param the adjacency matrix of the graph
+	 *@return returns the chromatic number or the lowest upperbound we found
+	*/
+	public static int calculateChromaticNR (int[][] adjMatrix){
+		int chromaticNR;
+		//Check for complete graph
+		/*if ( ( ( n*(n-1) ) / 2) == m ){
+			chromaticNR = n;
+		}*/
+		//Check for bipartite graph
+		if ( is2colorable(adjMatrix) ){
+			chromaticNR = 2;
+		}
+		//Otherwise we use the other algorithms
+		else{
+			BacktrackGreedy backtrack = new BacktrackGreedy(adjMatrix);
+			int welshPowellOutput = WelshPowell.getchromaticnr(adjMatrix);
+			System.out.println ("Welsh Powell gives: "+welshPowellOutput);
+			int backtrackOutput = backtrack.maxColor;
+			System.out.println ("Bakctrack Greedy gives: "+backtrackOutput);
+			chromaticNR = Math.min(backtrackOutput, welshPowellOutput);
+		}
+		
+		return chromaticNR;
+	}
+	
+	
     private static boolean is2colorable(int[][] adjMatrix) {
         int[] colorArr = new int[adjMatrix.length];
         for (int i = 0; i < adjMatrix.length; i++)
@@ -243,7 +273,7 @@ public class GraphUtil {
         }
         return true;
     }
-	/**Made by Jurriaan Berger, 
+	/**
 	 * Calculates x and y coordinates for the vertices of a graph
 	 * @param n the number of vertices
 	 * @return the matrix with the x and y coordinates

@@ -24,6 +24,7 @@ public class Graph{
 	//0 is not colored
 	private int[] coloring;
 	private int usedColors;
+	private int chromaticNR;
 	/**
 	 * Initialises a graph with given vertices and edges
 	 * @param vertices
@@ -38,6 +39,8 @@ public class Graph{
 		adjacencyMatrix = getAdjacencyMatrix();
 		coloring = new int[neighbours.length];
 		usedColors = 1;
+		chromaticNR = GraphUtil.calculateChromaticNR(adjacencyMatrix);
+		System.out.println("CH NR:"+chromaticNR);
 	}
 
 	/**
@@ -161,7 +164,13 @@ public class Graph{
 	public Vertex getVertex(int v){
 		return vertices[v];
 	}
-
+	/**
+	 * Returns the chromatic number of a graph
+	 * @return returns the chromatic number
+	*/
+	public int getChromaticNR(){
+		return chromaticNR;
+	}
 	/**This method makes the adjacency matrix, in the same format as we had it in the previous phase, therefore we can immediately start using our algorithms
 	 * @return the adjMatrix
 	 */
