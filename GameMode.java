@@ -19,6 +19,7 @@ public class GameMode extends State implements Runnable{
 	private boolean running;
 	private Thread thread; //the thread for the game loop
 	private VertexListener vl;
+	private HUD hud;
 	public GameMode(GameState state, Graph graph){
 		super(state);
 		clickedVertex = -1;
@@ -35,6 +36,11 @@ public class GameMode extends State implements Runnable{
 		graphDisplay.addMouseListener(this);
 		vl = new VertexListener();
 	}
+	public void addHUD(HUD hud){
+		this.hud = hud;
+		add(hud,BorderLayout.SOUTH);
+	}
+
 	public void setBackgroundImage(Image bgImg){
 		this.bgImg = bgImg;
 	}
@@ -64,6 +70,7 @@ public class GameMode extends State implements Runnable{
 		if(csm != null) {
 			csm.draw(g);
 		}
+		if(hud != null) hud.draw(g);
 	}
 	private synchronized void start() {
 		running = true;
