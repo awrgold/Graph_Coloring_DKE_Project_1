@@ -1,13 +1,11 @@
 import java.util.ArrayList;
 
-/**
- * Created by Tschei on 15/12/2016.
- */
 public class RandomOrder extends GameMode{
     private int currVertex;
     private ArrayList<Integer> notColored;
     public RandomOrder(GameState state, Graph graph){
         super(state,graph);
+        state.replaceState(new GameOverScreen(state), GameState.ENDGAME_SCREEN);
         notColored = new ArrayList<>(graph.getNumberOfVertices());
         setVertexListener(new VL());
         for (int i = 0; i < graph.getNumberOfVertices(); i++) {
@@ -35,8 +33,13 @@ public class RandomOrder extends GameMode{
             getGraph().getVertex(currVertex).highlight(false);
             currVertex = selectNextRandomVertex();
             if(currVertex == -1){
-                //GAME OVEEER, insert that here
+                getGameState().replaceState(makeGameOverScreen(), GameState.ENDGAME_SCREEN);
+                getGameState().replaceState(null, GameState.INGAME);
+                getGameState().changeState(GameState.ENDGAME_SCREEN);
             } else getGraph().getVertex(currVertex).highlight(true);
         }
+    }
+    private GameOverScreen makeGameOverScreen(){
+        return new GameOverScreen(getGameState());
     }
 }

@@ -53,6 +53,7 @@ public class GameMode extends State implements Runnable{
 		bs.show();
 		g.dispose();
 	}
+
 	public void draw(Graphics2D g){
 		g.setColor(Color.WHITE);
 		if(bgImg != null)

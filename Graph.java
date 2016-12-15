@@ -24,6 +24,7 @@ public class Graph{
 	//0 is not colored
 	private int[] coloring;
 	private int usedColors;
+	private int coloredVertices; //number of colored vertices
 	/**
 	 * Initialises a graph with given vertices and edges
 	 * @param vertices
@@ -38,6 +39,7 @@ public class Graph{
 		adjacencyMatrix = getAdjacencyMatrix();
 		coloring = new int[neighbours.length];
 		usedColors = 1;
+		coloredVertices = 0;
 	}
 	public int getNumberOfVertices(){
 		return vertices.length;
@@ -76,7 +78,12 @@ public class Graph{
 		return coloring[v];
 	}
 
+	public boolean isFullyColored(){
+		return coloredVertices >= coloring.length;
+	}
 	public void setVertexColor(int v, int color){
+		if(color != 0 && v != coloring[v])
+			coloredVertices++;
 		if(color >= usedColors)
 			usedColors = color+1;
 		coloring[v] = color;
@@ -154,6 +161,7 @@ public class Graph{
 		for (int i = 0; i < coloring.length; i++) {
 			coloring[i] = 0;
 		}
+		coloredVertices = 0;
 	}
 	/**
 	 * Resolves the index of a vertex to the corresponding instance of the vertex class
