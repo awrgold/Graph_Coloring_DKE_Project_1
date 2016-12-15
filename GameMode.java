@@ -7,7 +7,7 @@ import java.awt.image.BufferStrategy;
 public class GameMode extends State implements Runnable{
 
 	private ColorSelectionMenu csm;
-	private Graph graph;
+	protected Graph graph;
 	private int clickedVertex;
 	private int lastHoveredVertex;
 	private boolean isDragging;
@@ -84,6 +84,7 @@ public class GameMode extends State implements Runnable{
 	public void exit(){
 		stop();
 	}
+
 	public void run(){
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
@@ -130,7 +131,13 @@ public class GameMode extends State implements Runnable{
 	public void mouseMoved(MouseEvent e){
 		int currHoveredVertex = graph.getVertexAt(e.getX(), e.getY());
 		if(currHoveredVertex != lastHoveredVertex) {
+			if(lastHoveredVertex != -1) graph.getVertex(lastHoveredVertex).highlight(false);
 			vl.vertexHovered(currHoveredVertex);
+		}
+		if(currHoveredVertex != -1){
+			Vertex v = graph.getVertex(currHoveredVertex);
+			v.highlight(true);
+			lastHoveredVertex = currHoveredVertex;
 		}
 		lastHoveredVertex = currHoveredVertex;
 	}
@@ -153,7 +160,6 @@ public class GameMode extends State implements Runnable{
 	public void mouseReleased(MouseEvent e){
 		if(clickedVertex != -1 && e.getButton() == MouseEvent.BUTTON1 && csm != null){
 			graph.setVertexColor(clickedVertex, csm.getSelection(e.getX(),e.getY()));
-			vl.vertexColored(clickedVertex);
 			csm = null;
 		}
 		clickedVertex = -1;
@@ -184,13 +190,10 @@ public class GameMode extends State implements Runnable{
 	}
 	public class VertexListener{
 		/**
-		 * Gets invoked whenever the hovered vertex changes, by default this vertex gets then highlighted, while the former highlighted vertex is lowlighted.
+		 * Gets invoked whenever the hovered vertex changes
 		 * @param v is the newly hovered vertex, v>=0 if an actual vertex, -1 if a vertex is just exited
 		 */
-		public void vertexHovered(int v){
-			if(v != -1) graph.getVertex(v).highlight(true);
-			if(lastHoveredVertex != -1) graph.getVertex(lastHoveredVertex).highlight(false);
-		}
+		public void vertexHovered(int v){}
 
 		/**
 		 * Gets invoked whenever a mouse button is pressed on top of a vertex, by default a ColorSelectionMenu is shown.
@@ -213,12 +216,6 @@ public class GameMode extends State implements Runnable{
 		 * @param v the moved vertex
 		 */
 		public void vertexMoved(int v){}
-
-		/**
-		 * Is called whenever a vertex is colored
-		 * @param v the colored vertex
-		 */
-		public void vertexColored(int v){}
 	}
 	public abstract class HUD extends JPanel {
 		/**

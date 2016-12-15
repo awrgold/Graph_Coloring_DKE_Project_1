@@ -12,6 +12,7 @@ public class PauseMenu extends GameMode {
 	}
 	public class PauseMenuVertexListener extends VertexListener{
 	    public void vertexPressed(int v, int mouseButton) {
+			System.out.println("Action Performed");
             if (mouseButton == 1) {
                 GameState state = getGameState();
                 if (v == 0) { // TODO: If they click "Save," save the current state of the game to a file in the game folder.

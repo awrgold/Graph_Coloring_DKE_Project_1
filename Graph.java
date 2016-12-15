@@ -24,6 +24,8 @@ public class Graph{
 	//0 is not colored
 	private int[] coloring;
 	private int usedColors;
+	private int coloredVerticesCNTR;
+	private int chromaticNR;
 	/**
 	 * Initialises a graph with given vertices and edges
 	 * @param vertices
@@ -38,10 +40,10 @@ public class Graph{
 		adjacencyMatrix = getAdjacencyMatrix();
 		coloring = new int[neighbours.length];
 		usedColors = 1;
+		chromaticNR = GraphUtil.calculateChromaticNR(adjacencyMatrix);
+		System.out.println("CH NR:"+chromaticNR);
 	}
-	public int getNumberOfVertices(){
-		return vertices.length;
-	}
+
 	/**
 	 * Computes the for a proper coloring available colors for a given vertex
 	 * @param vertex the index of a vertex of this graph
@@ -77,10 +79,16 @@ public class Graph{
 	}
 
 	public void setVertexColor(int v, int color){
+		if(coloring[v]==0){
+			coloredVerticesCNTR++;
+			System.out.println("Already "+coloredVerticesCNTR+" colored.");
+		}
 		if(color >= usedColors)
 			usedColors = color+1;
 		coloring[v] = color;
+		
 	}
+	
 	public void restoreInitialVertexPositions(){
 		int[][] pos = GraphUtil.setCoordinates(vertices.length,0);
 		for (int i = 0; i < vertices.length; i++) {
@@ -137,7 +145,15 @@ public class Graph{
 		}
 
 	}
-
+	
+	
+	
+	public boolean fullyColored(){
+		if(coloredVerticesCNTR==vertices.length){
+			return true;
+		}else return false;
+	}
+	
 	/**
 	 *
 	 * @param x-coordinate of a point on the game canvas
@@ -163,7 +179,17 @@ public class Graph{
 	public Vertex getVertex(int v){
 		return vertices[v];
 	}
-
+	/**
+	 * Returns the chromatic number of a graph
+	 * @return returns the chromatic number
+	*/
+	public int getChromaticNR(){
+		return chromaticNR;
+	}
+	
+	public int getUsedColors(){
+		return usedColors;
+	}
 	/**This method makes the adjacency matrix, in the same format as we had it in the previous phase, therefore we can immediately start using our algorithms
 	 * @return the adjMatrix
 	 */

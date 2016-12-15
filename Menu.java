@@ -37,7 +37,7 @@ public class Menu extends GameMode {
                         File file = fileChooser.getSelectedFile();
                         int mode = getModeFromDialog();
                         System.out.println("mode is: " + mode);
-                        state.replaceState(new GameMode(state, GraphUtil.readGraphFromFile(file)), GameState.INGAME); //Start the actual game. HOW to implement feedback: what happens if we cannot compute the chromatic number, or the file was corrupt??
+                        state.replaceState(new PlaygroundMode(state, GraphUtil.readGraphFromFile(file), mode), GameState.INGAME); //Start the actual game. HOW to implement feedback: what happens if we cannot compute the chromatic number, or the file was corrupt??
                         state.changeState(GameState.INGAME);
                     }
 //				String input = JOptionPane.showInputDialog("Please give the directory to your graph file, make use of \\"+"\\ instead of \\. ");//needs to be fixed
@@ -68,16 +68,9 @@ public class Menu extends GameMode {
                                 JOptionPane.showMessageDialog(newPanel, "Problem with creating a graph, with: " + m + "vertices, and: " + n + " edges.", "Backup problem", JOptionPane.ERROR_MESSAGE);
                             } else { //They were > create the graph
                                 int mode = getModeFromDialog();
+                                System.out.println("mode is: " + mode);
                                 falseVertexEdgeComb = false;
-                            if(mode == 1){
-                                state.replaceState(new BitterEnd(state, GraphUtil.generateRandomGraph(m, n)), GameState.INGAME); //Start the actual game
-                            } else if(mode == 2) {
-                                state.replaceState(new UpperBound(state,GraphUtil.generateRandomGraph(m,n)),GameState.INGAME);
-                            } else if(mode == 3) {
-                                    state.replaceState(new RandomOrder(state, GraphUtil.generateRandomGraph(m, n)), GameState.INGAME); //Start the actual game
-                                } else {
-                                    state.replaceState(new GameMode(state, GraphUtil.generateRandomGraph(m, n)), GameState.INGAME);
-                                }
+                                state.replaceState(new PlaygroundMode(state, GraphUtil.generateRandomGraph(m, n), mode), GameState.INGAME); //Start the actual game
                                 state.changeState(GameState.INGAME);
                             }
                         } else if (result == JOptionPane.CANCEL_OPTION) {
