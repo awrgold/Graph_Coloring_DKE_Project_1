@@ -3,8 +3,10 @@ public class BacktrackGreedy {
     private int n;
     public int[] coloring;
     public int maxColor;
+    private boolean isDone;
 	public BacktrackGreedy(int[][] adjMatrix){
-		coloring = new int[n];
+		isDone = false;
+	    coloring = new int[n];
 		n = adjMatrix.length;
 		neighbours = new int[n][];
 		for(int i = 0; i<n; i++){
@@ -30,15 +32,19 @@ public class BacktrackGreedy {
 	//(maybe false, but take care) IMPORTANT: as a side effect, colors are going to be added to the coloring array, at the end it'll contain an optimal coloring
 	public void backtrackSearch(int[] coloring, int maxColor, int startIndex, int[] vertexPermutation){
 		backtrackGreedyAlgorithm(startIndex, maxColor, coloring, vertexPermutation);
+		isDone = true;
 	}
-	
-	
+
+	public boolean isDone(){
+	    return isDone;
+    }
     public void backtrackSearch(){
     	int[] coloring = new int[n];
     	for(int i = 1; i<n;i++)
     		coloring[i] = -1;
     	coloring[0] = 1;
     	backtrackGreedyAlgorithm(1,1, coloring);
+    	isDone = true;
     }
     //implement multi-core support, e.g.
      private void backtrackGreedyAlgorithm(int currIndex, int maxColor, int[] coloring){
@@ -81,7 +87,7 @@ public class BacktrackGreedy {
     		 backtrackGreedyAlgorithm(currIndex+1,maxColor,coloring);
     	 }
     }
- 
+
     private boolean safeToAdd(int vertex, int[] coloring, int color){
     	for(int v : neighbours[vertex]){
     		if(coloring[v] == color)

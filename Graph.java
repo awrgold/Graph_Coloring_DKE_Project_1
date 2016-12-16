@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.List;
 
@@ -50,6 +51,13 @@ public class Graph{
 	 * @return possible colors for the vertex, including a new color which is positioned at index 0
 	 */
 	public int[] getAvailableColors(int vertex){
+		System.out.println("for vertex "+vertex);
+		for (int i = 0; i < adjacencyMatrix.length; i++) {
+			System.out.println(Arrays.toString(adjacencyMatrix[i]));
+		}
+		for (int i = 0; i < coloring.length; i++) {
+			System.out.println("vertex "+i+" has color "+getVertexColor(i));
+		}
 		int[] availableColors = new int[usedColors];
 		availableColors[0] = usedColors;
 		int count = 1;
@@ -59,11 +67,12 @@ public class Graph{
 			for (int j = 0; j < adjacencyMatrix.length; j++) {
 				if(adjacencyMatrix[vertex][j] == 1 && getVertexColor(j) == i) {
 					isUsedByNeighbour = true;
+					System.out.println("color "+i+" is used by "+j);
 					break;
 				}
 			}
-			//System.out.println("color "+i+" "+isUsedByNeighbour);
 			if(!isUsedByNeighbour) {
+				System.out.println("adding color" + i);
 				availableColors[count] = i;
 				count++;
 			}
@@ -89,7 +98,7 @@ public class Graph{
 		coloring[v] = color;
 	}
 	public void restoreInitialVertexPositions(){
-		int[][] pos = GraphUtil.setCoordinates(vertices.length,0);
+		int[][] pos = GraphUtil.setCoordinates(vertices.length);
 		for (int i = 0; i < vertices.length; i++) {
 			vertices[i] = new Vertex(pos[i][0],pos[i][1]);
 		}
@@ -102,10 +111,8 @@ public class Graph{
 		// Draw all the edges of the graph.
 		g.setColor(edgeColor);
 		for (int i = 0; i < neighbours.length; i++) {
-			if (!vertices[i].isHighlighted()) {
 				for (int neighbour : neighbours[i]) {
 					g.drawLine(vertices[i].getCX(), vertices[i].getCY(), vertices[neighbour].getCX(), vertices[neighbour].getCY());
-				}
 			}
 		}
 		// Draw all the vertices except the one that's highlighted (if there is a highlighted vertex) .
