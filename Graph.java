@@ -89,7 +89,7 @@ public class Graph{
 		coloring[v] = color;
 	}
 	public void restoreInitialVertexPositions(){
-		int[][] pos = GraphUtil.setCoordinates(vertices.length,0);
+		int[][] pos = GraphUtil.setCoordinates(vertices.length);
 		for (int i = 0; i < vertices.length; i++) {
 			vertices[i] = new Vertex(pos[i][0],pos[i][1]);
 		}
@@ -175,7 +175,7 @@ public class Graph{
 	/**This method makes the adjacency matrix, in the same format as we had it in the previous phase, therefore we can immediately start using our algorithms
 	 * @return the adjMatrix
 	 */
-	private int[][] getAdjacencyMatrix() {
+	public int[][] getAdjacencyMatrix() {
 		if (adjacencyMatrix == null) {
 			int[][] newAdjMatrix = new int[neighbours.length][neighbours.length];
 			for (int i = 0; i < neighbours.length; i++)

@@ -15,7 +15,8 @@ public class Game extends JFrame{
         setResizable(true);
         gamestate = new GameState(this);
         gamestate.replaceState(new PauseMenu(gamestate), GameState.PAUSE_MENU);
-        gamestate.setInitialState(new Menu(gamestate), GameState.MAIN_MENU);
+//        gamestate.setInitialState(new Menu(gamestate), GameState.MAIN_MENU);
+        gamestate.setInitialState(new GameOverScreen(gamestate, "some", "strings", "here"), GameState.ENDGAME_SCREEN);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);

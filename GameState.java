@@ -18,6 +18,7 @@ public class GameState {
         game.add(initialState);
 
 	}
+
     public void enterInitialState(){
 	    states[currentState].enter();
     }

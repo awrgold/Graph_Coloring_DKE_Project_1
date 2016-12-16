@@ -1,13 +1,16 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import javax.swing.JPanel;
 
-public abstract class State extends JPanel implements KeyListener, MouseListener, MouseMotionListener{
+public abstract class State extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
 
 	protected GameState gamestate;
+
 	public State(GameState gamestate){
 		this.gamestate = gamestate;
-		setPreferredSize(new Dimension(Game.WIDTH,Game.HEIGHT));
 		setFocusable(true);
 		setRequestFocusEnabled(true);
 	}
