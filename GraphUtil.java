@@ -10,7 +10,7 @@ public class GraphUtil {
     private static boolean DEBUG = false;
     /**
      * Reads-in the graph from a file, we make use of the code provided to us in the beginning of the project.
-     * @param file File loaded with JFileChooser in class Menu
+     * @param file A text file containing a graph in the format given for phase 1
      * @return Graph...
      */
     public static Graph readGraphFromFile(File file){  // TODO: 12/3/2016 Have to add protection against wrong file format being passed
@@ -30,13 +30,13 @@ public class GraphUtil {
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
-            String record = new String();
+            String record;
 
             //! THe first few lines of the file are allowed to be comments, staring with a // symbol.
             //! These comments are only allowed at the top of the file.
 
             //! -----------------------------------------
-            while ((record = br.readLine()) != null)
+            while (!((record = br.readLine()) == null))
             {
                 if( record.startsWith("//") ) continue;
                 break; // Saw a line that did not start with a comment -- time to start reading the data in!
@@ -49,7 +49,7 @@ public class GraphUtil {
             }
             Vertex[] vertices = new Vertex[n];
 			//Get the coordinates from the method that calculates them
-			int[][] coordinates = setCoordinates(n,0);
+			int[][] coordinates = setCoordinates(n);
 			//Insert the coordinates
 			for(int i = 0; i<n; i++){
 				vertices[i] = new Vertex(coordinates[i][0],coordinates[i][1]);
@@ -144,17 +144,19 @@ public class GraphUtil {
     public static Graph generateRandomGraph(int n, int m){
         //these arrays are going to be filled with the vertices and edges of the graph
         Random r = new Random();
-	Vertex[] vertices = new Vertex[n];
+	    Vertex[] vertices = new Vertex[n];
 		int[][] neighbours = new int[n][m];
 		
 		//Get the coordinates from the method that calculates them
-		int[][] coordinates = setCoordinates(n,0);
+		int[][] coordinates = setCoordinates(n);
 		//Insert the coordinates
 		for(int i = 0; i<n; i++){
 			//old way of positioning (can be recovered if necessary)
 			//int x = r.nextInt(Game.WIDTH - Vertex.STANDARD_DIAMETER);
                 	//int y = r.nextInt(Game.HEIGHT - Vertex.STANDARD_DIAMETER);
 			//vertices[i] = new Vertex(x,y);
+
+
 			vertices[i] = new Vertex(coordinates[i][0],coordinates[i][1]);
 		}
         
@@ -215,6 +217,36 @@ public class GraphUtil {
         return new Graph(vertices, neighbours);
     }
 
+	/**
+	 * This method calculates the chromatic number for a certain graph based on the adjacency matrix,
+	 * therefore we use the algorithms of the previous phase, of which BacktrackGreedy is improved.
+	 *@param adjMatrix adjacency matrix of the graph
+	 *@return returns the chromatic number or the lowest upperbound we found
+	*/
+	public static int calculateChromaticNR (int[][] adjMatrix){
+		int chromaticNR;
+		//Check for complete graph
+		/*if ( ( ( n*(n-1) ) / 2) == m ){
+			chromaticNR = n;
+		}*/
+		//Check for bipartite graph
+		if ( is2colorable(adjMatrix) ){
+			chromaticNR = 2;
+		}
+		//Otherwise we use the other algorithms
+		else{
+			BacktrackGreedy backtrack = new BacktrackGreedy(adjMatrix);
+			int welshPowellOutput = WelshPowell.getchromaticnr(adjMatrix);
+			System.out.println ("Welsh Powell gives: "+welshPowellOutput);
+			int backtrackOutput = backtrack.maxColor;
+			System.out.println ("Bakctrack Greedy gives: "+backtrackOutput);
+			chromaticNR = Math.min(backtrackOutput, welshPowellOutput);
+		}
+
+		return chromaticNR;
+	}
+
+
     private static boolean is2colorable(int[][] adjMatrix) {
         int[] colorArr = new int[adjMatrix.length];
         for (int i = 0; i < adjMatrix.length; i++)
@@ -243,49 +275,75 @@ public class GraphUtil {
         }
         return true;
     }
-	/**Made by Jurriaan Berger, 
+	/**
 	 * Calculates x and y coordinates for the vertices of a graph
 	 * @param n the number of vertices
 	 * @return the matrix with the x and y coordinates
 	 */
-	public static int[][] setCoordinates(int n, int cntr){
-		cntr++;
-		int [][] coordinates = new int[n][2];
-		int radius;
-		if(Game.HEIGHT>Game.WIDTH){
-			radius = (int) ((Game.HEIGHT/2)/(Math.sqrt(cntr))-Vertex.STANDARD_DIAMETER/(cntr*1.5));//Can be optimized
-		}else{
-			radius = (int) ((Game.HEIGHT/2)/(Math.sqrt(cntr))-Vertex.STANDARD_DIAMETER/(cntr*1.5));//Can be optimized
-		}
+	public static int[][] setCoordinates(int n){
+		int [][] coordinates = new int[n][2]; //create the array that contains the number of x-y coordinates
+		int noOfCircles = 1; //the amount of circles
+		int radius; //the radius
+		int distance; //the distance between all vertices
 		int cX = Game.WIDTH/2; //Define the center x-coordinate
 		int cY = Game.HEIGHT/2; //Define the center y-coordinate
-		if(n<(50/cntr)){//Not to much vertices to use only a outer circle
-			for(int i=0;i<coordinates.length; i++){
-				coordinates[i][0] = (int) Math.round(cX + (radius) * Math.cos(i* 2*Math.PI / n))-Vertex.STANDARD_DIAMETER/2; //x coordinate
-				coordinates[i][1] = (int) Math.round(cY + (radius) * Math.sin(i* 2*Math.PI / n + Math.PI))-Vertex.STANDARD_DIAMETER/2; //y coordinate
-			}
-		}else{//Use inner circles (it might still happen that there are more than 50 vertices placed in the outer circle
-			int innerVert;
-			int outerVert;
-			if(n%2!=0){
-				innerVert = n/2;
-				outerVert = n/2+1;
-			}else{
-				innerVert = n/2;
-				outerVert = n/2;
-			}
+		final int MAX = 50;
 
-			int [][] innerCoordinates = setCoordinates(innerVert,cntr);// set the coordinates of the inner circle(s)
-			for(int i=0;i<(outerVert); i++){// set the coordinates of the outer circle
-				coordinates[i][0] = (int) Math.round(cX + (radius) * Math.cos(i* 2*Math.PI / outerVert))-Vertex.STANDARD_DIAMETER/2; //x coordinate
-				coordinates[i][1] = (int) Math.round(cY + (radius) * Math.sin(i* 2*Math.PI / outerVert + Math.PI))-Vertex.STANDARD_DIAMETER/2; //y coordinate
-			}
-			for(int i=0; i<n/2;i++){// import the coordinates of the inner circle(s)
-				coordinates[i+outerVert][0] = innerCoordinates[i][0];
-				coordinates[i+outerVert][1] = innerCoordinates[i][1];
+		//set the amount of circles
+		int sumA = MAX;
+		while(n>sumA){
+			noOfCircles++;
+			sumA += sumA-10;
+			if(sumA<0){
+				noOfCircles = (int) (n/MAX+1);
+				break;
 			}
 		}
 
+		//set the radius
+		if(Game.HEIGHT > Game.WIDTH){
+			radius = (int) ((Game.WIDTH/2)-Vertex.STANDARD_DIAMETER);
+		}else{
+			radius = (int) ((Game.HEIGHT/2)-Vertex.STANDARD_DIAMETER);
+		}
+
+		//set the distance
+		distance = radius/noOfCircles-Vertex.STANDARD_DIAMETER;
+
+		//set the coordinates
+		int sumB = Math.min(MAX,n);
+		int sumC = sumB;
+		int j=0;
+
+		//if there less than 250 vertices, this works properly
+		if(n<=250){
+			for(int i=0;i<n;i++){
+				if(i>=sumB){
+					j++;
+					System.out.println("Action Performed: "+j);
+					sumB += sumB-10;
+					sumC -= 10;
+					sumC = Math.min(sumC,n-i);
+					//k=0;
+				}
+				System.out.println(distance+" "+j);
+				int x = (int) Math.round(cX + (radius-distance*j) * Math.cos(i* 2*Math.PI / sumC))-Vertex.STANDARD_DIAMETER/2; //x coordinate
+				coordinates[i][0] = x;
+				System.out.println("x: "+x);
+				int y = (int) Math.round(cY + (radius-distance*j) * Math.sin(i* 2*Math.PI / sumC + Math.PI))-Vertex.STANDARD_DIAMETER/2; //y coordinate
+				coordinates[i][1] = y;
+				System.out.println("y: "+y);
+
+
+
+			}
+		//otherwise, just show one single graph
+		}else{
+			for(int i=0;i<n;i++){
+				coordinates[i][0] = (int) Math.round(cX + (radius-distance*0) * Math.cos(i* 2*Math.PI / n))-Vertex.STANDARD_DIAMETER/2; //x coordinate
+				coordinates[i][1] = (int) Math.round(cY + (radius-distance*0) * Math.sin(i* 2*Math.PI / n + Math.PI))-Vertex.STANDARD_DIAMETER/2; //y coordinate
+			}
+		}
 		return coordinates;
 	}
 }

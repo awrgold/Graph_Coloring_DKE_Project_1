@@ -2,6 +2,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
+import static java.lang.Math.*;
 
 public class ColorSelectionMenu {
     //the standard radius
@@ -14,6 +15,7 @@ public class ColorSelectionMenu {
     private int radius;
     private int highlightedTile;
     private int currVertexColor;
+    private boolean[] isRecommended;
 
     /**
      *
@@ -30,17 +32,24 @@ public class ColorSelectionMenu {
         } else {
             radius = STANDARD_RADIUS;
         }
+        isRecommended = new boolean[colors.length];
+        for (int i = 0; i < colors.length; i++) {
+            isRecommended[i] = true;
+        }
     }
-
+    public ColorSelectionMenu(Vertex v, int currVertexColor, int[] colors, boolean[] isRecommended){
+        this(v,currVertexColor,colors);
+        this.isRecommended = isRecommended;
+    }
     /**
      * draws the color selection menu
      * The ColorSelectionMenu is drawn centered around the vertex v and is a regular polygon with a small circle in the middle.
      * The polygon splits up into colors.length triangles, each being drawn in a different color and each representing a element of colors[].
      * The circle in the middle is drawn in the current color of the vertex and has a small border.
-     * @param g a Graphics object for drawing (surprise surprise)
+     * @param g a Graphics object for drawing
      */
     //TODO: fix drawing for 2 colors
-    public void draw(Graphics2D g) { //TODO: add a small plus sign to tile 0 (which is assumed to be a introducable color)
+    public void draw(Graphics2D g) { //TODO: add a small plus sign to tile 0 (which is assumed to be a introductable color)
         if(colors.length > 2) {
             //h stands for highlighted
             int hx1 = v.getCX();
@@ -48,11 +57,17 @@ public class ColorSelectionMenu {
             int hy1 = v.getCY();
             int hy2 = hy1;
             for (int i = 1; i <= colors.length; i++) {
-                int x1 = (int) Math.round(v.getCX() + (radius) * Math.cos((i - 1) * 2 * Math.PI / colors.length));
-                int y1 = (int) Math.round(v.getCY() + (radius) * Math.sin((i - 1) * 2 * Math.PI / colors.length + Math.PI));
-                int x2 = (int) Math.round(v.getCX() + (radius) * Math.cos(i * 2 * Math.PI / colors.length));
-                int y2 = (int) Math.round(v.getCY() + (radius) * Math.sin(i * 2 * Math.PI / colors.length + Math.PI));
+                int x1 = (int) round(v.getCX() + (radius) * cos((i - 1) * 2 * PI / colors.length));
+                int y1 = (int) round(v.getCY() + (radius) * sin((i - 1) * 2 * PI / colors.length + PI));
+                int x2 = (int) round(v.getCX() + (radius) * cos(i * 2 * PI / colors.length));
+                int y2 = (int) round(v.getCY() + (radius) * sin(i * 2 * PI / colors.length + PI));
                 fillTile(g, Graph.COLORS[colors[i - 1]], x1, y1, x2, y2);
+                if(!isRecommended[i-1]){
+                    g.setStroke(new BasicStroke(5));
+                    drawTile(g,Color.BLACK, x1,y1,x2,y2);
+                    g.setStroke(new BasicStroke(1));
+                }
+
                 if (i - 1 == highlightedTile) {
                     hx1 = x1;
                     hx2 = x2;
@@ -60,22 +75,33 @@ public class ColorSelectionMenu {
                     hy2 = y2;
                 }
             }
+            // Draw a red highlight over the tile the cursor is over.
             g.setStroke(new BasicStroke(3));
             drawTile(g, HIGHLIGHT_COLOR, hx1, hy1, hx2, hy2);
             g.setStroke(new BasicStroke(1));
+            // Draw the the vertex in the middle of the Color Selection Menu.
             g.setColor(Graph.COLORS[currVertexColor]);
             g.fill(new Ellipse2D.Double(v.getCX() - 10, v.getCY() - 10, 20, 20));
             g.setColor(Color.BLACK);
             g.setStroke(new BasicStroke(2));
             g.draw(new Ellipse2D.Double(v.getCX() - 10, v.getCY() - 10, 20, 20));
             g.setStroke(new BasicStroke(1));
+        // Case handling for just two displayed colors.
         } else if(colors.length == 2){
+            if(!isRecommended[0] || !isRecommended[1]) {
+                g.setColor(HIGHLIGHT_COLOR);
+                g.fill(new Ellipse2D.Double(v.getCX() - STANDARD_RADIUS/2, v.getCY() - STANDARD_RADIUS/2, STANDARD_RADIUS, STANDARD_RADIUS));
+                g.setColor((isRecommended[0]) ? Graph.COLORS[colors[0]] : Graph.COLORS[colors[1]]);
+                g.fill(new Ellipse2D.Double(v.getCX() - STANDARD_RADIUS/2+5,v.getCY() - STANDARD_RADIUS/2+5,STANDARD_RADIUS-10,STANDARD_RADIUS-10));
+
+            }
             g.setColor(Graph.COLORS[colors[0]]);
             g.fillPolygon(new int[]{v.getCX()-STANDARD_RADIUS,v.getCX(),v.getCX()+STANDARD_RADIUS},new int[]{v.getCY(),v.getCY()-STANDARD_RADIUS,v.getCY()},3);
             g.setColor(Graph.COLORS[colors[1]]);
             g.fillPolygon(new int[]{v.getCX()-STANDARD_RADIUS,v.getCX(),v.getCX()+STANDARD_RADIUS},new int[]{v.getCY(),v.getCY()+STANDARD_RADIUS,v.getCY()},3);
             g.setStroke(new BasicStroke(3));
             g.setColor(HIGHLIGHT_COLOR);
+
             if(highlightedTile == 0){
                 g.drawPolygon(new int[]{v.getCX()-STANDARD_RADIUS,v.getCX(),v.getCX()+STANDARD_RADIUS},new int[]{v.getCY(),v.getCY()-STANDARD_RADIUS,v.getCY()},3);
             } else {
@@ -86,7 +112,6 @@ public class ColorSelectionMenu {
             g.setColor(HIGHLIGHT_COLOR);
             g.fill(new Ellipse2D.Double(v.getCX() - STANDARD_RADIUS/2, v.getCY() - STANDARD_RADIUS/2, STANDARD_RADIUS, STANDARD_RADIUS));
             g.setColor(Graph.COLORS[colors[0]]);
-            System.out.println("colors[0] = " + colors[0]);
             g.fill(new Ellipse2D.Double(v.getCX() - STANDARD_RADIUS/2+5,v.getCY() - STANDARD_RADIUS/2+5,STANDARD_RADIUS-10,STANDARD_RADIUS-10));
         }
     }
@@ -108,17 +133,16 @@ public class ColorSelectionMenu {
      * @param y y-coordinate
      */
     public void highlight(int x, int y){
-
         highlightedTile = getSelectedTile(x,y);
     }
 
     private int getSelectedTile(int x, int y){
-        double angle = Math.atan2(x - v.getCX(), y - v.getCY()) + 3*Math.PI/2;
+        double angle = atan2(x - v.getCX(), y - v.getCY()) + 3*Math.PI/2;
 
-        if (angle >= Math.PI*2) angle -= Math.PI*2.0;
-        if (angle < 0)          angle += 2*Math.PI;
+        if (angle >= PI*2) angle -= PI*2.0;
+        if (angle < 0)     angle += PI;
 
-        return (int)( (angle / (2*Math.PI)) * colors.length);
+        return (int)( (angle / (2*PI)) * colors.length);
     }
 
     private void fillTile(Graphics2D g, Color c, int x1, int y1, int x2, int y2){

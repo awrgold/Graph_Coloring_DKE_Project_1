@@ -12,7 +12,7 @@ public class Graph{
 	private static final Color STANDARD_EDGE_COLOR = Color.BLACK;
 	private static final Color STANDARD_EDGE_HIGHLIGHT_COLOR = Color.RED;
 
-	//some explanation for the variable neighbours: it's gonna be n long, and contains in every row all neighbouring vertices with a higher index,
+    //some explanation for the variable neighbours: it's gonna be n long, and contains in every row all neighbouring vertices with a higher index,
 	//the last one would thus have no entries
 	//also there cannot be a row containing 0, and most importantly, when looping through it, every edge occurs exactly once
 	//the following block is set by standard in the constructor
@@ -24,6 +24,7 @@ public class Graph{
 	//0 is not colored
 	private int[] coloring;
 	private int usedColors;
+	private int coloredVertices; //number of colored vertices
 	/**
 	 * Initialises a graph with given vertices and edges
 	 * @param vertices
@@ -38,8 +39,11 @@ public class Graph{
 		adjacencyMatrix = getAdjacencyMatrix();
 		coloring = new int[neighbours.length];
 		usedColors = 1;
+		coloredVertices = 0;
 	}
-
+	public int getNumberOfVertices(){
+		return vertices.length;
+	}
 	/**
 	 * Computes the for a proper coloring available colors for a given vertex
 	 * @param vertex the index of a vertex of this graph
@@ -58,7 +62,7 @@ public class Graph{
 					break;
 				}
 			}
-			System.out.println("color "+i+" "+isUsedByNeighbour);
+			//System.out.println("color "+i+" "+isUsedByNeighbour);
 			if(!isUsedByNeighbour) {
 				availableColors[count] = i;
 				count++;
@@ -73,18 +77,21 @@ public class Graph{
 	public int getVertexColor(int v){
 		return coloring[v];
 	}
+
+	public boolean isFullyColored(){
+		return coloredVertices >= coloring.length;
+	}
 	public void setVertexColor(int v, int color){
+		if(color != 0 && v != coloring[v])
+			coloredVertices++;
 		if(color >= usedColors)
 			usedColors = color+1;
 		coloring[v] = color;
 	}
-	/**Created by Jurriaan Berger
-	 * This method provides the option to de-color all the vertices of the graph.
-	 * The method is public because it's called from outside the class Graph.
-	 */
-	public void decolorGraph(){
-		for(int i=0; i<coloring.length; i++){
-			coloring[i]=0;
+	public void restoreInitialVertexPositions(){
+		int[][] pos = GraphUtil.setCoordinates(vertices.length);
+		for (int i = 0; i < vertices.length; i++) {
+			vertices[i] = new Vertex(pos[i][0],pos[i][1]);
 		}
 	}
 	/**
@@ -150,7 +157,12 @@ public class Graph{
 				return i;
 		return -1;
 	}
-
+	public void flushColors(){
+		for (int i = 0; i < coloring.length; i++) {
+			coloring[i] = 0;
+		}
+		coloredVertices = 0;
+	}
 	/**
 	 * Resolves the index of a vertex to the corresponding instance of the vertex class
 	 * @param v the index of a vertex (must be >= 0 and < n)
@@ -163,7 +175,7 @@ public class Graph{
 	/**This method makes the adjacency matrix, in the same format as we had it in the previous phase, therefore we can immediately start using our algorithms
 	 * @return the adjMatrix
 	 */
-	private int[][] getAdjacencyMatrix() {
+	public int[][] getAdjacencyMatrix() {
 		if (adjacencyMatrix == null) {
 			int[][] newAdjMatrix = new int[neighbours.length][neighbours.length];
 			for (int i = 0; i < neighbours.length; i++)
@@ -179,7 +191,7 @@ public class Graph{
 	public static void main(String[] args){
 		Graph g = GraphUtil.generateRandomGraph(10,20);
 		Game game = new Game();
-		game.gamestate.states[GameState.INGAME] = new PlaygroundLevel(game.gamestate,g);
-		game.gamestate.setState(GameState.INGAME);
+		//game.gamestate.replaceState();
+		game.gamestate.changeState(GameState.INGAME);
 	}
 }

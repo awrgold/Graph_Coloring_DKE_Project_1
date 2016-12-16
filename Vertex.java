@@ -40,10 +40,6 @@ public class Vertex {
 		this.diameter = diameter;
 	}
 
-	public Color getStandardColor(){
-		return STANDARD_COLOR;
-	}
-	
 	public void draw(Graphics2D g, Color c){
 		if(isHighlighted){
 			g.setColor(STANDARD_HIGHLIGHT_BORDER_COLOR);
