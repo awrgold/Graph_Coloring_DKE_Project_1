@@ -146,7 +146,7 @@ public class GraphUtil {
         Random r = new Random();
 	    Vertex[] vertices = new Vertex[n];
 		int[][] neighbours = new int[n][m];
-		
+
 		//Get the coordinates from the method that calculates them
 		int[][] coordinates = setCoordinates(n);
 		//Insert the coordinates
@@ -159,7 +159,7 @@ public class GraphUtil {
 
 			vertices[i] = new Vertex(coordinates[i][0],coordinates[i][1]);
 		}
-        
+
         //make a path through all vertices, so that the graph is connected
         for(int i = 0; i<n-1;i++){
             neighbours[i][0] = i+1;
@@ -297,16 +297,6 @@ public class GraphUtil {
 			if(sumA<0){
 				noOfCircles = (int) (n/MAX+1);
 				break;
-		final int MAX = 50;
-
-		//set the amount of circles
-		int sumA = MAX;
-		while(n>sumA){
-			noOfCircles++;
-			sumA += sumA-10;
-			if(sumA<0){
-				noOfCircles = (int) (n/MAX+1);
-				break;
 			}
 		}
 
@@ -330,19 +320,15 @@ public class GraphUtil {
 			for(int i=0;i<n;i++){
 				if(i>=sumB){
 					j++;
-					System.out.println("Action Performed: "+j);
 					sumB += sumB-10;
 					sumC -= 10;
 					sumC = Math.min(sumC,n-i);
 					//k=0;
 				}
-				System.out.println(distance+" "+j);
 				int x = (int) Math.round(cX + (radius-distance*j) * Math.cos(i* 2*Math.PI / sumC))-Vertex.STANDARD_DIAMETER/2; //x coordinate
 				coordinates[i][0] = x;
-				System.out.println("x: "+x);
 				int y = (int) Math.round(cY + (radius-distance*j) * Math.sin(i* 2*Math.PI / sumC + Math.PI))-Vertex.STANDARD_DIAMETER/2; //y coordinate
 				coordinates[i][1] = y;
-				System.out.println("y: "+y);
 
 
 

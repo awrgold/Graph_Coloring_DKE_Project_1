@@ -1,9 +1,12 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class RandomOrder extends GameMode{
-    private int currVertex;
     private int[] avaibleColorsForCurrVertex;
     private ArrayList<Integer> notColored;
+    private int[] permutation;
+    private int currIndex;
     BacktrackGreedy bg; //backtrack greedy for the hints
 
     public RandomOrder(GameState state, Graph graph){
@@ -67,15 +70,15 @@ public class RandomOrder extends GameMode{
     }
     private class VL extends VertexListener{
         public void vertexPressed(int v, int mouseButton){
-            if(v == currVertex){
+            if(v == permutation[currIndex]){
                 showColorSelectionMenu(v, avaibleColorsForCurrVertex);
             }
         }
         public void vertexHovered(int v){}
         public void vertexColored(int v) {
-            getGraph().getVertex(currVertex).highlight(false);
-            currVertex = selectNextRandomVertex();
-            if (currVertex == -1) {
+            getGraph().getVertex(permutation[currIndex]).highlight(false);
+            currIndex++;
+            if (currIndex == getGraph().getNumberOfVertices()) {
                 getGameState().replaceState(makeGameOverScreen(), GameState.ENDGAME_SCREEN);
                 getGameState().changeState(GameState.ENDGAME_SCREEN);
             } else {

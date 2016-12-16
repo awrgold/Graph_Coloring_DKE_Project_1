@@ -244,7 +244,7 @@ public class GameMode extends State implements Runnable{
 		public void vertexColored(int v){}
 	}
 	public abstract class HUD extends JPanel {
-		/**
+	    /**
 		 * Draws the elements of the HUD, which are visible on the graphDisplay canvas
 		 * @param g a Graphics2D object from the graphDisplay canvas
 		 */

@@ -51,13 +51,7 @@ public class Graph{
 	 * @return possible colors for the vertex, including a new color which is positioned at index 0
 	 */
 	public int[] getAvailableColors(int vertex){
-		System.out.println("for vertex "+vertex);
-		for (int i = 0; i < adjacencyMatrix.length; i++) {
-			System.out.println(Arrays.toString(adjacencyMatrix[i]));
-		}
-		for (int i = 0; i < coloring.length; i++) {
-			System.out.println("vertex "+i+" has color "+getVertexColor(i));
-		}
+
 		int[] availableColors = new int[usedColors];
 		availableColors[0] = usedColors;
 		int count = 1;
