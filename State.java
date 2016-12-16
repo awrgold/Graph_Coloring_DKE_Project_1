@@ -1,9 +1,14 @@
 import javax.swing.*;
-import java.awt.event.*;
-
-public abstract class State extends JPanel implements KeyListener, MouseListener, MouseMotionListener{
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import javax.swing.JPanel;
+public abstract class State extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
 
 	protected GameState gamestate;
+
 	public State(GameState gamestate){
 		this.gamestate = gamestate;
 		setFocusable(true);

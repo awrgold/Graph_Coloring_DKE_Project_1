@@ -155,7 +155,8 @@ public class GraphUtil {
 			//int x = r.nextInt(Game.WIDTH - Vertex.STANDARD_DIAMETER);
                 	//int y = r.nextInt(Game.HEIGHT - Vertex.STANDARD_DIAMETER);
 			//vertices[i] = new Vertex(x,y);
-			
+
+
 			vertices[i] = new Vertex(coordinates[i][0],coordinates[i][1]);
 		}
         
@@ -215,11 +216,11 @@ public class GraphUtil {
         }
         return new Graph(vertices, neighbours);
     }
-	
-	/** 
-	 * This method calculates the chromatic number for a certain graph based on the adjacency matrix, 
+
+	/**
+	 * This method calculates the chromatic number for a certain graph based on the adjacency matrix,
 	 * therefore we use the algorithms of the previous phase, of which BacktrackGreedy is improved.
-	 *@param the adjacency matrix of the graph
+	 *@param adjMatrix adjacency matrix of the graph
 	 *@return returns the chromatic number or the lowest upperbound we found
 	*/
 	public static int calculateChromaticNR (int[][] adjMatrix){
@@ -241,11 +242,11 @@ public class GraphUtil {
 			System.out.println ("Bakctrack Greedy gives: "+backtrackOutput);
 			chromaticNR = Math.min(backtrackOutput, welshPowellOutput);
 		}
-		
+
 		return chromaticNR;
 	}
-	
-	
+
+
     private static boolean is2colorable(int[][] adjMatrix) {
         int[] colorArr = new int[adjMatrix.length];
         for (int i = 0; i < adjMatrix.length; i++)
@@ -287,7 +288,17 @@ public class GraphUtil {
 		int cX = Game.WIDTH/2; //Define the center x-coordinate
 		int cY = Game.HEIGHT/2; //Define the center y-coordinate
 		final int MAX = 50;
-		
+
+		//set the amount of circles
+		int sumA = MAX;
+		while(n>sumA){
+			noOfCircles++;
+			sumA += sumA-10;
+			if(sumA<0){
+				noOfCircles = (int) (n/MAX+1);
+				break;
+		final int MAX = 50;
+
 		//set the amount of circles
 		int sumA = MAX;
 		while(n>sumA){
@@ -298,22 +309,22 @@ public class GraphUtil {
 				break;
 			}
 		}
-		
+
 		//set the radius
 		if(Game.HEIGHT > Game.WIDTH){
 			radius = (int) ((Game.WIDTH/2)-Vertex.STANDARD_DIAMETER);
 		}else{
 			radius = (int) ((Game.HEIGHT/2)-Vertex.STANDARD_DIAMETER);
 		}
-		
+
 		//set the distance
 		distance = radius/noOfCircles-Vertex.STANDARD_DIAMETER;
-		
+
 		//set the coordinates
 		int sumB = Math.min(MAX,n);
 		int sumC = sumB;
 		int j=0;
-		
+
 		//if there less than 250 vertices, this works properly
 		if(n<=250){
 			for(int i=0;i<n;i++){
@@ -332,9 +343,9 @@ public class GraphUtil {
 				int y = (int) Math.round(cY + (radius-distance*j) * Math.sin(i* 2*Math.PI / sumC + Math.PI))-Vertex.STANDARD_DIAMETER/2; //y coordinate
 				coordinates[i][1] = y;
 				System.out.println("y: "+y);
-						
-				
-				
+
+
+
 			}
 		//otherwise, just show one single graph
 		}else{

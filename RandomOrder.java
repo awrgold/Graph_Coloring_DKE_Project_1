@@ -1,31 +1,32 @@
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class RandomOrder extends GameMode{
-    private int currIndex;
+    private int currVertex;
     private int[] avaibleColorsForCurrVertex;
-    private int[] permutation;
+    private ArrayList<Integer> notColored;
     BacktrackGreedy bg; //backtrack greedy for the hints
+
     public RandomOrder(GameState state, Graph graph){
         super(state,graph);
         super.addHUD(new RandomOrderHUD());
-        state.replaceState(new GameOverScreen(state), GameState.ENDGAME_SCREEN);
+        notColored = new ArrayList<>(graph.getNumberOfVertices());
+        setVertexListener(new VL());
+        for (int i = 0; i < graph.getNumberOfVertices(); i++) {
+            notColored.add(i, i);
+        }
         bg = new BacktrackGreedy(graph.getAdjacencyMatrix());
         setVertexListener(new VL());
         permutation = generateVertexPermutation();
         currIndex = 0;
         graph.getVertex(permutation[currIndex]).highlight(true);
         //start backtrack greedy search in new thread, so that the game doesn't freeze for large graphs
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                long start = System.currentTimeMillis();
-                bg.backtrackSearch();
-                System.out.println("bg.maxColor = " + bg.maxColor);
-                System.out.println("GREEDY done after "+(start-System.currentTimeMillis()));
-            }
-        }).start();
+        new Thread(() -> { // more Lambda <3
+
+        long start = System.currentTimeMillis();
+        bg.backtrackSearch();
+        System.out.println("bg.maxColor = " + bg.maxColor);
+        System.out.println("GREEDY done after "+(start-System.currentTimeMillis()));
+    }).start();
         avaibleColorsForCurrVertex = graph.getAvailableColors(permutation[currIndex]);
     }
 
@@ -46,7 +47,7 @@ public class RandomOrder extends GameMode{
     }
 
     private GameOverScreen makeGameOverScreen(){
-        return new GameOverScreen(getGameState());
+        return new GameOverScreen(getGameState(), "blubba", "booMBoom");
     }
 
     private String showHint(){
@@ -66,15 +67,15 @@ public class RandomOrder extends GameMode{
     }
     private class VL extends VertexListener{
         public void vertexPressed(int v, int mouseButton){
-            if(v == permutation[currIndex]){
+            if(v == currVertex){
                 showColorSelectionMenu(v, avaibleColorsForCurrVertex);
             }
         }
         public void vertexHovered(int v){}
         public void vertexColored(int v) {
-            getGraph().getVertex(permutation[currIndex]).highlight(false);
-            currIndex++;
-            if (currIndex == getGraph().getNumberOfVertices()) {
+            getGraph().getVertex(currVertex).highlight(false);
+            currVertex = selectNextRandomVertex();
+            if (currVertex == -1) {
                 getGameState().replaceState(makeGameOverScreen(), GameState.ENDGAME_SCREEN);
                 getGameState().changeState(GameState.ENDGAME_SCREEN);
             } else {
