@@ -156,6 +156,7 @@ public class GraphUtil {
                 	//int y = r.nextInt(Game.HEIGHT - Vertex.STANDARD_DIAMETER);
 			//vertices[i] = new Vertex(x,y);
 
+
 			vertices[i] = new Vertex(coordinates[i][0],coordinates[i][1]);
 		}
         
@@ -286,6 +287,16 @@ public class GraphUtil {
 		int distance; //the distance between all vertices
 		int cX = Game.WIDTH/2; //Define the center x-coordinate
 		int cY = Game.HEIGHT/2; //Define the center y-coordinate
+		final int MAX = 50;
+
+		//set the amount of circles
+		int sumA = MAX;
+		while(n>sumA){
+			noOfCircles++;
+			sumA += sumA-10;
+			if(sumA<0){
+				noOfCircles = (int) (n/MAX+1);
+				break;
 		final int MAX = 50;
 
 		//set the amount of circles

@@ -1,9 +1,6 @@
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class RandomOrder extends GameMode{
-
     private int currVertex;
     private int[] avaibleColorsForCurrVertex;
     private ArrayList<Integer> notColored;
