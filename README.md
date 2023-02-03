@@ -15,5 +15,4 @@ Instructions on how to run this program will be included in the future.
 ## Results
 Please see "Project Report" for the final report PDF with our analysis of our program.
 
-## Grade
-This project received a grade of 8.0/10 on the Dutch grading scale. This is equivalent to 4.0 (A) in the American grading scale. Please see https://www.studyinholland.nl/documentation/grading-systems-in-the-netherlands-the-united-states-and-the-united-kingdom.pdf for more information regarding the international translation of Dutch grades.
+
